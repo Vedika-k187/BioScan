@@ -1,43 +1,46 @@
-# BioScan 🧬🌊
+# 🧬 BioScan
+### AI-Powered DNA Biodiversity Identification & Monitoring System
 
-## AI-Powered DNA Biodiversity Identification & Monitoring
-
-BioScan is an AI-powered environmental DNA (eDNA) platform for **DNA barcode identification, taxonomic classification, unknown-sequence detection, and biodiversity monitoring**.
-
-It combines machine learning, sequence similarity, hierarchical taxonomy, confidence analysis, and ecological data into an interactive platform designed for transparent, evidence-aware biodiversity analysis.
+BioScan is an AI-powered eDNA analysis system that combines hierarchical machine learning, DNA similarity search, and unknown-sequence detection for biodiversity identification and monitoring.
 
 ---
 
-## 🚀 What BioScan Does
+## 1. Problem
 
-Given a DNA sequence or FASTA file, BioScan can:
+Environmental DNA (eDNA) enables biodiversity detection from genetic material collected from environmental samples.
 
-- 🧬 Validate and quality-check DNA sequences
-- 🔎 Identify DNA against a reference barcode library
-- 🌳 Predict taxonomy from **Class → Order → Family → Genus → Species**
-- 🧠 Combine machine-learning predictions with sequence-level evidence
-- 📏 Find the closest reference sequences using normalized Levenshtein distance
-- 🚨 Detect sequences that fall outside the reference library
-- 📊 Provide interpretable confidence and similarity evidence
-- 🗺️ Connect DNA detections with marine biodiversity survey records
-- 📈 Analyze station-level biodiversity and diversity metrics
-- 📁 Process multiple sequences through FASTA batch analysis
+However, conventional DNA classifiers have a major limitation:
+
+- They are **closed-set** and are forced to predict one of the species they were trained on.
+- An unfamiliar DNA sequence can therefore receive a **high-confidence but incorrect species prediction**.
+- Limited reference sequences make species-level identification difficult.
+- A species prediction alone does not show how strongly the DNA is supported by the reference library.
+
+**The key challenge:**  
+How can we identify DNA while also determining whether the sequence is actually supported by the available reference data?
 
 ---
 
-## 💡 The Key Innovation: Unknown Detection
+## 2. Solution
 
-Traditional closed-set classifiers are forced to select one of their known classes, even when an input sequence is not represented in the training library.
+BioScan combines **machine learning + sequence-level evidence**.
 
-BioScan addresses this using an independent **Distance Veto**.
+Instead of relying only on classifier probability, BioScan:
 
-After the machine-learning prediction, BioScan compares the input sequence against its reference barcodes using normalized Levenshtein distance.
+1. Validates the DNA sequence.
+2. Extracts DNA and k-mer features.
+3. Predicts taxonomy hierarchically from **Class → Order → Family → Genus → Species**.
+4. Searches for the closest reference DNA sequences.
+5. Calculates sequence similarity using normalized Levenshtein distance.
+6. Applies a **Distance Veto** to detect sequences outside the reference library.
+7. Provides the final prediction together with supporting evidence.
 
-If the closest reference sequence is sufficiently divergent:
+This makes BioScan a **reference-aware DNA identification system rather than a simple closed-set classifier**.
 
-```text
-Minimum normalized distance > 15%
-              ↓
-     OUT OF REFERENCE
-              ↓
-No forced species prediction
+---
+## 3. System Architecture
+
+![BioScan System Architecture](docs/bioscan_architecture.png)
+
+**Core Flow:**  
+DNA / FASTA Input → Sequence QC → Feature Engineering → Hierarchical ML + Similarity Search → Evidence Engine → Distance Veto → Final Prediction / Out of Reference → Biodiversity Dashboard
