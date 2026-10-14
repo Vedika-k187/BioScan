@@ -20,9 +20,6 @@ def render_similarity_table(result: Dict[str, Any]):
     if not top_refs or (prediction and prediction.get("status") == "qc_failed"):
         return
 
-    st.markdown("### 🔎 Closest Reference Sequences (Top 5)")
-    st.caption("Pairwise normalized Levenshtein sequence distance evaluated against all 101 cataloged reference barcodes.")
-
     rows = []
     for item in top_refs:
         ref_tax = item.get("reference_taxonomy", {})
@@ -31,15 +28,14 @@ def render_similarity_table(result: Dict[str, Any]):
         rows.append({
             "Rank": item.get("rank"),
             "Reference ID": item.get("sequence_id"),
-            "Similarity": f"{item.get('similarity', 0.0):.1%}",
-            "Normalized Distance": f"{item.get('distance', 0.0):.3f}",
-            "Edit Distance": item.get("edit_distance", 0),
-            "Exact Match": "⭐ Exact" if is_exact else "No",
             "Species": ref_tax.get("species") or "Unlabeled",
-            "Genus": ref_tax.get("genus") or "Unlabeled",
-            "Family": ref_tax.get("family") or "Unlabeled",
-            "Order": ref_tax.get("order") or "Unlabeled",
-            "Class": ref_tax.get("class") or "Unlabeled",
+            "Similarity": f"{item.get('similarity', 0.0):.1%}",
+            "Distance": f"{item.get('distance', 0.0):.3f}",
+            "Edit Dist": item.get("edit_distance", 0),
+            "Exact": "✓ Yes" if is_exact else "No",
+            "Genus": ref_tax.get("genus") or "—",
+            "Family": ref_tax.get("family") or "—",
+            "Order": ref_tax.get("order") or "—",
         })
 
     df = pd.DataFrame(rows)
@@ -51,8 +47,11 @@ def render_similarity_table(result: Dict[str, Any]):
 
     nearest_item = top_refs[0] if top_refs else {}
     if nearest_item.get("is_exact_match"):
-        st.info(
-            f"⭐ **Exact Reference Sequence Match**: The query is identical (distance 0.000) to reference "
-            f"`{nearest_item.get('sequence_id')}` (*{nearest_item.get('reference_taxonomy', {}).get('species', 'N/A')}*). "
-            f"Represents reference library re-identification; does not constitute unconstrained real-world generalization."
+        st.markdown(
+            f"""
+            <div class="clean-alert-success" style="font-size: 0.85rem; padding: 8px 12px;">
+                ✓ <strong>Exact reference sequence match:</strong> Identical sequence (distance 0.000) to cataloged barcode <code>{nearest_item.get('sequence_id')}</code> (<em>{nearest_item.get('reference_taxonomy', {}).get('species', 'N/A')}</em>).
+            </div>
+            """,
+            unsafe_allow_html=True
         )

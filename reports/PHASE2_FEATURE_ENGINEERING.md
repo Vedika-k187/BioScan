@@ -59,7 +59,7 @@ In addition to basic counts, 6 interpretable complexity metrics were calculated:
 5. **`max_base_frequency`**: Dominant base proportion per sequence (ranges from 0.283 to 0.387).
 6. **`min_base_frequency`**: Least frequent base proportion (ranges from 0.123 to 0.217, consistently Guanine).
 
-These 17 features are unified into [`data/processed/features_basic.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/features_basic.csv).
+These 17 features are unified into [`data/processed/features_basic.csv`](../data/processed/features_basic.csv).
 
 ---
 

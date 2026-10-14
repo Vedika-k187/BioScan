@@ -23,10 +23,13 @@ from app.components import (
 
 def render_biodiversity_page():
     """Render the Biodiversity Intelligence & Survey Explorer Page."""
-    st.markdown('<div class="main-header">🌍 Biodiversity & Survey Intelligence Explorer</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="sub-header">Ecological and geographic exploration of the 2019 New Jersey Ocean Trawl Survey '
-        'eDNA reference database, station diversity indices, and taxonomic distribution.</div>',
+        """
+        <div style="margin-bottom: 1.25rem;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">Biodiversity Explorer</div>
+            <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">2019 New Jersey Ocean Trawl Survey</div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -34,156 +37,100 @@ def render_biodiversity_page():
     diversity_df = load_diversity_metrics()
     dist_df = load_species_distribution()
 
-    # 1. Reference Library Key Stats (Synchronized with Validated Phase 7 Taxonomic Summary)
-    st.markdown("### 🏛️ Reference Library Composition")
-    
+    # 1. Compact KPI Row: 101 Barcodes, 90 Species, 87 Genera, 36 Stations
+    num_seqs = 101
+    num_species = 90
+    num_genera = 87
     if not ref_df.empty:
         richness = compute_taxonomic_richness(ref_df)
-        num_seqs = richness["unique_sequences"]
-        num_species = richness["species_richness"]
-        num_genera = richness["genus_richness"]
-        num_families = richness["family_richness"]
-        num_orders = richness["order_richness"]
-        num_classes = richness["class_richness"]
-    else:
-        num_seqs = 101
-        num_species = 90
-        num_genera = 87
-        num_families = 66
-        num_orders = 30
-        num_classes = 4
+        num_seqs = richness.get("unique_sequences", 101)
+        num_species = richness.get("species_richness", 90)
+        num_genera = richness.get("genus_richness", 87)
 
-    c1, c2, c3, c4, c5, c6 = st.columns(6)
-    with c1:
+    num_stations = len(diversity_df) if not diversity_df.empty else 36
+
+    k1, k2, k3, k4 = st.columns(4)
+    with k1:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Barcodes</div>
-                <div class="metric-value">{num_seqs}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Barcodes</div>
+                <div class="kpi-value">{num_seqs}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
-    with c2:
+    with k2:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Species</div>
-                <div class="metric-value">{num_species}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Species</div>
+                <div class="kpi-value">{num_species}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
-    with c3:
+    with k3:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Genera</div>
-                <div class="metric-value">{num_genera}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Genera</div>
+                <div class="kpi-value">{num_genera}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
-    with c4:
+    with k4:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Families</div>
-                <div class="metric-value">{num_families}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    with c5:
-        st.markdown(
-            f"""
-            <div class="metric-card">
-                <div class="metric-label">Orders</div>
-                <div class="metric-value">{num_orders}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    with c6:
-        st.markdown(
-            f"""
-            <div class="metric-card">
-                <div class="metric-label">Classes</div>
-                <div class="metric-value">{num_classes}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Stations</div>
+                <div class="kpi-value">{num_stations}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-    st.caption("ℹ️ **Singleton Structure**: 89 of 90 named species classes have singleton reference sequences (1 sequence per species).")
-    st.markdown("---")
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 
-    # 2. Interactive Taxonomic Catalog Explorer
-    st.markdown("### 🌲 Interactive Reference Taxonomy Explorer")
-    st.caption("Browse cataloged barcodes, taxonomic lineages, and survey detection prevalence.")
-
-    if not ref_df.empty:
-        col_c, col_o, col_f = st.columns(3)
-        with col_c:
-            class_list = ["All Classes"] + sorted([c for c in ref_df["class"].dropna().unique() if c])
-            sel_class = st.selectbox("Filter Class:", class_list)
-
-        filtered_tax = ref_df.copy()
-        if sel_class != "All Classes":
-            filtered_tax = filtered_tax[filtered_tax["class"] == sel_class]
-
-        with col_o:
-            order_list = ["All Orders"] + sorted([o for o in filtered_tax["order"].dropna().unique() if o])
-            sel_order = st.selectbox("Filter Order:", order_list)
-
-        if sel_order != "All Orders":
-            filtered_tax = filtered_tax[filtered_tax["order"] == sel_order]
-
-        with col_f:
-            fam_list = ["All Families"] + sorted([f for f in filtered_tax["family"].dropna().unique() if f])
-            sel_fam = st.selectbox("Filter Family:", fam_list)
-
-        if sel_fam != "All Families":
-            filtered_tax = filtered_tax[filtered_tax["family"] == sel_fam]
-
-        show_cols = ["sequence_id", "class", "order", "family", "genus", "species", "length"]
-        avail_tax_cols = [c for c in show_cols if c in filtered_tax.columns]
-
-        st.dataframe(
-            filtered_tax[avail_tax_cols],
-            use_container_width=True,
-            hide_index=True
-        )
-
-    st.markdown("---")
-
-    # 3. Station Diversity Map & Scatter View
-    st.markdown("### 🗺️ Survey Station Biodiversity & Diversity Indices")
-    st.caption(
-        "**Methodological Definition**: Abundance-weighted Shannon diversity based on eDNA read signal aggregated at "
-        "geographic sampling stations. eDNA read counts are an operational amplification signal and are not direct organism abundance measurements."
-    )
-
+    # 2. Large Interactive Map
+    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;'>Sampling Station Survey Map</div>", unsafe_allow_html=True)
     if not diversity_df.empty:
         fig_map = plot_station_diversity_map(diversity_df)
         st.plotly_chart(fig_map, use_container_width=True)
 
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+
+    # 3. Diversity & Taxonomy Insights
+    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;'>Diversity & Depth Insights</div>", unsafe_allow_html=True)
+    
+    if not diversity_df.empty:
         fig_depth = plot_diversity_vs_depth(diversity_df)
         st.plotly_chart(fig_depth, use_container_width=True)
 
-        with st.expander("📊 View Complete Sampling Station Diversity Table", expanded=False):
-            st.dataframe(diversity_df, use_container_width=True, hide_index=True)
+    col_t1, col_t2 = st.columns(2)
+    with col_t1:
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #334155; margin-bottom: 6px;'>Reference Taxonomy Catalog</div>", unsafe_allow_html=True)
+        if not ref_df.empty:
+            show_cols = ["sequence_id", "species", "genus", "family", "order", "class"]
+            avail_tax_cols = [c for c in show_cols if c in ref_df.columns]
+            st.dataframe(ref_df[avail_tax_cols], use_container_width=True, hide_index=True, height=260)
 
-    # 4. Species Survey Prevalence
-    if not dist_df.empty:
-        st.markdown("---")
-        st.markdown("### 🐟 Reference Species Survey Prevalence")
-        st.caption("Percentage of stations and occurrence events where each reference barcode was observed.")
+    with col_t2:
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #334155; margin-bottom: 6px;'>Top Species Survey Prevalence</div>", unsafe_allow_html=True)
+        if not dist_df.empty:
+            top_dist = dist_df.sort_values(by="station_prevalence_pct", ascending=False).head(15)
+            display_dist_cols = ["species", "unique_stations", "station_prevalence_pct", "mean_depth"]
+            avail_dist_cols = [c for c in display_dist_cols if c in top_dist.columns]
+            st.dataframe(top_dist[avail_dist_cols], use_container_width=True, hide_index=True, height=260)
 
-        top_dist = dist_df.sort_values(by="station_prevalence_pct", ascending=False).head(15)
-        display_dist_cols = [
-            "sequence_id", "species", "unique_stations", "station_prevalence_pct",
-            "positive_occurrences", "occurrence_prevalence_pct", "mean_depth", "mean_read_count"
-        ]
-        avail_dist_cols = [c for c in display_dist_cols if c in top_dist.columns]
-        st.dataframe(top_dist[avail_dist_cols], use_container_width=True, hide_index=True)
+    # 4. Expandable Methodology & Disclaimers
+    with st.expander("▸ Survey Methodology & Operational Caveats", expanded=False):
+        st.markdown(
+            """
+            - **Survey Origin**: 2019 New Jersey Ocean Trawl eDNA Survey across 36 coastal stations.
+            - **Shannon Diversity ($H_{\\text{reads}}$)**: Abundance-weighted index calculated using normalized operational eDNA read counts per station.
+            - **Amplification Signal Caveat**: eDNA read counts represent an operational PCR/sequencing amplification signal and are **not** direct organism abundance measurements.
+            - **Geographic Bounding**: Detections reflect survey sample locations, not global species range boundaries.
+            """
+        )

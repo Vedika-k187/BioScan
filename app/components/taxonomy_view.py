@@ -2,7 +2,7 @@
 app/components/taxonomy_view.py
 Phase 9: Visual Taxonomic Hierarchy View
 
-Displays the hierarchical progression from Kingdom down to Species,
+Displays the hierarchical progression from Class down to Species,
 clearly marking ranks where reference data is available vs unassigned.
 """
 
@@ -16,10 +16,29 @@ def render_taxonomy_hierarchy(result: Dict[str, Any]):
     if not prediction or prediction.get("status") == "qc_failed":
         return
 
-    st.markdown("### 🌲 Taxonomic Hierarchy")
-    
+    status = prediction.get("status")
+
+    st.markdown(
+        """
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em; margin-bottom: 6px;">
+            Taxonomic Lineage
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if status == "out_of_reference":
+        st.markdown(
+            """
+            <div style="padding: 10px 14px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; font-size: 0.88rem; color: #9f1239;">
+                <strong>Taxonomic lineage unverified:</strong> This sequence exceeds the reference divergence threshold. Speculative higher-rank classification is suppressed for out-of-reference queries.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        return
+
     ranks = [
-        ("Kingdom", "Animalia"),
         ("Class", prediction.get("class")),
         ("Order", prediction.get("order")),
         ("Family", prediction.get("family")),
@@ -27,26 +46,20 @@ def render_taxonomy_hierarchy(result: Dict[str, Any]):
         ("Species", prediction.get("species")),
     ]
 
-    cols = st.columns(len(ranks))
-    for i, (rank, val) in enumerate(ranks):
-        with cols[i]:
-            is_avail = bool(val and val != "Not available in reference data")
-            rank_bg = "#f0fdf4" if is_avail else "#f8fafc"
-            border_color = "#86efac" if is_avail else "#cbd5e1"
-            val_display = val if is_avail else "Not available in reference"
-            val_style = "font-style: italic;" if rank == "Species" and is_avail else ""
+    crumbs = []
+    for rank, val in ranks:
+        is_avail = bool(val and val != "Not available in reference data")
+        display_val = val if is_avail else "Unassigned"
+        val_style = "font-style: italic;" if rank == "Species" and is_avail else ""
+        color = "#0f172a" if is_avail else "#94a3b8"
 
-            st.markdown(
-                f"""
-                <div style="background: {rank_bg}; border: 1px solid {border_color}; 
-                            border-radius: 8px; padding: 10px; text-align: center; height: 100%;">
-                    <div style="font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase;">
-                        {rank}
-                    </div>
-                    <div style="font-size: 0.92rem; font-weight: 600; color: #0f172a; margin-top: 4px; {val_style}">
-                        {val_display}
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        crumbs.append(
+            f'<div class="tax-crumb">'
+            f'<span class="tax-crumb-rank">{rank}:</span> '
+            f'<span class="tax-crumb-val" style="{val_style} color: {color};">{display_val}</span>'
+            f'</div>'
+        )
+
+    separator = ' <span class="tax-arrow">&rarr;</span> '
+    trail_html = f'<div class="taxonomy-trail">{separator.join(crumbs)}</div>'
+    st.markdown(trail_html, unsafe_allow_html=True)

@@ -19,10 +19,17 @@ __pycache__/
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
-# Environment Variables & Secrets
+# Environment Variables, Secrets & Credentials
 .env
 .env.*
 !.env.example
+credentials.json
+service-account.json
+*.pem
+*.key
+
+# Streamlit Local Secrets & Caches
+.streamlit/secrets.toml
 
 # Testing & Pytest Caches
 .pytest_cache/

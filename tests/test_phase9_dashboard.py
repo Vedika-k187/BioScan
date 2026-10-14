@@ -265,6 +265,44 @@ class TestPhase9Dashboard(unittest.TestCase):
             f"Raw dataset SHA-256 corrupted! Expected {EXPECTED_RAW_SHA256}, got {actual_sha256}"
         )
 
+    def test_14_example_dropdown_populates_textarea_and_predicts(self):
+        """Test 14: Ensure all pre-loaded examples populate non-empty DNA sequence and predict correctly."""
+        from streamlit.testing.v1 import AppTest
+        from app.utils.ui_helpers import load_reference_barcodes, get_example_sequences
+
+        ref_df = load_reference_barcodes()
+        examples = get_example_sequences(ref_df)
+        self.assertGreaterEqual(len(examples), 6)
+
+        # Verify every example entry has non-empty fields
+        for ex_name, ex_data in examples.items():
+            self.assertTrue(len(ex_data["sequence"]) > 0, f"Example {ex_name} has empty sequence!")
+            self.assertTrue(len(ex_data["sequence_id"]) > 0, f"Example {ex_name} has empty sequence_id!")
+
+        # Initialize Streamlit AppTest using absolute path to app/app.py
+        app_script = os.path.join(BASE_DIR, "app", "app.py")
+        at = AppTest.from_file(app_script, default_timeout=30)
+        at.run()
+        self.assertEqual(len(at.exception), 0)
+
+        # Iterate through each example in the live app
+        for ex_name, ex_data in examples.items():
+            ex_sel = at.selectbox(key="example_selector")
+            ex_sel.select(ex_name)
+            at.run()
+            self.assertEqual(len(at.exception), 0)
+
+            # Confirm sequence textarea is non-empty and matches example
+            ta = at.text_area(key="input_seq_paste")
+            self.assertEqual(ta.value, ex_data["sequence"], f"Textarea not populated for {ex_name}!")
+            self.assertGreater(len(ta.value), 0)
+
+            # Click Identify Sequence button
+            btn = at.button(key="btn_paste")
+            btn.click()
+            at.run()
+            self.assertEqual(len(at.exception), 0, f"Prediction crashed for {ex_name}!")
+
 
 if __name__ == "__main__":
     unittest.main()

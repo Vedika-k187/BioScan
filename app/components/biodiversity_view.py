@@ -22,14 +22,11 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
     if not prediction or status == "qc_failed":
         return
 
-    st.markdown("### 🌍 Biodiversity & Survey Occurrence Context")
-    st.caption("Ground-truth occurrence context derived from the 2019 New Jersey Ocean Trawl eDNA Survey.")
-
     # 1. HARD RULE: Out of reference -> strictly suppress distribution projection
     if status == "out_of_reference":
         st.markdown(
             """
-            <div class="warning-box">
+            <div class="clean-alert-warning">
                 <strong>🚫 Geographic distribution projection unavailable:</strong><br>
                 The query sequence is outside the current reference library. Projecting an occurrence map 
                 or habitat distribution for an unverified taxon is scientifically unsupportable and is 
@@ -42,16 +39,15 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
 
     # 2. Known / Low Confidence Context
     survey_ctx = biodiversity.get("reference_survey_context", {})
-    bbox = biodiversity.get("geographic_bounding_box", {})
     nearest_ref = similarity.get("nearest_reference_id")
 
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Survey Detections</div>
-                <div class="metric-value">{survey_ctx.get('total_reference_detections', 'N/A')}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Survey Detections</div>
+                <div class="kpi-value">{survey_ctx.get('total_reference_detections', 'N/A')}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -59,32 +55,32 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
     with col2:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Distinct Stations</div>
-                <div class="metric-value">{survey_ctx.get('unique_stations_count', 'N/A')}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Distinct Stations</div>
+                <div class="kpi-value">{survey_ctx.get('unique_stations_count', 'N/A')}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
     with col3:
         st.markdown(
-            f"""
-            <div class="metric-card">
-                <div class="metric-label">Reference Locality</div>
-                <div class="metric-value" style="font-size: 1.05rem; padding-top: 6px;">New Jersey Coast</div>
+            """
+            <div class="kpi-metric">
+                <div class="kpi-label">Survey Perimeter</div>
+                <div class="kpi-value" style="font-size: 1.05rem; padding-top: 4px;">New Jersey Coast</div>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
 
     # 3. Interactive Plotly Map of Reference Detections
     if nearest_ref and not bio_records_df.empty and "sequence_id" in bio_records_df.columns:
         ref_detections = bio_records_df[bio_records_df["sequence_id"] == nearest_ref].copy()
         
         if not ref_detections.empty and "decimalLatitude" in ref_detections.columns:
-            st.markdown(f"##### Reference Barcode (`{nearest_ref}`) Detections in Survey")
+            st.markdown(f"<div style='font-size: 0.88rem; font-weight: 600; color: #475569; margin-bottom: 6px;'>Detection Stations for Reference Barcode <code>{nearest_ref}</code></div>", unsafe_allow_html=True)
             
             scatter_fn = getattr(px, "scatter_map", getattr(px, "scatter_mapbox", None))
             style_kw = {"map_style": "open-street-map"} if hasattr(px, "scatter_map") else {"mapbox_style": "open-street-map"}
@@ -99,19 +95,19 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
                 color_discrete_sequence=["#0d9488"],
                 zoom=6.5,
                 center=dict(lat=39.5, lon=-74.3),
-                title=f"Survey Detection Locations for {nearest_ref} (Marker size proportional to eDNA read signal)",
+                title=None,
                 **style_kw
             )
             fig.update_layout(
-                height=380,
-                margin=dict(l=10, r=10, t=35, b=10),
+                height=340,
+                margin=dict(l=10, r=10, t=10, b=10),
                 paper_bgcolor="rgba(0,0,0,0)"
             )
             st.plotly_chart(fig, use_container_width=True)
 
     # 4. Mandatory Geographic Limitation Notice
-    st.info(
-        "ℹ️ **Geographic Interpretation Disclaimer**: Points represent sampling stations where this 12S barcode was "
-        "observed during the 2019 New Jersey Ocean Trawl Survey. BioScan does **NOT** project global species ranges, "
-        "and lack of detection does not indicate true biological absence outside the survey perimeter."
+    st.caption(
+        "ℹ️ **Survey Limitation**: Markers indicate sampling stations where this 12S reference barcode was detected "
+        "during the 2019 New Jersey Ocean Trawl Survey. Marker size is proportional to eDNA amplification read signal. "
+        "Does not constitute global species distribution."
     )

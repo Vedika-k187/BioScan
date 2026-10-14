@@ -2,6 +2,7 @@
 # Core data processing & analysis
 pandas==2.3.3
 numpy==2.2.6
+scipy>=1.10.0
 
 # Data visualization & profile reporting
 matplotlib==3.10.9
@@ -18,4 +19,3 @@ pytest==9.1.1
 # Phase 9: Dashboard & Visualization
 streamlit>=1.30.0
 plotly>=5.18.0
-

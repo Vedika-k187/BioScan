@@ -100,7 +100,7 @@ The following 9 feature matrices from `data/processed/` were tested:
 
 ## 8. Experimental Results Summary Table
 
-Selected highlights from [`reports/phase3_model_results.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/phase3_model_results.csv):
+Selected highlights from [`reports/phase3_model_results.csv`](phase3_model_results.csv):
 
 | Model | Feature Set | Dimension ($p$) | Hyperparameter Config | LOOCV Accuracy | LOOCV Macro F1 | Ref Top-1 | Ref Top-3 | Ref Top-5 |
 |---|---|---|---|---|---|---|---|---|
@@ -150,18 +150,18 @@ Feature importance was extracted for the best Random Forest baseline on $k=2$ (d
 | 9 | **`CG`** | **0.0607** | CpG methylation/structural site |
 | 10 | **`AC`** | **0.0600** | Common vertebrate barcode marker motif |
 
-*(Complete 16-feature ranking saved in [`reports/random_forest_feature_importance.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/random_forest_feature_importance.csv)).*
+*(Complete 16-feature ranking saved in [`reports/random_forest_feature_importance.csv`](random_forest_feature_importance.csv)).*
 
 ---
 
 ## 11. Saved Baseline Model Artifacts
 
 Stored in `models/`:
-1. **[`models/baseline_knn.joblib`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/models/baseline_knn.joblib)**:
+1. **[`models/baseline_knn.joblib`](../models/baseline_knn.joblib)**:
    - Model: `Pipeline(StandardScaler -> KNeighborsClassifier(n_neighbors=1, metric='euclidean'))`
    - Feature Set: `k=2` (16 dinucleotide frequencies)
    - Performance: 100% Top-1 reference retrieval, 2.20% LOOCV out-of-fold accuracy.
-2. **[`models/baseline_random_forest.joblib`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/models/baseline_random_forest.joblib)**:
+2. **[`models/baseline_random_forest.joblib`](../models/baseline_random_forest.joblib)**:
    - Model: `RandomForestClassifier(n_estimators=100, max_depth=None, random_state=42)`
    - Feature Set: `k=2` (16 dinucleotide frequencies)
    - Performance: 100% Top-1 reference retrieval, 2.20% LOOCV out-of-fold accuracy.

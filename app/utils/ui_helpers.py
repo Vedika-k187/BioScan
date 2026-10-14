@@ -77,41 +77,41 @@ STATUS_CONFIG = {
     "known_reference_like": {
         "label": "Reference-Library Match",
         "short_label": "Known Reference-Like",
-        "icon": "🟢",
+        "icon": "✓",
         "badge_class": "status-known",
-        "color": "#10b981", # Emerald
-        "bg_color": "rgba(16, 185, 129, 0.12)",
-        "border_color": "#10b981",
+        "color": "#0d9488", # Teal
+        "bg_color": "#f0fdfa",
+        "border_color": "#99f6e4",
         "description": "Sequence exhibits close sequence identity (distance ≤ 0.050 or exact match) and taxonomic agreement with the cataloged reference library."
     },
     "low_confidence": {
         "label": "Low Confidence Match",
         "short_label": "Low Confidence",
-        "icon": "🟡",
+        "icon": "⚠",
         "badge_class": "status-low",
-        "color": "#f59e0b", # Amber
-        "bg_color": "rgba(245, 158, 11, 0.12)",
-        "border_color": "#f59e0b",
+        "color": "#b45309", # Amber
+        "bg_color": "#fffbeb",
+        "border_color": "#fde68a",
         "description": "Sequence falls within broad reference boundary (distance ≤ 0.150) but exhibits low probability margin (< 0.150) or taxonomic disagreement."
     },
     "out_of_reference": {
         "label": "Out of Reference Library",
         "short_label": "Out of Reference",
-        "icon": "🔴",
+        "icon": "⚠",
         "badge_class": "status-out",
-        "color": "#ef4444", # Red
-        "bg_color": "rgba(239, 68, 68, 0.12)",
-        "border_color": "#ef4444",
+        "color": "#e11d48", # Rose
+        "bg_color": "#fff1f2",
+        "border_color": "#fecdd3",
         "description": "Sequence is distant from all cataloged reference library barcodes (distance > 0.150). Distance veto enforced."
     },
     "qc_failed": {
         "label": "QC Validation Failed",
         "short_label": "QC Failed",
-        "icon": "⚪",
+        "icon": "✕",
         "badge_class": "status-qc",
-        "color": "#94a3b8", # Slate
-        "bg_color": "rgba(148, 163, 184, 0.12)",
-        "border_color": "#94a3b8",
+        "color": "#64748b", # Slate
+        "bg_color": "#f8fafc",
+        "border_color": "#e2e8f0",
         "description": "Sequence contains invalid DNA characters, unsupported ambiguity codes, or is empty."
     }
 }
@@ -121,10 +121,10 @@ def render_status_badge(status: str) -> str:
     """Generate HTML snippet for a status badge."""
     cfg = STATUS_CONFIG.get(status, STATUS_CONFIG["qc_failed"])
     return f"""
-    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; 
+    <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; 
                 background: {cfg['bg_color']}; border: 1px solid {cfg['border_color']}; 
-                border-radius: 9999px; font-weight: 600; font-size: 0.95rem; color: {cfg['color']};">
-        <span>{cfg['icon']}</span>
+                border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: {cfg['color']};">
+        <span style="font-size: 0.9rem;">{cfg['icon']}</span>
         <span>{cfg['label']}</span>
     </div>
     """
@@ -225,96 +225,201 @@ def inject_custom_css():
     st.markdown(
         """
         <style>
-        /* Base typography & containers */
-        .main-header {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #0284c7 0%, #0d9488 50%, #10b981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.2rem;
+        /* 1. HIDE DEFAULT STREAMLIT MULTIPAGE NAVIGATION */
+        [data-testid="stSidebarNav"],
+        [data-testid="stSidebarNavItems"],
+        [data-testid="stSidebarNavSeparator"],
+        ul[data-testid="stSidebarNavItems"] {
+            display: none !important;
         }
-        .sub-header {
-            font-size: 1.05rem;
+
+        /* 2. BASE TYPOGRAPHY & LAYOUT */
+        html, body, [class*="css"] {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #0f172a;
+        }
+
+        /* Main hero styling */
+        .hero-title {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+        .hero-subtitle {
+            font-size: 0.95rem;
             color: #64748b;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            margin-top: 0.35rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
         }
-        .bio-card {
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 9px;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Clean Card Container */
+        .bioscan-card {
             background-color: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 18px 22px;
+            padding: 20px 24px;
             margin-bottom: 16px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
         }
-        .tax-step {
-            display: inline-block;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 6px 12px;
-            margin: 4px;
-            font-size: 0.88rem;
-        }
-        .tax-rank {
-            font-weight: 700;
-            color: #475569;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            letter-spacing: 0.05em;
-        }
-        .tax-value {
-            font-size: 0.95rem;
-            color: #0f172a;
-            font-weight: 600;
-        }
-        .metric-card {
-            background: #f8fafc;
+
+        /* Prediction Result Hero Card */
+        .prediction-hero-card {
+            background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 12px 16px;
-            text-align: center;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
         }
-        .metric-label {
-            font-size: 0.78rem;
-            color: #64748b;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-        .metric-value {
-            font-size: 1.45rem;
+        .prediction-species {
+            font-size: 1.75rem;
             font-weight: 700;
+            font-style: italic;
             color: #0f172a;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        .prediction-lineage {
+            font-size: 0.92rem;
+            color: #64748b;
+            font-weight: 500;
             margin-top: 4px;
         }
-        .warning-box {
+
+        /* KPI Metric Block */
+        .kpi-row {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .kpi-metric {
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 8px;
+            padding: 10px 14px;
+            flex: 1;
+            text-align: center;
+        }
+        .kpi-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .kpi-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2px;
+        }
+
+        /* Taxonomy Trail */
+        .taxonomy-trail {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .tax-crumb {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            font-size: 0.85rem;
+        }
+        .tax-crumb-rank {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        .tax-crumb-val {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .tax-arrow {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        /* Subtle alerts */
+        .clean-alert-warning {
             background-color: #fffbeb;
+            border: 1px solid #fef3c7;
             border-left: 4px solid #f59e0b;
             padding: 12px 16px;
-            border-radius: 4px;
+            border-radius: 6px;
             color: #92400e;
-            font-size: 0.92rem;
-            margin: 10px 0;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 12px 0;
         }
-        .alert-box {
-            background-color: #fef2f2;
-            border-left: 4px solid #ef4444;
+        .clean-alert-error {
+            background-color: #fff1f2;
+            border: 1px solid #ffe4e6;
+            border-left: 4px solid #f43f5e;
             padding: 12px 16px;
-            border-radius: 4px;
-            color: #991b1b;
-            font-size: 0.92rem;
-            margin: 10px 0;
+            border-radius: 6px;
+            color: #9f1239;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 12px 0;
         }
-        .success-box {
-            background-color: #ecfdf5;
+        .clean-alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #dcfce7;
             border-left: 4px solid #10b981;
             padding: 12px 16px;
-            border-radius: 4px;
-            color: #065f46;
+            border-radius: 6px;
+            color: #166534;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 12px 0;
+        }
+
+        /* Streamlit Input & Button Polish */
+        .stButton>button {
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 0.92rem;
-            margin: 10px 0;
+            padding: 0.4rem 1.2rem;
+            transition: all 0.15s ease-in-out;
+        }
+        .stTextArea textarea {
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.88rem;
+        }
+        .stTextInput input {
+            border-radius: 8px;
+        }
+        /* Hide deploy button & bottom footer */
+        .stDeployButton {
+            display: none !important;
+        }
+        footer {
+            visibility: hidden;
         }
         </style>
         """,

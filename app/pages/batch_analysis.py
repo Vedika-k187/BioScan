@@ -21,25 +21,28 @@ from src.prediction.batch_predict import batch_results_to_dataframe
 
 def render_batch_page():
     """Render the Batch DNA Analysis Page."""
-    st.markdown('<div class="main-header">📊 Batch DNA Sequence Analysis</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="sub-header">High-throughput classification of multi-record FASTA files '
-        'with independent sequence QC, fault-tolerant batch execution, and CSV export.</div>',
+        """
+        <div style="margin-bottom: 1.25rem;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">Batch DNA Analysis</div>
+            <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Upload multiple sequences and classify them in high-throughput mode.</div>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
     predictor = load_predictor()
 
-    st.markdown("##### 📁 Upload Multi-Sequence FASTA File")
-    fasta_file = st.file_uploader(
-        "Choose a FASTA file containing multiple sequences (.fasta, .fa, .txt):",
-        type=["fasta", "fa", "txt", "fna"],
-        key="batch_fasta_upload"
-    )
-
-    # Demo pre-loaded multi-sequence FASTA option
-    st.markdown("Or load a sample 4-sequence demonstration batch:")
-    demo_batch_btn = st.button("🧪 Load Sample Demonstration Batch (Known, Variant, Low-Conf, Out-of-Ref)", key="demo_batch_btn")
+    col_up, col_demo = st.columns([2, 1])
+    with col_up:
+        fasta_file = st.file_uploader(
+            "Upload multi-sequence FASTA (.fasta, .fa, .txt):",
+            type=["fasta", "fa", "txt", "fna"],
+            key="batch_fasta_upload"
+        )
+    with col_demo:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        demo_batch_btn = st.button("🧪 Load Sample 5-Sequence Batch", key="demo_batch_btn", use_container_width=True)
 
     batch_input_content = None
     if fasta_file is not None:
@@ -57,13 +60,19 @@ def render_batch_page():
             ">SAMPLE_05_INVALID_QC_AMBIGUOUS\n"
             "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGNTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
         )
-        st.info("Loaded 5-sequence sample batch demonstrating exact match, variant, low confidence, out-of-reference, and QC failure.")
 
     if not batch_input_content:
-        st.caption("Upload a file above or click the sample demonstration button to begin batch prediction.")
+        st.markdown(
+            """
+            <div style="padding: 24px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 12px;">
+                Upload a FASTA file or click <strong>Load Sample 5-Sequence Batch</strong> to run high-throughput analysis.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         return
 
-    with st.spinner("Processing batch sequences independently..."):
+    with st.spinner("Processing batch sequences..."):
         results = predictor.predict_fasta(batch_input_content, top_k_similar=5)
 
     if not results:
@@ -74,9 +83,6 @@ def render_batch_page():
     df = batch_results_to_dataframe(results)
 
     # 1. KPI Summary Cards
-    st.markdown("---")
-    st.markdown("### 📈 Batch Summary Metrics")
-
     total_seqs = len(df)
     qc_passed = len(df[df["qc_status"] == "passed"])
     known_cnt = len(df[df["prediction_status"] == "known_reference_like"])
@@ -84,13 +90,14 @@ def render_batch_page():
     out_cnt = len(df[df["prediction_status"] == "out_of_reference"])
     fail_cnt = len(df[df["prediction_status"] == "qc_failed"])
 
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
     k1, k2, k3, k4, k5, k6 = st.columns(6)
     with k1:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Total Input</div>
-                <div class="metric-value">{total_seqs}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Total</div>
+                <div class="kpi-value">{total_seqs}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -98,9 +105,9 @@ def render_batch_page():
     with k2:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">QC Passed</div>
-                <div class="metric-value" style="color: #10b981;">{qc_passed}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">QC Passed</div>
+                <div class="kpi-value" style="color: #0d9488;">{qc_passed}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -108,9 +115,9 @@ def render_batch_page():
     with k3:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Ref-Match</div>
-                <div class="metric-value" style="color: #10b981;">{known_cnt}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Ref-Match</div>
+                <div class="kpi-value" style="color: #0d9488;">{known_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -118,9 +125,9 @@ def render_batch_page():
     with k4:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Low Conf</div>
-                <div class="metric-value" style="color: #f59e0b;">{low_cnt}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Low Conf</div>
+                <div class="kpi-value" style="color: #b45309;">{low_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -128,9 +135,9 @@ def render_batch_page():
     with k5:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">Out of Ref</div>
-                <div class="metric-value" style="color: #ef4444;">{out_cnt}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">Out of Ref</div>
+                <div class="kpi-value" style="color: #e11d48;">{out_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -138,17 +145,16 @@ def render_batch_page():
     with k6:
         st.markdown(
             f"""
-            <div class="metric-card">
-                <div class="metric-label">QC Failed</div>
-                <div class="metric-value" style="color: #64748b;">{fail_cnt}</div>
+            <div class="kpi-metric">
+                <div class="kpi-label">QC Failed</div>
+                <div class="kpi-value" style="color: #64748b;">{fail_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
     # 2. Charts Row
+    st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
     ch1, ch2 = st.columns(2)
     with ch1:
         fig_status = plot_status_distribution(df)
@@ -158,15 +164,18 @@ def render_batch_page():
         st.plotly_chart(fig_tax, use_container_width=True)
 
     # 3. Interactive Filterable Table
-    st.markdown("### 📋 Sequence Prediction Table")
+    st.markdown("<div style='font-size: 1rem; font-weight: 700; color: #0f172a; margin: 16px 0 8px 0;'>Batch Results</div>", unsafe_allow_html=True)
     
-    col_filter_status, col_filter_class = st.columns(2)
+    col_filter_status, col_filter_class, col_toggle = st.columns([1, 1, 1])
     with col_filter_status:
         status_options = ["All"] + list(df["prediction_status"].unique())
-        selected_status = st.selectbox("Filter by Status:", options=status_options)
+        selected_status = st.selectbox("Status:", options=status_options)
     with col_filter_class:
         class_options = ["All"] + [c for c in df["class"].dropna().unique() if c]
-        selected_class = st.selectbox("Filter by Predicted Class:", options=class_options)
+        selected_class = st.selectbox("Class:", options=class_options)
+    with col_toggle:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        show_full_cols = st.checkbox("Show all columns", value=False)
 
     filtered_df = df.copy()
     if selected_status != "All":
@@ -174,12 +183,18 @@ def render_batch_page():
     if selected_class != "All":
         filtered_df = filtered_df[filtered_df["class"] == selected_class]
 
-    # Present formatted columns
-    display_cols = [
-        "sequence_id", "sequence_length", "qc_status", "prediction_status",
-        "class", "order", "family", "genus", "species",
-        "top1_probability", "nearest_reference", "nearest_distance", "nearest_similarity"
-    ]
+    # Present formatted columns: concise initially, full if toggled
+    if show_full_cols:
+        display_cols = [
+            "sequence_id", "sequence_length", "qc_status", "prediction_status",
+            "class", "order", "family", "genus", "species",
+            "top1_probability", "nearest_reference", "nearest_distance", "nearest_similarity"
+        ]
+    else:
+        display_cols = [
+            "sequence_id", "prediction_status", "species",
+            "top1_probability", "nearest_similarity", "nearest_distance"
+        ]
     avail_cols = [c for c in display_cols if c in filtered_df.columns]
     
     st.dataframe(
@@ -188,12 +203,11 @@ def render_batch_page():
         hide_index=True
     )
 
-    # 4. CSV Download Button
+    # 4. Secondary CSV Download Button
     csv_bytes = df.to_csv(index=False).encode("utf-8")
     st.download_button(
-        label="📥 Download Batch Results (CSV)",
+        label="Download Results (CSV)",
         data=csv_bytes,
         file_name="bioscan_batch_predictions.csv",
-        mime="text/csv",
-        type="primary"
+        mime="text/csv"
     )

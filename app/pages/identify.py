@@ -4,7 +4,7 @@ Phase 9: DNA Identification Page (Core Interactive Demonstration)
 
 Allows users to input a single DNA sequence (via paste or FASTA upload),
 runs biological QC, executes the end-to-end Phase 8 prediction engine,
-and presents complete, transparent evidence.
+and presents clean, transparent evidence.
 """
 
 import streamlit as st
@@ -28,35 +28,35 @@ from app.components import (
 
 def render_identify_page():
     """Render the main DNA Sequence Identification Page."""
-    # 1. Page Header & Scope Banner
-    st.markdown('<div class="main-header">🧬 BioScan DNA Identification</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="sub-header">From DNA sequence to taxonomic identification, confidence, '
-        'similarity evidence, and biodiversity context.</div>',
-        unsafe_allow_html=True
-    )
-
-    # Capability tags
+    # 1. Page Hero Banner
     st.markdown(
         """
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
-            <span class="tax-step">📌 <b>Locus:</b> 12S rDNA V5</span>
-            <span class="tax-step">🐟 <b>Domain:</b> Teleost & Elasmobranch Fish</span>
-            <span class="tax-step">🌲 <b>Model:</b> Hierarchical ML (Class &rarr; Species)</span>
-            <span class="tax-step">🔎 <b>Search:</b> Normalized Levenshtein Top-5</span>
-            <span class="tax-step">🛡️ <b>Safety:</b> Distance Veto Unknown Detection</span>
-            <span class="tax-step">🌍 <b>Context:</b> 2019 NJ Ocean Trawl Survey</span>
+        <div style="margin-bottom: 1.25rem;">
+            <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;">
+                <span style="font-size: 1.75rem;">🧬</span>
+                <span style="font-size: 1.6rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">BioScan</span>
+                <span style="font-size: 1.1rem; color: #64748b; font-weight: 500;">DNA &rarr; Species Identification</span>
+                <span class="hero-chip">12S rDNA V5</span>
+            </div>
+            <div style="font-size: 0.95rem; color: #475569; margin-top: 4px;">
+                Identify an unknown DNA barcode using machine learning, sequence similarity, and taxonomic evidence.
+            </div>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    # Strict Scope Limitation Notice
-    st.caption(
-        "**Reference Library Scope**: 101 unique 12S barcode sequences representing 90 named species (89 singletons). "
-        "Predictions reflect reference-library matching and are bounded by the cataloged barcode domain."
-    )
-    st.markdown("---")
+    # Technical Scope Expander
+    with st.expander("▸ Reference Library Scope & Methodology", expanded=False):
+        st.markdown(
+            """
+            - **Target Marker**: 12S mitochondrial rDNA V5 (87–112 bp)
+            - **Reference Library**: 101 barcodes · 90 named species (89 singletons)
+            - **Survey Domain**: Teleost and elasmobranch marine fish (2019 NJ Ocean Trawl Survey)
+            - **Taxonomic Model**: Parent-constrained hierarchical classifiers (Class &rarr; Species)
+            - **Unknown Detection**: Distance Veto enforced when query divergence $d_{\\text{min}} > 0.150$
+            """
+        )
 
     # Load resources
     predictor = load_predictor()
@@ -65,57 +65,90 @@ def render_identify_page():
     examples = get_example_sequences(ref_df)
 
     # 2. Dynamic Example Selector
-    st.markdown("##### 💡 Try an Example Sequence from the Validated Dataset")
+    st.markdown("<div style='font-size: 0.88rem; font-weight: 600; color: #334155; margin-top: 0.5rem; margin-bottom: 4px;'>Try an example:</div>", unsafe_allow_html=True)
+
+    def on_example_change():
+        sel = st.session_state.get("example_selector")
+        if sel and sel != "(Custom Input)" and sel in examples:
+            ex = examples[sel]
+            st.session_state["input_seq_paste"] = ex["sequence"]
+            st.session_state["input_id_paste"] = ex["sequence_id"]
+        elif sel == "(Custom Input)":
+            st.session_state["input_seq_paste"] = ""
+            st.session_state["input_id_paste"] = "SAMPLE_QUERY_01"
+
+    if "input_seq_paste" not in st.session_state:
+        st.session_state["input_seq_paste"] = ""
+    if "input_id_paste" not in st.session_state:
+        st.session_state["input_id_paste"] = "SAMPLE_QUERY_01"
+
     selected_example_name = st.selectbox(
-        "Select a pre-loaded reference sequence or synthetic test case:",
+        "Try an example:",
         options=["(Custom Input)"] + list(examples.keys()),
-        index=0
+        index=0,
+        key="example_selector",
+        label_visibility="collapsed",
+        on_change=on_example_change
     )
 
-    default_seq_id = "SAMPLE_QUERY_01"
-    default_seq = ""
+    if "last_selected_example" not in st.session_state:
+        st.session_state["last_selected_example"] = selected_example_name
 
-    if selected_example_name != "(Custom Input)":
-        ex_info = examples[selected_example_name]
-        default_seq_id = ex_info["sequence_id"]
-        default_seq = ex_info["sequence"]
-        st.info(f"**Loaded Example:** {ex_info['notes']}")
+    # Fallback synchronization if selection changes
+    if selected_example_name != st.session_state["last_selected_example"]:
+        st.session_state["last_selected_example"] = selected_example_name
+        if selected_example_name != "(Custom Input)" and selected_example_name in examples:
+            ex_info = examples[selected_example_name]
+            st.session_state["input_seq_paste"] = ex_info["sequence"]
+            st.session_state["input_id_paste"] = ex_info["sequence_id"]
+        elif selected_example_name == "(Custom Input)":
+            st.session_state["input_seq_paste"] = ""
+            st.session_state["input_id_paste"] = "SAMPLE_QUERY_01"
+
+    if selected_example_name != "(Custom Input)" and selected_example_name in examples:
+        seq_len = len(st.session_state.get("input_seq_paste", ""))
+        st.markdown(
+            f"""
+            <div style="font-size: 0.82rem; color: #0d9488; font-weight: 600; margin: 4px 0 10px 2px;">
+                ✓ Example loaded · {seq_len} bp
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     # 3. Input Tabs (Paste vs Upload FASTA)
-    tab_paste, tab_fasta = st.tabs(["✍️ Paste DNA Sequence", "📁 Upload Single-Sequence FASTA"])
+    tab_paste, tab_fasta = st.tabs(["Paste Sequence", "Upload FASTA"])
     
     seq_to_predict = ""
-    seq_id_to_predict = default_seq_id
+    seq_id_to_predict = st.session_state.get("input_id_paste", "SAMPLE_QUERY_01")
     trigger_prediction = False
 
     with tab_paste:
+        input_sequence = st.text_area(
+            "DNA sequence",
+            height=130,
+            placeholder="Paste canonical DNA sequence (e.g. ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC)...",
+            key="input_seq_paste",
+            label_visibility="collapsed"
+        )
         col_id, col_btn = st.columns([3, 1])
         with col_id:
-            input_seq_id = st.text_input("Sequence Identifier (Optional):", value=default_seq_id, key="input_id_paste")
+            input_seq_id = st.text_input("Sequence ID (optional)", key="input_id_paste", placeholder="Sequence ID (optional)", label_visibility="collapsed")
         with col_btn:
-            st.markdown("<br>", unsafe_allow_html=True)
-            predict_btn_paste = st.button("🚀 Identify Sequence", type="primary", use_container_width=True, key="btn_paste")
+            predict_btn_paste = st.button("🧬 Identify Sequence", type="primary", use_container_width=True, key="btn_paste")
 
-        input_sequence = st.text_area(
-            "DNA Sequence (A, C, G, T):",
-            value=default_seq,
-            height=120,
-            placeholder="e.g. ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC",
-            key="input_seq_paste"
-        )
         if predict_btn_paste:
             seq_to_predict = input_sequence
-            seq_id_to_predict = input_seq_id
+            seq_id_to_predict = input_seq_id or "QUERY_01"
             trigger_prediction = True
 
     with tab_fasta:
-        st.caption("Upload a `.fasta`, `.fa`, or `.txt` file containing a single DNA sequence.")
-        fasta_file = st.file_uploader("Choose a FASTA file", type=["fasta", "fa", "txt", "fna"], key="fasta_upload_single")
-        predict_btn_fasta = st.button("🚀 Identify Uploaded FASTA", type="primary", key="btn_fasta")
+        st.markdown("<div style='font-size: 0.85rem; color: #64748b; margin-bottom: 6px;'>Upload a single-sequence FASTA (.fasta, .fa, .txt):</div>", unsafe_allow_html=True)
+        fasta_file = st.file_uploader("Upload single-sequence FASTA file", type=["fasta", "fa", "txt", "fna"], key="fasta_upload_single", label_visibility="collapsed")
+        predict_btn_fasta = st.button("🧬 Identify Uploaded FASTA", type="primary", key="btn_fasta")
 
         if predict_btn_fasta and fasta_file is not None:
             content = fasta_file.getvalue().decode("utf-8", errors="ignore")
-            # Quick parse header and sequence
             lines = [ln.strip() for ln in content.splitlines() if ln.strip()]
             header_id = "UPLOADED_FASTA"
             fasta_seq_parts = []
@@ -134,96 +167,44 @@ def render_identify_page():
             st.warning("⚠️ Please provide or paste a non-empty DNA sequence to classify.")
             return
 
-        with st.spinner("Executing biological QC, hierarchical inference, similarity search, and evidence aggregation..."):
+        with st.spinner("Analyzing sequence..."):
             result = predictor.predict(seq_to_predict, sequence_id=seq_id_to_predict, top_k_similar=5)
 
-        # A. Biological QC Panel
         qc = result.get("qc", {})
         inp = result.get("input", {})
-        st.markdown("---")
-        st.markdown("### 🔬 Biological Input Quality Control (QC)")
-        
-        qc_col1, qc_col2, qc_col3, qc_col4 = st.columns(4)
-        with qc_col1:
-            st.markdown(
-                f"""
-                <div class="metric-card">
-                    <div class="metric-label">Sequence Length</div>
-                    <div class="metric-value">{inp.get('length', 0)} bp</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        with qc_col2:
-            is_valid = qc.get("is_valid", False)
-            valid_txt = "✅ VALID" if is_valid else "❌ INVALID"
-            st.markdown(
-                f"""
-                <div class="metric-card">
-                    <div class="metric-label">Bases (A,C,G,T)</div>
-                    <div class="metric-value" style="font-size: 1.15rem; color: {'#10b981' if is_valid else '#ef4444'};">{valid_txt}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        with qc_col3:
-            # Calculate GC from input safely
-            clean_s = seq_to_predict.upper()
-            gc_pct = ((clean_s.count('G') + clean_s.count('C')) / max(len(clean_s), 1)) * 100 if clean_s else 0.0
-            st.markdown(
-                f"""
-                <div class="metric-card">
-                    <div class="metric-label">GC Content</div>
-                    <div class="metric-value">{gc_pct:.1f}%</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        with qc_col4:
-            st.markdown(
-                f"""
-                <div class="metric-card">
-                    <div class="metric-label">QC Status</div>
-                    <div class="metric-value" style="font-size: 1.15rem;">{qc.get('status', 'N/A').upper()}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
-        # Display QC warnings if any
-        warnings = qc.get("warnings", [])
-        if warnings:
-            st.markdown(
-                f"""
-                <div class="warning-box">
-                    <strong>⚠️ Quality Control Advisory:</strong><br>
-                    {warnings[0]}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        # B. If QC Failed -> Render failure card and stop
+        # If QC failed -> render failure card directly and stop
         if not qc.get("is_valid"):
+            st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
             render_prediction_card(result)
             return
 
-        # C. Render Prediction Results
-        st.markdown("<br>", unsafe_allow_html=True)
+        # Subtle QC chip if valid
+        clean_s = seq_to_predict.upper()
+        gc_pct = ((clean_s.count('G') + clean_s.count('C')) / max(len(clean_s), 1)) * 100 if clean_s else 0.0
+        st.markdown(
+            f"""
+            <div style="font-size: 0.78rem; color: #64748b; margin: 12px 0 8px 2px;">
+                ✓ Biological QC Passed · {inp.get('length', 0)} bp · {gc_pct:.1f}% GC
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Primary Prediction Result Card
         render_prediction_card(result)
         
-        st.markdown("<br>", unsafe_allow_html=True)
+        # Taxonomic Lineage Trail
         render_taxonomy_hierarchy(result)
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        render_confidence_and_evidence(result)
+        # Expandable Deep Technical Sections
+        pred_status = result.get("prediction", {}).get("status")
+        
+        with st.expander("🔎 Reference Similarity Evidence (Top 5 Barcodes)", expanded=False):
+            render_similarity_table(result)
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        render_similarity_table(result)
+        with st.expander("📊 Model Confidence & Diagnostics", expanded=False):
+            render_confidence_and_evidence(result)
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        render_biodiversity_context(result, bio_records_df)
-
-        # Disclaimer
-        st.markdown("---")
-        st.caption(f"**Scientific Transparency Notice**: {result.get('disclaimer', '')}")
+        with st.expander("🌍 Biodiversity Occurrence Context", expanded=(pred_status == "known_reference_like")):
+            render_biodiversity_context(result, bio_records_df)

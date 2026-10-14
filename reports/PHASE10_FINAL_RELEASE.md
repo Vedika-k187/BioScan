@@ -72,13 +72,13 @@ BioScan/
 ## 2. Documentation Suite Created
 
 All key productization and judging documents were authored and verified:
-1. **[`README.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/README.md)**: Master documentation covering problem statement, multi-stage solution, system architecture, dataset scope, ML pipeline, Distance Veto, launch instructions, and test baseline.
-2. **[`reports/ARCHITECTURE.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/ARCHITECTURE.md)**: High-level architectural flows, data pipeline diagrams, Phase 1–10 artifact dependency matrix, and module interactions.
-3. **[`reports/MODEL_CARD.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/MODEL_CARD.md)**: Formal AI Model Card documenting model families, k-mer feature spaces, singleton constraints, intended use, and prohibited applications.
-4. **[`reports/DATASET_CARD.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/DATASET_CARD.md)**: Detailed dataset provenance, clarifying why 13,736 raw rows correspond to 101 unique DNA sequences, taxonomic coverage (89 singleton species), and oceanographic survey metadata.
-5. **[`reports/DEMO_GUIDE.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/DEMO_GUIDE.md)**: Structured 3–5 minute live demonstration script for judges, including exact reference identification, out-of-reference sequence handling with the Distance Veto, batch FASTA processing, and biodiversity exploration.
-6. **[`reports/PITCH.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/PITCH.md)**: Tailored presentation pitches formatted for 30-second elevator, 60-second stage, and 2-minute deep-dive presentations.
-7. **[`reports/HACKATHON_FEATURES.md`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/HACKATHON_FEATURES.md)**: Comprehensive judge-facing feature matrix explaining what each feature does and why it matters scientifically.
+1. **[`README.md`](../README.md)**: Master documentation covering problem statement, multi-stage solution, system architecture, dataset scope, ML pipeline, Distance Veto, launch instructions, and test baseline.
+2. **[`reports/ARCHITECTURE.md`](ARCHITECTURE.md)**: High-level architectural flows, data pipeline diagrams, Phase 1–10 artifact dependency matrix, and module interactions.
+3. **[`reports/MODEL_CARD.md`](MODEL_CARD.md)**: Formal AI Model Card documenting model families, k-mer feature spaces, singleton constraints, intended use, and prohibited applications.
+4. **[`reports/DATASET_CARD.md`](DATASET_CARD.md)**: Detailed dataset provenance, clarifying why 13,736 raw rows correspond to 101 unique DNA sequences, taxonomic coverage (89 singleton species), and oceanographic survey metadata.
+5. **[`reports/DEMO_GUIDE.md`](DEMO_GUIDE.md)**: Structured 3–5 minute live demonstration script for judges, including exact reference identification, out-of-reference sequence handling with the Distance Veto, batch FASTA processing, and biodiversity exploration.
+6. **[`reports/PITCH.md`](PITCH.md)**: Tailored presentation pitches formatted for 30-second elevator, 60-second stage, and 2-minute deep-dive presentations.
+7. **[`reports/HACKATHON_FEATURES.md`](HACKATHON_FEATURES.md)**: Comprehensive judge-facing feature matrix explaining what each feature does and why it matters scientifically.
 
 ---
 

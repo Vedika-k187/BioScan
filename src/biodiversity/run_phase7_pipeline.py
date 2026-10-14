@@ -407,12 +407,12 @@ All data products were deterministically generated and saved to `data/processed/
 
 | Data Product | File Path | Record Count | Unit of Analysis |
 |---|---|---|---|
-| **Occurrence Records** | [`biodiversity_reference_records.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/biodiversity_reference_records.csv) | **1,604 rows** | Deduplicated positive field detection events |
-| **Country Summary** | [`country_biodiversity_summary.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/country_biodiversity_summary.csv) | **1 row** | National political & oceanographic jurisdiction |
-| **Taxonomic Hierarchy** | [`taxonomic_summary.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/taxonomic_summary.csv) | **8 rows** | Taxonomic ranks from Kingdom to Species |
-| **Species Distribution** | [`species_distribution_summary.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/species_distribution_summary.csv) | **101 rows** | Unique reference DNA barcodes |
-| **Station Diversity** | [`diversity_metrics.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/data/processed/diversity_metrics.csv) | **36 rows** | Distinct geographic sampling stations |
-| **Geographic QC Audit** | [`geographic_quality_summary.csv`](file:///c:/Users/Vedika%20Kurhade/OneDrive/Desktop/BioScan/reports/geographic_quality_summary.csv) | **14 rows** | Coordinate validation and quality metrics |
+| **Occurrence Records** | [`biodiversity_reference_records.csv`](../data/processed/biodiversity_reference_records.csv) | **1,604 rows** | Deduplicated positive field detection events |
+| **Country Summary** | [`country_biodiversity_summary.csv`](../data/processed/country_biodiversity_summary.csv) | **1 row** | National political & oceanographic jurisdiction |
+| **Taxonomic Hierarchy** | [`taxonomic_summary.csv`](../data/processed/taxonomic_summary.csv) | **8 rows** | Taxonomic ranks from Kingdom to Species |
+| **Species Distribution** | [`species_distribution_summary.csv`](../data/processed/species_distribution_summary.csv) | **101 rows** | Unique reference DNA barcodes |
+| **Station Diversity** | [`diversity_metrics.csv`](../data/processed/diversity_metrics.csv) | **36 rows** | Distinct geographic sampling stations |
+| **Geographic QC Audit** | [`geographic_quality_summary.csv`](geographic_quality_summary.csv) | **14 rows** | Coordinate validation and quality metrics |
 
 ---
 
