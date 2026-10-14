@@ -1,0 +1,15 @@
+metric,value,percentage,category,notes
+Total Survey Records,13736,100.0%,Dataset Scope,Survey/screening assay rows
+Unique DNA Sequences Assayed,101,-,Dataset Scope,Curated 12S rDNA V5 reference barcodes
+Valid Coordinates,13736,100.0%,valid_coordinates,"Bounded in physical [-90,90], [-180,180]"
+Missing Coordinates,0,0.0%,missing_coordinates,Zero missing coordinates in survey
+Invalid Coordinates,0,0.0%,invalid_coordinates,Zero out-of-bounds or Null Island points
+Unique Sampling Stations,36,-,Spatial Coverage,"Distinct (latitude, longitude) sampling locations"
+Latitude Bounds,38.658 to 40.468 °N,-,Spatial Coverage,Offshore New Jersey continental shelf
+Longitude Bounds,-74.969 to -73.862 °W,-,Spatial Coverage,Northwest Atlantic shelf waters
+Coordinate Decimal Precision,3 decimal places,-,Spatial Resolution,~110m spatial resolution at 3 decimals
+Country Code Representation,US (United States),100.0%,Political Geography,All records from US waters off NJ
+Sampling Depth Range,1.0 - 26.84 m,-,Oceanographic Scope,Mean depth: 8.48 m
+Temporal Sampling Window,2019-01-11 to 2019-11-10,-,Temporal Scope,NJ OTS seasonal cruises in 2019
+Species-Labeled Records,12376,90.1%,Taxonomic Completeness,Cataloged species name available
+Species-Unlabeled Records,1360,9.9%,incomplete_taxonomy,Higher rank (Genus/Family/Order) available

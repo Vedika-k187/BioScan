@@ -1,0 +1,207 @@
+{
+  "dataset_size": {
+    "rows": 13736,
+    "columns": 59
+  },
+  "sequence_stats": {
+    "total_sequence_rows": 13736,
+    "unique_sequences": 101,
+    "duplicate_sequence_rows": 13635,
+    "multiplicity_per_sequence": 136,
+    "length_min": 87,
+    "length_max": 112,
+    "length_mean": 105.74257425742574,
+    "length_median": 106.0,
+    "length_std": 3.180105235197523,
+    "strictly_valid_acgt_count": 13736,
+    "strictly_valid_acgt_pct": 100.0,
+    "char_distribution_all_rows": {
+      "A": 443632,
+      "C": 413576,
+      "T": 333336,
+      "G": 261936
+    },
+    "char_distribution_unique_seqs": {
+      "A": 3262,
+      "C": 3041,
+      "T": 2451,
+      "G": 1926
+    },
+    "non_acgt_characters": {}
+  },
+  "taxonomy_stats": {
+    "kingdom": {
+      "unique_count": 1,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "top_5_occurrence_counts": {
+        "Animalia": 13736
+      },
+      "unique_barcode_distribution": {
+        "Animalia": 101
+      }
+    },
+    "phylum": {
+      "unique_count": 1,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "top_5_occurrence_counts": {
+        "Chordata": 13736
+      },
+      "unique_barcode_distribution": {
+        "Chordata": 101
+      }
+    },
+    "class": {
+      "unique_count": 4,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "top_5_occurrence_counts": {
+        "Teleostei": 11152,
+        "Elasmobranchii": 2312,
+        "Petromyzonti": 136,
+        "Chondrostei": 136
+      },
+      "unique_barcode_distribution": {
+        "Teleostei": 82,
+        "Elasmobranchii": 17,
+        "Petromyzonti": 1,
+        "Chondrostei": 1
+      }
+    },
+    "order": {
+      "unique_count": 30,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "top_5_occurrence_counts": {
+        "Perciformes": 2720,
+        "Scombriformes": 1360,
+        "Clupeiformes": 1224,
+        "Pleuronectiformes": 1088,
+        "Myliobatiformes": 952
+      },
+      "unique_barcode_distribution": {
+        "Perciformes": 20,
+        "Scombriformes": 10,
+        "Clupeiformes": 9,
+        "Pleuronectiformes": 8,
+        "Myliobatiformes": 7
+      }
+    },
+    "family": {
+      "unique_count": 66,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "top_5_occurrence_counts": {
+        "Scombridae": 816,
+        "Sciaenidae": 816,
+        "Carangidae": 816,
+        "Engraulidae": 544,
+        "Paralichthyidae": 544
+      },
+      "unique_barcode_distribution": {
+        "Scombridae": 6,
+        "Sciaenidae": 6,
+        "Carangidae": 6,
+        "Engraulidae": 4,
+        "Paralichthyidae": 4
+      }
+    },
+    "genus": {
+      "unique_count": 87,
+      "missing_count": 544,
+      "missing_pct": 3.9603960396039604,
+      "top_5_occurrence_counts": {
+        "Anchoa": 408,
+        "Prionotus": 272,
+        "Scomber": 272,
+        "Ophidion": 272,
+        "Menticirrhus": 272
+      },
+      "unique_barcode_distribution": {
+        "nan": 4,
+        "Anchoa": 3,
+        "Prionotus": 2,
+        "Scomber": 2,
+        "Ophidion": 2
+      }
+    },
+    "species": {
+      "unique_count": 90,
+      "missing_count": 1360,
+      "missing_pct": 9.900990099009901,
+      "top_5_occurrence_counts": {
+        "Ophidion marginatum": 272,
+        "Tautoga onitis": 136,
+        "Citharichthys arctifrons": 136,
+        "Hippocampus erectus": 136,
+        "Conger oceanicus": 136
+      },
+      "unique_barcode_distribution": {
+        "nan": 10,
+        "Ophidion marginatum": 2,
+        "Scomber colias": 1,
+        "Citharichthys arctifrons": 1,
+        "Hippocampus erectus": 1
+      }
+    }
+  },
+  "duplicate_analysis": {
+    "exact_duplicate_rows": 0,
+    "identical_sequences_count": 13635,
+    "sequences_shared_across_multiple_species": 0,
+    "sequences_shared_across_multiple_genera": 0,
+    "unique_occurrence_ids": 6868,
+    "unique_gbif_ids": 6868,
+    "unique_events": 68,
+    "records_per_occurrence_id": 2,
+    "records_per_sequence": 136
+  },
+  "imbalance_stats": {
+    "total_named_species": 90,
+    "species_with_2_sequences": 1,
+    "species_with_1_sequence": 89,
+    "sequences_without_species_label": 10,
+    "class_distribution_rows": {
+      "Teleostei": 11152,
+      "Elasmobranchii": 2312,
+      "Petromyzonti": 136,
+      "Chondrostei": 136
+    },
+    "class_distribution_unique_barcodes": {
+      "Teleostei": 82,
+      "Elasmobranchii": 17,
+      "Petromyzonti": 1,
+      "Chondrostei": 1
+    },
+    "iucn_categories_unique_barcodes": {
+      "LC": 66,
+      "VU": 14,
+      "Unassessed": 14,
+      "NT": 3,
+      "EN": 3,
+      "CR": 1
+    }
+  },
+  "metadata_highlights": {
+    "target_gene": {
+      "12S rDNA": 13736
+    },
+    "target_subfragment": {
+      "V5": 13736
+    },
+    "country_code": {
+      "US": 13736
+    },
+    "state_province": "New Jersey",
+    "water_body": "Atlantic Ocean",
+    "bioproject": "PRJNA638560",
+    "sequencing_method": {
+      "Illumina MiSeq 2 x 150": 13736
+    },
+    "occurrence_status": {
+      "ABSENT": 10528,
+      "PRESENT": 3208
+    }
+  }
+}

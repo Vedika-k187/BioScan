@@ -1,0 +1,58 @@
+# ==============================================================================
+# BioScan Project .gitignore
+# ==============================================================================
+
+# Python Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook Checkpoints & Scratchpads
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Testing & Pytest Caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MLflow Runs & Artifacts
+mlruns/
+.mlflow/
+
+# Trained Models & Serialized Checkpoints
+# Note: Models are required for out-of-the-box prediction and dashboard inference (<15MB each).
+# models/*.joblib are tracked for full reproducibility.
+
+# Data Management
+# Intermediate temporary caches
+data/processed/*.parquet
+data/processed/*.feather
+data/processed/*.tmp
+
+# Temporary Files & OS Artifacts
+*.tmp
+*.temp
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+*.swo

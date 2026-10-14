@@ -1,0 +1,129 @@
+{
+  "dataset_name": "BioScan Reference DNA Feature Library",
+  "sample_count": 101,
+  "sequence_id_column": "sequence_id",
+  "scaling_applied": false,
+  "labels_included": false,
+  "excluded_columns": [
+    "class",
+    "order",
+    "family",
+    "genus",
+    "species",
+    "scientificName",
+    "taxonRank",
+    "kingdom",
+    "phylum",
+    "gbifid",
+    "occurrenceID",
+    "eventID",
+    "sampname",
+    "latitude",
+    "longitude",
+    "iucnRedListCategory"
+  ],
+  "feature_sets": {
+    "basic": {
+      "file": "features_basic.csv",
+      "sample_count": 101,
+      "feature_count": 17,
+      "categories": {
+        "composition": [
+          "sequence_length",
+          "A_count",
+          "T_count",
+          "G_count",
+          "C_count",
+          "A_frequency",
+          "T_frequency",
+          "G_frequency",
+          "C_frequency",
+          "GC_content",
+          "AT_content"
+        ],
+        "complexity": [
+          "unique_base_count",
+          "unique_k2_count",
+          "unique_k3_count",
+          "shannon_entropy",
+          "max_base_frequency",
+          "min_base_frequency"
+        ]
+      }
+    },
+    "k2": {
+      "file": "features_k2.csv",
+      "sample_count": 101,
+      "feature_count": 16,
+      "k": 2
+    },
+    "k3": {
+      "file": "features_k3.csv",
+      "sample_count": 101,
+      "feature_count": 64,
+      "k": 3
+    },
+    "k4": {
+      "file": "features_k4.csv",
+      "sample_count": 101,
+      "feature_count": 256,
+      "k": 4
+    },
+    "k5": {
+      "file": "features_k5.csv",
+      "sample_count": 101,
+      "feature_count": 1024,
+      "k": 5
+    },
+    "basic_k2": {
+      "file": "features_basic_k2.csv",
+      "sample_count": 101,
+      "feature_count": 33
+    },
+    "basic_k3": {
+      "file": "features_basic_k3.csv",
+      "sample_count": 101,
+      "feature_count": 81
+    },
+    "basic_k4": {
+      "file": "features_basic_k4.csv",
+      "sample_count": 101,
+      "feature_count": 273
+    },
+    "basic_k5": {
+      "file": "features_basic_k5.csv",
+      "sample_count": 101,
+      "feature_count": 1041
+    }
+  },
+  "redundancy_analysis": {
+    "mathematical_identities": [
+      "A_frequency + T_frequency + G_frequency + C_frequency == 1.0 (Sum-to-one constraint)",
+      "GC_content + AT_content == 1.0 (Perfect collinearity, r = -1.0)",
+      "GC_content == G_frequency + C_frequency",
+      "AT_content == A_frequency + T_frequency"
+    ],
+    "high_correlation_pairs": [
+      {
+        "feature_1": "T_count",
+        "feature_2": "T_frequency",
+        "correlation": 0.9761635406709244
+      },
+      {
+        "feature_1": "G_count",
+        "feature_2": "G_frequency",
+        "correlation": 0.9738470049344004
+      },
+      {
+        "feature_1": "G_frequency",
+        "feature_2": "min_base_frequency",
+        "correlation": 0.9516398712044482
+      },
+      {
+        "feature_1": "GC_content",
+        "feature_2": "AT_content",
+        "correlation": -0.9999999999999998
+      }
+    ]
+  }
+}

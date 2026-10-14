@@ -1,0 +1,55 @@
+model,feature_set,n_features,config,cv_strategy,loocv_accuracy,loocv_macro_f1,loocv_weighted_f1,ref_top1_accuracy,ref_top3_accuracy,ref_top5_accuracy
+KNN,Basic,17,n_neighbors=1,LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,Basic,17,n_neighbors=3,LOOCV,0.011,0.0056,0.011,0.3297,1.0,1.0
+KNN,Basic,17,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2418,0.6264,1.0
+Random Forest,Basic,17,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,Basic,17,"n_est=100, max_depth=10",LOOCV,0.022,0.0063,0.0126,1.0,1.0,1.0
+Random Forest,Basic,17,"n_est=300, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,k=2,16,n_neighbors=1,LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,k=2,16,n_neighbors=3,LOOCV,0.011,0.0074,0.0147,0.3846,1.0,1.0
+KNN,k=2,16,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2527,0.5934,1.0
+Random Forest,k=2,16,"n_est=100, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+Random Forest,k=2,16,"n_est=100, max_depth=10",LOOCV,0.011,0.0056,0.011,1.0,1.0,1.0
+Random Forest,k=2,16,"n_est=300, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,k=3,64,n_neighbors=1,LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,k=3,64,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.3516,1.0,1.0
+KNN,k=3,64,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.1978,0.5714,1.0
+Random Forest,k=3,64,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,k=3,64,"n_est=100, max_depth=10",LOOCV,0.022,0.0056,0.011,1.0,1.0,1.0
+Random Forest,k=3,64,"n_est=300, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,k=4,256,n_neighbors=1,LOOCV,0.022,0.0111,0.022,1.0,1.0,1.0
+KNN,k=4,256,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.3297,1.0,1.0
+KNN,k=4,256,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2088,0.5714,1.0
+Random Forest,k=4,256,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,k=4,256,"n_est=100, max_depth=10",LOOCV,0.022,0.0063,0.0126,1.0,1.0,1.0
+Random Forest,k=4,256,"n_est=300, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,k=5,1024,n_neighbors=1,LOOCV,0.022,0.0111,0.022,1.0,1.0,1.0
+KNN,k=5,1024,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.3736,1.0,1.0
+KNN,k=5,1024,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.3077,0.6703,1.0
+Random Forest,k=5,1024,"n_est=100, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+Random Forest,k=5,1024,"n_est=100, max_depth=10",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,k=5,1024,"n_est=300, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,Basic + k=2,33,n_neighbors=1,LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,Basic + k=2,33,n_neighbors=3,LOOCV,0.022,0.0089,0.0176,0.3736,1.0,1.0
+KNN,Basic + k=2,33,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2418,0.6154,1.0
+Random Forest,Basic + k=2,33,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,Basic + k=2,33,"n_est=100, max_depth=10",LOOCV,0.022,0.0063,0.0126,1.0,1.0,1.0
+Random Forest,Basic + k=2,33,"n_est=300, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+KNN,Basic + k=3,81,n_neighbors=1,LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,Basic + k=3,81,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.3187,1.0,1.0
+KNN,Basic + k=3,81,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.1868,0.5934,1.0
+Random Forest,Basic + k=3,81,"n_est=100, max_depth=None",LOOCV,0.022,0.0056,0.011,1.0,1.0,1.0
+Random Forest,Basic + k=3,81,"n_est=100, max_depth=10",LOOCV,0.022,0.0056,0.011,1.0,1.0,1.0
+Random Forest,Basic + k=3,81,"n_est=300, max_depth=None",LOOCV,0.022,0.0056,0.011,1.0,1.0,1.0
+KNN,Basic + k=4,273,n_neighbors=1,LOOCV,0.022,0.0111,0.022,1.0,1.0,1.0
+KNN,Basic + k=4,273,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.2637,1.0,1.0
+KNN,Basic + k=4,273,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2088,0.5714,1.0
+Random Forest,Basic + k=4,273,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,Basic + k=4,273,"n_est=100, max_depth=10",LOOCV,0.022,0.0049,0.0098,1.0,1.0,1.0
+Random Forest,Basic + k=4,273,"n_est=300, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+KNN,Basic + k=5,1041,n_neighbors=1,LOOCV,0.022,0.0111,0.022,1.0,1.0,1.0
+KNN,Basic + k=5,1041,n_neighbors=3,LOOCV,0.0,0.0,0.0,0.3736,1.0,1.0
+KNN,Basic + k=5,1041,n_neighbors=5,LOOCV,0.0,0.0,0.0,0.2967,0.6593,1.0
+Random Forest,Basic + k=5,1041,"n_est=100, max_depth=None",LOOCV,0.022,0.0074,0.0147,1.0,1.0,1.0
+Random Forest,Basic + k=5,1041,"n_est=100, max_depth=10",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0
+Random Forest,Basic + k=5,1041,"n_est=300, max_depth=None",LOOCV,0.022,0.0089,0.0176,1.0,1.0,1.0

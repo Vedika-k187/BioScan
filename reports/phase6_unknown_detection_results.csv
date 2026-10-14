@@ -1,0 +1,141 @@
+source_sequence_id,simulated_divergence,simulated_divergence_pct,actual_nearest_distance,actual_nearest_similarity,is_exact_match,status,confidence_tier,model_top1_prob,model_prob_margin,class_agreement,order_agreement,predicted_class,predicted_order,predicted_family,predicted_genus,predicted_species
+SEQ_085,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.0,0,0.0,1.0,True,known_reference_like,high,0.92,0.87,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_067,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_068,0.0,0,0.0,1.0,True,known_reference_like,high,0.96,0.92,True,True,Teleostei,Perciformes,Sebastidae,Helicolenus,Helicolenus dactylopterus
+SEQ_046,0.0,0,0.0,1.0,True,known_reference_like,high,0.96,0.92,True,True,Teleostei,Cyprinodontiformes,Fundulidae,Fundulus,Fundulus heteroclitus
+SEQ_040,0.0,0,0.0,1.0,True,known_reference_like,high,0.99,0.98,True,True,Teleostei,Clupeiformes,Dussumieriidae,Etrumeus,Etrumeus sadina
+SEQ_023,0.0,0,0.0,1.0,True,known_reference_like,high,0.99,0.98,True,True,Teleostei,Atheriniformes,Atherinopsidae,Menidia,Menidia menidia
+SEQ_045,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Cyprinodontiformes,Cyprinodontidae,Cyprinodon,Cyprinodon variegatus
+SEQ_011,0.0,0,0.0,1.0,True,known_reference_like,high,0.93,0.88,True,True,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Gymnura altavela
+SEQ_001,0.0,0,0.0,1.0,True,known_reference_like,high,0.69,0.38,True,True,Chondrostei,Acipenseriformes,Acipenseridae,Acipenser,Acipenser oxyrinchus
+SEQ_019,0.0,0,0.0,1.0,True,known_reference_like,high,0.64,0.38,True,True,Petromyzonti,Petromyzontiformes,Petromyzontidae,Petromyzon,Petromyzon marinus
+SEQ_031,0.0,0,0.0,1.0,True,known_reference_like,high,0.98,0.96,True,True,Teleostei,Carangiformes,Carangidae,Seriola,Seriola lalandi
+SEQ_098,0.0,0,0.0,1.0,True,known_reference_like,high,0.86,0.74,True,True,Teleostei,Syngnathiformes,Syngnathidae,Syngnathus,Syngnathus fuscus
+SEQ_034,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus
+SEQ_078,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons
+SEQ_005,0.0,0,0.0,1.0,True,known_reference_like,high,0.93,0.87,True,True,Elasmobranchii,Carcharhiniformes,Triakidae,Mustelus,Mustelus canis
+SEQ_094,0.0,0,0.0,1.0,True,known_reference_like,high,0.97,0.94,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Trichiurus lepturus
+SEQ_079,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Etropus,Etropus microstomus
+SEQ_013,0.0,0,0.0,1.0,True,known_reference_like,high,0.94,0.88,True,True,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera bonasus
+SEQ_032,0.0,0,0.0,1.0,True,known_reference_like,high,1.0,1.0,True,True,Teleostei,Carangiformes,Carangidae,Trachinotus,Trachinotus carolinus
+SEQ_085,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.96,0.94,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.97,0.95,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_067,0.02,2,0.0189,0.9811,False,known_reference_like,high,1.0,1.0,True,True,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_068,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.88,0.83,True,True,Teleostei,Perciformes,Sebastidae,Helicolenus,Helicolenus dactylopterus
+SEQ_046,0.02,2,0.019,0.981,False,known_reference_like,high,0.94,0.89,True,True,Teleostei,Cyprinodontiformes,Fundulidae,Fundulus,Fundulus heteroclitus
+SEQ_040,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.96,0.94,True,True,Teleostei,Clupeiformes,Dussumieriidae,Etrumeus,Etrumeus sadina
+SEQ_023,0.02,2,0.0189,0.9811,False,known_reference_like,high,1.0,1.0,True,True,Teleostei,Atheriniformes,Atherinopsidae,Menidia,Menidia menidia
+SEQ_045,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.91,0.86,True,True,Teleostei,Cyprinodontiformes,Cyprinodontidae,Cyprinodon,Cyprinodon variegatus
+SEQ_011,0.02,2,0.0183,0.9817,False,known_reference_like,high,0.92,0.86,True,True,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Gymnura altavela
+SEQ_001,0.02,2,0.0189,0.9811,False,known_reference_like,moderate,0.51,0.05,True,True,Chondrostei,Acipenseriformes,Acipenseridae,Acipenser,Acipenser oxyrinchus
+SEQ_019,0.02,2,0.0112,0.9888,False,known_reference_like,moderate,0.62,0.34,True,True,Petromyzonti,Petromyzontiformes,Petromyzontidae,Petromyzon,Petromyzon marinus
+SEQ_031,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.98,0.96,True,True,Teleostei,Carangiformes,Carangidae,Seriola,Seriola lalandi
+SEQ_098,0.02,2,0.0192,0.9808,False,known_reference_like,high,0.84,0.71,True,True,Teleostei,Syngnathiformes,Syngnathidae,Syngnathus,Syngnathus fuscus
+SEQ_034,0.02,2,0.0189,0.9811,False,known_reference_like,high,0.96,0.92,True,True,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus
+SEQ_078,0.02,2,0.0187,0.9813,False,known_reference_like,high,0.99,0.98,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons
+SEQ_005,0.02,2,0.019,0.981,False,known_reference_like,high,0.89,0.8,True,True,Elasmobranchii,Carcharhiniformes,Triakidae,Mustelus,Mustelus canis
+SEQ_094,0.02,2,0.0187,0.9813,False,known_reference_like,high,0.86,0.75,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Trichiurus lepturus
+SEQ_079,0.02,2,0.0187,0.9813,False,known_reference_like,high,0.98,0.96,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Etropus,Etropus microstomus
+SEQ_013,0.02,2,0.0185,0.9815,False,known_reference_like,high,0.94,0.88,True,True,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera bonasus
+SEQ_032,0.02,2,0.0189,0.9811,False,known_reference_like,high,1.0,1.0,True,True,Teleostei,Carangiformes,Carangidae,Trachinotus,Trachinotus carolinus
+SEQ_085,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.92,0.87,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.77,0.61,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_067,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.94,0.88,True,True,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_068,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.9,0.83,True,True,Teleostei,Perciformes,Sebastidae,Helicolenus,Helicolenus dactylopterus
+SEQ_046,0.05,5,0.0476,0.9524,False,known_reference_like,high,0.88,0.78,True,True,Teleostei,Cyprinodontiformes,Fundulidae,Fundulus,Fundulus heteroclitus
+SEQ_040,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.95,0.92,True,True,Teleostei,Clupeiformes,Dussumieriidae,Etrumeus,Etrumeus sadina
+SEQ_023,0.05,5,0.0472,0.9528,False,low_confidence,moderate,0.92,0.88,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_045,0.05,5,0.0472,0.9528,False,low_confidence,moderate,0.99,0.98,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_011,0.05,5,0.0459,0.9541,False,known_reference_like,moderate,0.66,0.34,True,True,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Gymnura altavela
+SEQ_001,0.05,5,0.0472,0.9528,False,known_reference_like,moderate,0.48,0.0,True,True,Chondrostei,Acipenseriformes,Acipenseridae,Acipenser,Acipenser oxyrinchus
+SEQ_019,0.05,5,0.0449,0.9551,False,known_reference_like,moderate,0.48,0.16,True,True,Petromyzonti,Petromyzontiformes,Petromyzontidae,Petromyzon,Petromyzon marinus
+SEQ_031,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.97,0.95,True,True,Teleostei,Carangiformes,Carangidae,Seriola,Seriola lalandi
+SEQ_098,0.05,5,0.0481,0.9519,False,low_confidence,moderate,0.83,0.75,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_034,0.05,5,0.0472,0.9528,False,known_reference_like,high,0.94,0.9,True,True,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus
+SEQ_078,0.05,5,0.0467,0.9533,False,known_reference_like,high,0.89,0.8,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons
+SEQ_005,0.05,5,0.0476,0.9524,False,known_reference_like,moderate,0.55,0.11,True,True,Elasmobranchii,Carcharhiniformes,Triakidae,Mustelus,Mustelus canis
+SEQ_094,0.05,5,0.0467,0.9533,False,known_reference_like,high,0.83,0.7,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Trichiurus lepturus
+SEQ_079,0.05,5,0.0467,0.9533,False,known_reference_like,high,0.98,0.96,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons
+SEQ_013,0.05,5,0.0463,0.9537,False,known_reference_like,moderate,0.58,0.16,True,True,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera bonasus
+SEQ_032,0.05,5,0.0472,0.9528,False,low_confidence,moderate,0.91,0.82,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_085,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.76,0.55,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.86,0.78,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_067,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.79,0.65,True,True,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Not available in reference data
+SEQ_068,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.94,0.91,True,True,Teleostei,Perciformes,Sphyraenidae,Sphyraena,Not available in reference data
+SEQ_046,0.1,10,0.0952,0.9048,False,low_confidence,moderate,0.82,0.65,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_040,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.75,0.55,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_023,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.9,0.8,True,False,Teleostei,Clupeiformes,Alosidae,Brevoortia,Not available in reference data
+SEQ_045,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.95,0.92,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_011,0.1,10,0.0917,0.9083,False,low_confidence,moderate,0.85,0.72,True,True,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Not available in reference data
+SEQ_001,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.87,0.75,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_019,0.1,10,0.0899,0.9101,False,low_confidence,moderate,0.55,0.3,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_031,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.83,0.7,True,True,Teleostei,Carangiformes,Carangidae,Seriola,Not available in reference data
+SEQ_098,0.1,10,0.0962,0.9038,False,low_confidence,moderate,0.78,0.64,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_034,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.91,0.86,True,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_078,0.1,10,0.0935,0.9065,False,low_confidence,moderate,0.84,0.76,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Not available in reference data
+SEQ_005,0.1,10,0.0952,0.9048,False,low_confidence,moderate,0.58,0.23,False,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_094,0.1,10,0.0935,0.9065,False,low_confidence,moderate,0.91,0.82,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Not available in reference data
+SEQ_079,0.1,10,0.0935,0.9065,False,low_confidence,moderate,0.8,0.67,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Not available in reference data
+SEQ_013,0.1,10,0.0926,0.9074,False,low_confidence,moderate,0.61,0.25,True,True,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Not available in reference data
+SEQ_032,0.1,10,0.0943,0.9057,False,low_confidence,moderate,0.87,0.81,True,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_085,0.15,15,0.1415,0.8585,False,low_confidence,low,0.83,0.72,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.15,15,0.1321,0.8679,False,low_confidence,low,0.86,0.79,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_067,0.15,15,0.1415,0.8585,False,low_confidence,low,0.94,0.9,True,True,Teleostei,Perciformes,Sciaenidae,Micropogonias,Not available in reference data
+SEQ_068,0.15,15,0.1415,0.8585,False,low_confidence,low,0.77,0.65,True,True,Teleostei,Perciformes,Serranidae,Centropristis,Not available in reference data
+SEQ_046,0.15,15,0.1429,0.8571,False,low_confidence,low,0.84,0.75,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_040,0.15,15,0.1415,0.8585,False,low_confidence,low,0.72,0.57,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_023,0.15,15,0.1415,0.8585,False,low_confidence,low,0.86,0.76,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_045,0.15,15,0.1415,0.8585,False,low_confidence,low,0.9,0.83,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_011,0.15,15,0.1468,0.8532,False,low_confidence,low,0.56,0.23,True,True,Elasmobranchii,Myliobatiformes,Dasyatidae,Bathytoshia,Not available in reference data
+SEQ_001,0.15,15,0.1415,0.8585,False,low_confidence,low,0.68,0.57,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_019,0.15,15,0.1348,0.8652,False,low_confidence,low,0.41,0.11,False,False,Teleostei,Clupeiformes,Alosidae,Brevoortia,Not available in reference data
+SEQ_031,0.15,15,0.1415,0.8585,False,low_confidence,low,0.92,0.87,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_098,0.15,15,0.1442,0.8558,False,low_confidence,low,0.76,0.62,True,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_034,0.15,15,0.1321,0.8679,False,low_confidence,low,0.87,0.82,True,False,Teleostei,Pleuronectiformes,Paralichthyidae,Hippoglossina,Not available in reference data
+SEQ_078,0.15,15,0.1495,0.8505,False,low_confidence,low,0.64,0.36,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_005,0.15,15,0.1429,0.8571,False,low_confidence,low,0.58,0.24,False,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_094,0.15,15,0.1495,0.8505,False,low_confidence,low,0.79,0.63,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_079,0.15,15,0.1495,0.8505,False,low_confidence,low,0.85,0.74,True,True,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Not available in reference data
+SEQ_013,0.15,15,0.1481,0.8519,False,low_confidence,low,0.52,0.12,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_032,0.15,15,0.1415,0.8585,False,low_confidence,low,0.74,0.52,True,True,Teleostei,Carangiformes,Carangidae,Trachinotus,Not available in reference data
+SEQ_085,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.71,0.48,True,True,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_056,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.66,0.46,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_067,0.2,20,0.1887,0.8113,False,out_of_reference,low,0.76,0.58,True,True,Teleostei,Perciformes,Sciaenidae,Micropogonias,Not available in reference data
+SEQ_068,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.86,0.79,True,False,Teleostei,Scombriformes,Pomatomidae,Pomatomus,Not available in reference data
+SEQ_046,0.2,20,0.2,0.8,False,out_of_reference,low,0.71,0.45,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_040,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.78,0.7,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_023,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.77,0.66,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_045,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.88,0.78,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_011,0.2,20,0.1927,0.8073,False,out_of_reference,low,0.71,0.5,False,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_001,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.69,0.46,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_019,0.2,20,0.191,0.809,False,out_of_reference,low,0.48,0.16,False,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_031,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.66,0.45,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_098,0.2,20,0.1923,0.8077,False,out_of_reference,low,0.73,0.59,True,False,Teleostei,Perciformes,Sparidae,Lagodon,Not available in reference data
+SEQ_034,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.75,0.57,True,False,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_078,0.2,20,0.1963,0.8037,False,out_of_reference,low,0.91,0.86,True,True,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_005,0.2,20,0.2,0.8,False,out_of_reference,low,0.54,0.13,True,True,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Not available in reference data
+SEQ_094,0.2,20,0.1963,0.8037,False,out_of_reference,low,0.6,0.31,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Not available in reference data
+SEQ_079,0.2,20,0.1963,0.8037,False,out_of_reference,low,0.94,0.9,True,False,Teleostei,Perciformes,Sparidae,Stenotomus,Not available in reference data
+SEQ_013,0.2,20,0.1852,0.8148,False,out_of_reference,low,0.51,0.09,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_032,0.2,20,0.1981,0.8019,False,out_of_reference,low,0.83,0.71,True,False,Teleostei,Perciformes,Uranoscopidae,Astroscopus,Not available in reference data
+SEQ_085,0.3,30,0.283,0.717,False,out_of_reference,low,0.7,0.53,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_056,0.3,30,0.2925,0.7075,False,out_of_reference,low,0.75,0.63,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_067,0.3,30,0.283,0.717,False,out_of_reference,low,0.68,0.45,True,False,Teleostei,Scombriformes,Scombridae,Auxis,Not available in reference data
+SEQ_068,0.3,30,0.283,0.717,False,out_of_reference,low,0.73,0.59,True,True,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_046,0.3,30,0.2952,0.7048,False,out_of_reference,low,0.78,0.65,True,False,Teleostei,Perciformes,Sciaenidae,Bairdiella,Not available in reference data
+SEQ_040,0.3,30,0.2925,0.7075,False,out_of_reference,low,0.92,0.87,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_023,0.3,30,0.283,0.717,False,out_of_reference,low,0.65,0.43,True,False,Teleostei,Perciformes,Sebastidae,Helicolenus,Not available in reference data
+SEQ_045,0.3,30,0.2925,0.7075,False,out_of_reference,low,0.85,0.77,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_011,0.3,30,0.2936,0.7064,False,out_of_reference,low,0.62,0.31,False,False,Teleostei,Gadiformes,Gadidae,Gadus,Not available in reference data
+SEQ_001,0.3,30,0.2736,0.7264,False,out_of_reference,low,0.69,0.42,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data
+SEQ_019,0.3,30,0.2809,0.7191,False,out_of_reference,low,0.6,0.32,False,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_031,0.3,30,0.283,0.717,False,out_of_reference,low,0.72,0.55,True,False,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Not available in reference data
+SEQ_098,0.3,30,0.2885,0.7115,False,out_of_reference,low,0.52,0.24,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_034,0.3,30,0.2925,0.7075,False,out_of_reference,low,0.63,0.38,True,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_078,0.3,30,0.2991,0.7009,False,out_of_reference,low,0.69,0.5,True,False,Teleostei,Scombriformes,Scombridae,Auxis,Not available in reference data
+SEQ_005,0.3,30,0.2952,0.7048,False,out_of_reference,low,0.79,0.63,False,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_094,0.3,30,0.2804,0.7196,False,out_of_reference,low,0.77,0.66,True,True,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Not available in reference data
+SEQ_079,0.3,30,0.2991,0.7009,False,out_of_reference,low,0.71,0.53,True,True,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Not available in reference data
+SEQ_013,0.3,30,0.287,0.713,False,out_of_reference,low,0.66,0.41,False,False,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_032,0.3,30,0.2925,0.7075,False,out_of_reference,low,0.76,0.61,True,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Not available in reference data

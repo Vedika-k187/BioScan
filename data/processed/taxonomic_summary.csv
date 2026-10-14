@@ -1,0 +1,9 @@
+taxonomic_rank,distinct_taxa_count,dominant_taxon,coverage_pct,branching_ratio_to_parent,notes
+Kingdom,1,Animalia,100.0,-,Metazoan reference barcodes
+Phylum,1,Chordata,100.0,1.0 phyla / kingdom,All chordate fishes
+Class,4,Teleostei (97 sequences),100.0,4.0 classes / phylum,"Teleostei (97), Elasmobranchii (2), Chondrostei (1), Petromyzonti (1)"
+Order,30,Perciformes (28 sequences),100.0,7.50 orders / class,30 distinct orders across 4 classes
+Family,66,Gobiidae / Sciaenidae (5 sequences each),100.0,2.20 families / order,66 distinct families across 30 orders
+Genus,87,73 singleton genera,100.0,1.34 genera / family,87 distinct genera across 66 families
+Species (Named),90,Ophidion marginatum (2 sequences),90.1,1.11 species / genus,"90 species (89 singletons, 1 doubleton); 10 sequences missing species label"
+Species (Unlabeled / Ambiguous),10,Unassigned at species rank in reference data,9.9,-,Retain valid Genus/Family/Order/Class identities

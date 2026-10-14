@@ -1,0 +1,102 @@
+query_sequence_id,query_length,nearest_ref_id,nearest_distance,nearest_similarity,second_ref_distance,distance_margin,nearest_edit_dist,matches_class,matches_order,matches_family,matches_genus,matches_species,nearest_class,nearest_order,nearest_family,nearest_genus,nearest_species
+SEQ_001,106,SEQ_027,0.1321,0.8679,0.1415,0.0094,14,False,False,False,False,,Teleostei,Beloniformes,Hemiramphidae,Hemiramphus,Not available in reference data
+SEQ_002,105,SEQ_003,0.0286,0.9714,0.0476,0.019,3,True,True,True,True,False,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus plumbeus
+SEQ_003,105,SEQ_002,0.0286,0.9714,0.0667,0.0381,3,True,True,True,True,False,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus brevipinna
+SEQ_004,105,SEQ_002,0.0476,0.9524,0.0667,0.0191,5,True,True,True,False,False,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus brevipinna
+SEQ_005,105,SEQ_002,0.0667,0.9333,0.0667,0.0,7,True,True,False,False,False,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus brevipinna
+SEQ_006,105,SEQ_007,0.0381,0.9619,0.0667,0.0286,4,True,True,False,False,False,Elasmobranchii,Lamniformes,Odontaspididae,Carcharias,Carcharias taurus
+SEQ_007,105,SEQ_006,0.0381,0.9619,0.0857,0.0476,4,True,True,False,False,False,Elasmobranchii,Lamniformes,Alopiidae,Alopias,Alopias vulpinus
+SEQ_008,110,SEQ_010,0.1,0.9,0.1071,0.0071,11,True,True,True,False,False,Elasmobranchii,Myliobatiformes,Dasyatidae,Hypanus,Hypanus say
+SEQ_009,112,SEQ_008,0.1071,0.8929,0.1429,0.0358,12,True,True,True,False,False,Elasmobranchii,Myliobatiformes,Dasyatidae,Bathytoshia,Bathytoshia centroura
+SEQ_010,110,SEQ_011,0.0909,0.9091,0.1,0.0091,10,True,True,False,False,False,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Gymnura altavela
+SEQ_011,109,SEQ_012,0.0734,0.9266,0.0909,0.0175,8,True,True,False,False,False,Elasmobranchii,Myliobatiformes,Myliobatidae,Myliobatis,Myliobatis freminvillei
+SEQ_012,109,SEQ_014,0.0642,0.9358,0.0734,0.0092,7,True,True,False,False,False,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera brasiliensis
+SEQ_013,108,SEQ_014,0.0278,0.9722,0.0826,0.0548,3,True,True,True,True,False,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera brasiliensis
+SEQ_014,108,SEQ_013,0.0278,0.9722,0.0642,0.0364,3,True,True,True,True,False,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera bonasus
+SEQ_015,112,SEQ_016,0.0536,0.9464,0.1875,0.1339,6,True,True,True,False,,Elasmobranchii,Rajiformes,Rajidae,Rostroraja,Rostroraja eglanteria
+SEQ_016,111,SEQ_015,0.0536,0.9464,0.1712,0.1176,6,True,True,True,False,,Elasmobranchii,Rajiformes,Rajidae,Leucoraja,Not available in reference data
+SEQ_017,105,SEQ_018,0.0667,0.9333,0.0952,0.0285,7,True,False,False,False,False,Elasmobranchii,Squatiniformes,Squatinidae,Squatina,Squatina dumeril
+SEQ_018,105,SEQ_017,0.0667,0.9333,0.1238,0.0571,7,True,False,False,False,False,Elasmobranchii,Squaliformes,Squalidae,Squalus,Squalus acanthias
+SEQ_019,89,SEQ_055,0.25,0.75,0.2653,0.0153,24,False,False,False,False,False,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum
+SEQ_020,106,SEQ_074,0.1038,0.8962,0.1132,0.0094,11,True,False,False,False,False,Teleostei,Perciformes,Triglidae,Prionotus,Prionotus evolans
+SEQ_021,105,SEQ_095,0.181,0.819,0.1887,0.0077,19,True,False,False,False,,Teleostei,Siluriformes,Ictaluridae,Ictalurus,Not available in reference data
+SEQ_022,106,SEQ_045,0.1038,0.8962,0.1038,0.0,11,True,False,False,False,False,Teleostei,Cyprinodontiformes,Cyprinodontidae,Cyprinodon,Cyprinodon variegatus
+SEQ_023,106,SEQ_022,0.1226,0.8774,0.1226,0.0,13,True,True,True,False,False,Teleostei,Atheriniformes,Atherinopsidae,Membras,Membras martinica
+SEQ_024,106,SEQ_027,0.1226,0.8774,0.1226,0.0,13,True,False,False,False,,Teleostei,Beloniformes,Hemiramphidae,Hemiramphus,Not available in reference data
+SEQ_025,87,SEQ_055,0.2292,0.7708,0.2653,0.0361,22,True,False,False,False,False,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum
+SEQ_026,107,SEQ_022,0.1215,0.8785,0.1215,0.0,13,True,False,False,False,False,Teleostei,Atheriniformes,Atherinopsidae,Membras,Membras martinica
+SEQ_027,106,SEQ_024,0.1226,0.8774,0.1284,0.0058,13,True,False,False,False,,Teleostei,Aulopiformes,Synodontidae,Synodus,Synodus foetens
+SEQ_028,107,SEQ_027,0.1308,0.8692,0.1308,0.0,14,True,False,False,False,,Teleostei,Beloniformes,Hemiramphidae,Hemiramphus,Not available in reference data
+SEQ_029,106,SEQ_030,0.0377,0.9623,0.0472,0.0095,4,True,True,True,False,False,Teleostei,Carangiformes,Carangidae,Selene,Selene setapinnis
+SEQ_030,106,SEQ_029,0.0377,0.9623,0.066,0.0283,4,True,True,True,False,False,Teleostei,Carangiformes,Carangidae,Caranx,Caranx ignobilis
+SEQ_031,106,SEQ_029,0.0566,0.9434,0.066,0.0094,6,True,True,True,False,False,Teleostei,Carangiformes,Carangidae,Caranx,Caranx ignobilis
+SEQ_032,106,SEQ_033,0.066,0.934,0.066,0.0,7,True,True,True,False,False,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus lathami
+SEQ_033,106,SEQ_034,0.0283,0.9717,0.0472,0.0189,3,True,True,True,True,False,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus
+SEQ_034,106,SEQ_033,0.0283,0.9717,0.066,0.0377,3,True,True,True,True,False,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus lathami
+SEQ_035,105,SEQ_029,0.0566,0.9434,0.066,0.0094,6,True,True,False,False,False,Teleostei,Carangiformes,Carangidae,Caranx,Caranx ignobilis
+SEQ_036,106,SEQ_038,0.0094,0.9906,0.0377,0.0283,1,True,True,False,,,Teleostei,Clupeiformes,Clupeidae,,Not available in reference data
+SEQ_037,106,SEQ_038,0.0472,0.9528,0.0566,0.0094,5,True,True,True,,,Teleostei,Clupeiformes,Clupeidae,,Not available in reference data
+SEQ_038,106,SEQ_036,0.0094,0.9906,0.0472,0.0378,1,True,True,False,,,Teleostei,Clupeiformes,Alosidae,Brevoortia,Brevoortia tyrannus
+SEQ_039,106,SEQ_036,0.0377,0.9623,0.0472,0.0095,4,True,True,False,False,False,Teleostei,Clupeiformes,Alosidae,Brevoortia,Brevoortia tyrannus
+SEQ_040,106,SEQ_037,0.0849,0.9151,0.1038,0.0189,9,True,True,False,False,False,Teleostei,Clupeiformes,Clupeidae,Clupea,Clupea harengus
+SEQ_041,106,SEQ_044,0.0189,0.9811,0.0377,0.0188,2,True,True,True,False,False,Teleostei,Clupeiformes,Engraulidae,Engraulis,Engraulis eurystole
+SEQ_042,106,SEQ_043,0.0189,0.9811,0.0377,0.0188,2,True,True,True,True,False,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa mitchilli
+SEQ_043,106,SEQ_042,0.0189,0.9811,0.0189,0.0,2,True,True,True,True,False,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa lyolepis
+SEQ_044,106,SEQ_041,0.0189,0.9811,0.0189,0.0,2,True,True,True,False,False,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa hepsetus
+SEQ_045,106,SEQ_047,0.0849,0.9151,0.1038,0.0189,9,True,True,False,False,False,Teleostei,Cyprinodontiformes,Fundulidae,Lucania,Lucania parva
+SEQ_046,105,SEQ_047,0.0476,0.9524,0.1132,0.0656,5,True,True,True,False,False,Teleostei,Cyprinodontiformes,Fundulidae,Lucania,Lucania parva
+SEQ_047,105,SEQ_046,0.0476,0.9524,0.0849,0.0373,5,True,True,True,False,False,Teleostei,Cyprinodontiformes,Fundulidae,Fundulus,Fundulus heteroclitus
+SEQ_048,106,SEQ_050,0.1308,0.8692,0.1415,0.0107,14,True,True,False,False,,Teleostei,Gadiformes,Phycidae,Urophycis,Not available in reference data
+SEQ_049,106,SEQ_048,0.1792,0.8208,0.2075,0.0283,19,True,True,False,False,False,Teleostei,Gadiformes,Gadidae,Gadus,Gadus morhua
+SEQ_050,107,SEQ_048,0.1308,0.8692,0.1495,0.0187,14,True,True,False,False,,Teleostei,Gadiformes,Gadidae,Gadus,Gadus morhua
+SEQ_051,105,SEQ_096,0.1509,0.8491,0.1524,0.0015,16,True,False,False,False,False,Teleostei,Syngnathiformes,Fistulariidae,Fistularia,Fistularia petimba
+SEQ_052,107,SEQ_061,0.1121,0.8879,0.1308,0.0187,12,True,False,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus
+SEQ_053,106,SEQ_037,0.1132,0.8868,0.1132,0.0,12,True,False,False,False,False,Teleostei,Clupeiformes,Clupeidae,Clupea,Clupea harengus
+SEQ_054,98,SEQ_055,0.0408,0.9592,0.1698,0.129,4,True,True,True,True,True,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum
+SEQ_055,96,SEQ_054,0.0408,0.9592,0.1698,0.129,4,True,True,True,True,True,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum
+SEQ_056,106,SEQ_059,0.1038,0.8962,0.1038,0.0,11,True,True,False,False,False,Teleostei,Perciformes,Labridae,Tautogolabrus,Tautogolabrus adspersus
+SEQ_057,109,SEQ_027,0.1284,0.8716,0.1835,0.0551,14,True,False,False,False,,Teleostei,Beloniformes,Hemiramphidae,Hemiramphus,Not available in reference data
+SEQ_058,106,SEQ_059,0.0566,0.9434,0.1038,0.0472,6,True,True,True,False,False,Teleostei,Perciformes,Labridae,Tautogolabrus,Tautogolabrus adspersus
+SEQ_059,106,SEQ_058,0.0566,0.9434,0.1038,0.0472,6,True,True,True,False,False,Teleostei,Perciformes,Labridae,Tautoga,Tautoga onitis
+SEQ_060,106,SEQ_061,0.1226,0.8774,0.1226,0.0,13,True,True,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus
+SEQ_061,106,SEQ_087,0.0755,0.9245,0.0755,0.0,8,True,False,False,False,False,Teleostei,Scombriformes,Scombridae,Auxis,Auxis thazard
+SEQ_062,106,SEQ_066,0.0755,0.9245,0.0755,0.0,8,True,True,True,False,False,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_063,106,SEQ_066,0.0377,0.9623,0.0472,0.0095,4,True,True,True,False,False,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_064,106,SEQ_065,0.0377,0.9623,0.0566,0.0189,4,True,True,True,True,False,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Menticirrhus saxatilis
+SEQ_065,106,SEQ_064,0.0377,0.9623,0.0566,0.0189,4,True,True,True,True,False,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Menticirrhus americanus
+SEQ_066,106,SEQ_067,0.0283,0.9717,0.0377,0.0094,3,True,True,True,,,Teleostei,Perciformes,Sciaenidae,,Not available in reference data
+SEQ_067,106,SEQ_066,0.0283,0.9717,0.0472,0.0189,3,True,True,True,,,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_068,106,SEQ_066,0.1226,0.8774,0.1226,0.0,13,True,True,False,False,False,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus
+SEQ_069,106,SEQ_020,0.1226,0.8774,0.1226,0.0,13,True,False,False,False,False,Teleostei,Acanthuriformes,Ephippidae,Chaetodipterus,Chaetodipterus faber
+SEQ_070,106,SEQ_071,0.0377,0.9623,0.1038,0.0661,4,True,True,True,False,False,Teleostei,Perciformes,Sparidae,Stenotomus,Stenotomus chrysops
+SEQ_071,106,SEQ_070,0.0377,0.9623,0.1038,0.0661,4,True,True,True,False,False,Teleostei,Perciformes,Sparidae,Lagodon,Lagodon rhomboides
+SEQ_072,106,SEQ_029,0.1415,0.8585,0.1415,0.0,15,True,False,False,False,False,Teleostei,Carangiformes,Carangidae,Caranx,Caranx ignobilis
+SEQ_073,106,SEQ_074,0.0755,0.9245,0.1132,0.0377,8,True,True,True,True,False,Teleostei,Perciformes,Triglidae,Prionotus,Prionotus evolans
+SEQ_074,106,SEQ_073,0.0755,0.9245,0.1038,0.0283,8,True,True,True,True,False,Teleostei,Perciformes,Triglidae,Prionotus,Prionotus carolinus
+SEQ_075,106,SEQ_061,0.1321,0.8679,0.1321,0.0,14,True,True,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus
+SEQ_076,106,SEQ_032,0.0943,0.9057,0.0943,0.0,10,True,False,False,False,False,Teleostei,Carangiformes,Carangidae,Trachinotus,Trachinotus carolinus
+SEQ_077,106,SEQ_034,0.2358,0.7642,0.2358,0.0,25,True,False,False,False,False,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus
+SEQ_078,107,SEQ_079,0.0093,0.9907,0.1215,0.1122,1,True,True,True,False,False,Teleostei,Pleuronectiformes,Paralichthyidae,Etropus,Etropus microstomus
+SEQ_079,107,SEQ_078,0.0093,0.9907,0.1308,0.1215,1,True,True,True,False,False,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons
+SEQ_080,106,SEQ_081,0.0472,0.9528,0.066,0.0188,5,True,True,True,False,False,Teleostei,Pleuronectiformes,Paralichthyidae,Paralichthys,Paralichthys dentatus
+SEQ_081,106,SEQ_080,0.0472,0.9528,0.0755,0.0283,5,True,True,True,False,False,Teleostei,Pleuronectiformes,Paralichthyidae,Hippoglossina,Hippoglossina oblonga
+SEQ_082,106,SEQ_081,0.0755,0.9245,0.0849,0.0094,8,True,True,False,,,Teleostei,Pleuronectiformes,Paralichthyidae,Paralichthys,Paralichthys dentatus
+SEQ_083,104,SEQ_032,0.1509,0.8491,0.1509,0.0,16,True,False,False,False,False,Teleostei,Carangiformes,Carangidae,Trachinotus,Trachinotus carolinus
+SEQ_084,106,SEQ_085,0.1132,0.8868,0.1226,0.0094,12,True,False,False,False,,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_085,106,SEQ_093,0.0566,0.9434,0.0849,0.0283,6,True,True,False,False,,Teleostei,Scombriformes,Stromateidae,Peprilus,Peprilus triacanthus
+SEQ_086,108,SEQ_092,0.0648,0.9352,0.0741,0.0093,7,True,True,False,,,Teleostei,Scombriformes,Scombridae,,Not available in reference data
+SEQ_087,106,SEQ_091,0.0094,0.9906,0.0094,0.0,1,True,True,True,False,,Teleostei,Scombriformes,Scombridae,Thunnus,Not available in reference data
+SEQ_088,107,SEQ_089,0.028,0.972,0.0467,0.0187,3,True,True,True,True,False,Teleostei,Scombriformes,Scombridae,Scomber,Scomber scombrus
+SEQ_089,107,SEQ_088,0.028,0.972,0.0374,0.0094,3,True,True,True,True,False,Teleostei,Scombriformes,Scombridae,Scomber,Scomber colias
+SEQ_090,106,SEQ_092,0.0283,0.9717,0.0377,0.0094,3,True,True,True,,,Teleostei,Scombriformes,Scombridae,,Not available in reference data
+SEQ_091,106,SEQ_087,0.0094,0.9906,0.0189,0.0095,1,True,True,True,False,,Teleostei,Scombriformes,Scombridae,Auxis,Auxis thazard
+SEQ_092,106,SEQ_087,0.0094,0.9906,0.0189,0.0095,1,True,True,True,,,Teleostei,Scombriformes,Scombridae,Auxis,Auxis thazard
+SEQ_093,106,SEQ_085,0.0566,0.9434,0.0566,0.0,6,True,True,False,False,,Teleostei,Scombriformes,Centrolophidae,Psenopsis,Not available in reference data
+SEQ_094,107,SEQ_086,0.1481,0.8519,0.1495,0.0014,16,True,True,False,False,False,Teleostei,Scombriformes,Pomatomidae,Pomatomus,Pomatomus saltatrix
+SEQ_095,104,SEQ_028,0.1495,0.8505,0.1509,0.0014,16,True,False,False,False,,Teleostei,Blenniiformes,Blenniidae,Hypleurochilus,Hypleurochilus geminatus
+SEQ_096,106,SEQ_061,0.1132,0.8868,0.1226,0.0094,12,True,False,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus
+SEQ_097,105,SEQ_079,0.1682,0.8318,0.1698,0.0016,18,True,False,False,False,False,Teleostei,Pleuronectiformes,Paralichthyidae,Etropus,Etropus microstomus
+SEQ_098,104,SEQ_056,0.1604,0.8396,0.1698,0.0094,17,True,False,False,False,False,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus
+SEQ_099,106,SEQ_058,0.1038,0.8962,0.1226,0.0188,11,True,False,False,False,False,Teleostei,Perciformes,Labridae,Tautoga,Tautoga onitis
+SEQ_100,105,SEQ_061,0.1038,0.8962,0.1038,0.0,11,True,False,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus
+SEQ_101,106,SEQ_061,0.1226,0.8774,0.1321,0.0095,13,True,False,False,False,False,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus

@@ -1,0 +1,102 @@
+sequence_id,class,order,family,genus,species,taxonomic_label_status,sequence_length,positive_occurrences,occurrence_prevalence_pct,unique_stations,station_prevalence_pct,min_depth,max_depth,mean_depth,min_latitude,max_latitude,min_longitude,max_longitude,mean_read_count,country
+SEQ_083,Teleostei,Pleuronectiformes,Scophthalmidae,Scophthalmus,Scophthalmus aquosus,species_labeled,104,60,88.2,34,94.4,1.0,26.84,8.29,38.658,40.468,-74.969,-73.862,11862.7,United States
+SEQ_081,Teleostei,Pleuronectiformes,Paralichthyidae,Paralichthys,Paralichthys dentatus,species_labeled,106,58,85.3,32,88.9,1.0,26.84,8.61,38.658,40.468,-74.969,-73.862,14273.2,United States
+SEQ_050,Teleostei,Gadiformes,Phycidae,Urophycis,,species_unlabeled,107,56,82.4,33,91.7,1.0,26.84,8.19,38.709,40.468,-74.969,-73.862,4005.9,United States
+SEQ_015,Elasmobranchii,Rajiformes,Rajidae,Leucoraja,,species_unlabeled,112,54,79.4,33,91.7,1.0,26.84,8.28,38.709,40.468,-74.969,-73.862,10419.9,United States
+SEQ_012,Elasmobranchii,Myliobatiformes,Myliobatidae,Myliobatis,Myliobatis freminvillei,species_labeled,109,51,75.0,28,77.8,1.0,26.84,8.61,38.709,40.391,-74.969,-73.862,52918.2,United States
+SEQ_016,Elasmobranchii,Rajiformes,Rajidae,Rostroraja,Rostroraja eglanteria,species_labeled,111,51,75.0,26,72.2,1.0,26.84,8.85,38.709,40.391,-74.969,-73.862,29563.8,United States
+SEQ_069,Teleostei,Perciformes,Serranidae,Centropristis,Centropristis striata,species_labeled,106,50,73.5,27,75.0,1.0,26.84,8.56,38.658,40.391,-74.969,-73.862,7527.9,United States
+SEQ_036,Teleostei,Clupeiformes,Alosidae,Brevoortia,Brevoortia tyrannus,species_labeled,106,48,70.6,27,75.0,1.0,26.84,7.9,38.658,40.468,-74.969,-73.862,4204.3,United States
+SEQ_073,Teleostei,Perciformes,Triglidae,Prionotus,Prionotus carolinus,species_labeled,106,47,69.1,25,69.4,1.0,26.84,8.91,38.709,40.391,-74.969,-73.862,40985.6,United States
+SEQ_043,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa mitchilli,species_labeled,106,46,67.6,26,72.2,1.0,26.84,8.81,38.658,40.391,-74.969,-73.862,13818.9,United States
+SEQ_065,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Menticirrhus saxatilis,species_labeled,106,45,66.2,25,69.4,1.0,26.84,8.98,38.709,40.391,-74.969,-73.862,11013.2,United States
+SEQ_079,Teleostei,Pleuronectiformes,Paralichthyidae,Etropus,Etropus microstomus,species_labeled,107,44,64.7,26,72.2,1.0,26.84,7.86,38.73,40.391,-74.969,-73.862,1727.7,United States
+SEQ_038,Teleostei,Clupeiformes,Clupeidae,,,species_unlabeled,106,42,61.8,27,75.0,1.0,26.84,8.82,38.658,40.468,-74.969,-73.862,8826.4,United States
+SEQ_071,Teleostei,Perciformes,Sparidae,Stenotomus,Stenotomus chrysops,species_labeled,106,40,58.8,23,63.9,1.0,26.84,9.6,38.73,40.391,-74.969,-73.862,20708.3,United States
+SEQ_074,Teleostei,Perciformes,Triglidae,Prionotus,Prionotus evolans,species_labeled,106,40,58.8,24,66.7,1.0,26.84,8.98,38.709,40.391,-74.969,-73.862,2847.2,United States
+SEQ_049,Teleostei,Gadiformes,Merlucciidae,Merluccius,Merluccius bilinearis,species_labeled,106,39,57.4,24,66.7,1.0,26.84,8.09,38.658,40.468,-74.924,-73.862,3339.5,United States
+SEQ_017,Elasmobranchii,Squaliformes,Squalidae,Squalus,Squalus acanthias,species_labeled,105,38,55.9,22,61.1,1.0,26.84,8.34,38.658,40.468,-74.924,-73.862,28277.4,United States
+SEQ_086,Teleostei,Scombriformes,Pomatomidae,Pomatomus,Pomatomus saltatrix,species_labeled,108,38,55.9,25,69.4,1.0,26.84,9.72,38.73,40.391,-74.969,-73.862,6531.2,United States
+SEQ_005,Elasmobranchii,Carcharhiniformes,Triakidae,Mustelus,Mustelus canis,species_labeled,105,36,52.9,22,61.1,1.0,26.84,9.87,38.709,40.391,-74.969,-73.896,4227.1,United States
+SEQ_008,Elasmobranchii,Myliobatiformes,Dasyatidae,Bathytoshia,Bathytoshia centroura,species_labeled,110,34,50.0,20,55.6,1.0,26.84,8.42,38.709,40.391,-74.969,-73.862,10524.2,United States
+SEQ_064,Teleostei,Perciformes,Sciaenidae,Menticirrhus,Menticirrhus americanus,species_labeled,106,34,50.0,18,50.0,1.0,26.84,9.18,38.709,40.332,-74.905,-73.862,12117.8,United States
+SEQ_093,Teleostei,Scombriformes,Stromateidae,Peprilus,Peprilus triacanthus,species_labeled,106,34,50.0,20,55.6,1.0,26.84,9.05,38.73,40.391,-74.969,-73.896,4443.5,United States
+SEQ_067,Teleostei,Perciformes,Sciaenidae,,,species_unlabeled,106,32,47.1,18,50.0,1.0,26.84,9.32,38.658,40.391,-74.969,-73.862,10952.8,United States
+SEQ_060,Teleostei,Perciformes,Moronidae,Morone,Morone saxatilis,species_labeled,106,29,42.6,19,52.8,1.0,26.84,7.5,38.658,40.468,-74.924,-73.862,5657.4,United States
+SEQ_063,Teleostei,Perciformes,Sciaenidae,Cynoscion,Cynoscion regalis,species_labeled,106,29,42.6,17,47.2,1.0,26.84,8.21,38.658,40.391,-74.905,-73.896,14781.0,United States
+SEQ_101,Teleostei,Tetraodontiformes,Tetraodontidae,Sphoeroides,Sphoeroides maculatus,species_labeled,106,29,42.6,17,47.2,1.0,26.84,8.95,38.73,40.391,-74.969,-73.896,1022.9,United States
+SEQ_011,Elasmobranchii,Myliobatiformes,Gymnuridae,Gymnura,Gymnura altavela,species_labeled,109,28,41.2,16,44.4,1.0,26.84,9.5,38.709,40.391,-74.969,-73.862,5846.9,United States
+SEQ_001,Chondrostei,Acipenseriformes,Acipenseridae,Acipenser,Acipenser oxyrinchus,species_labeled,106,25,36.8,15,41.7,1.0,26.84,7.06,38.73,40.468,-74.905,-73.896,1670.2,United States
+SEQ_041,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa hepsetus,species_labeled,106,25,36.8,14,38.9,1.0,26.84,10.43,38.73,40.377,-74.905,-73.862,14325.2,United States
+SEQ_056,Teleostei,Perciformes,Ammodytidae,Ammodytes,Ammodytes americanus,species_labeled,106,23,33.8,16,44.4,1.0,26.84,8.51,38.709,40.391,-74.924,-73.896,3939.2,United States
+SEQ_030,Teleostei,Carangiformes,Carangidae,Selene,Selene setapinnis,species_labeled,106,22,32.4,13,36.1,1.0,26.84,9.56,38.73,40.391,-74.905,-73.862,1817.1,United States
+SEQ_058,Teleostei,Perciformes,Labridae,Tautoga,Tautoga onitis,species_labeled,106,21,30.9,16,44.4,1.0,22.57,6.78,38.658,40.468,-74.969,-73.896,11061.9,United States
+SEQ_082,Teleostei,Pleuronectiformes,Pleuronectidae,,,species_unlabeled,106,20,29.4,12,33.3,1.0,26.84,9.98,38.73,40.468,-74.905,-73.862,1169.4,United States
+SEQ_062,Teleostei,Perciformes,Sciaenidae,Bairdiella,Bairdiella chrysoura,species_labeled,106,18,26.5,10,27.8,1.0,26.84,8.63,38.73,40.29,-74.905,-73.896,28997.2,United States
+SEQ_094,Teleostei,Scombriformes,Trichiuridae,Trichiurus,Trichiurus lepturus,species_labeled,107,17,25.0,10,27.8,1.0,26.84,7.92,38.73,40.391,-74.969,-73.896,450.2,United States
+SEQ_066,Teleostei,Perciformes,Sciaenidae,Micropogonias,Micropogonias undulatus,species_labeled,106,16,23.5,10,27.8,1.0,26.84,10.94,38.808,40.224,-74.969,-73.896,716.7,United States
+SEQ_080,Teleostei,Pleuronectiformes,Paralichthyidae,Hippoglossina,Hippoglossina oblonga,species_labeled,106,16,23.5,12,33.3,1.0,26.84,8.68,38.709,40.391,-74.969,-73.93,1793.4,United States
+SEQ_024,Teleostei,Aulopiformes,Synodontidae,Synodus,Synodus foetens,species_labeled,106,15,22.1,8,22.2,1.0,26.84,8.84,38.73,40.391,-74.905,-73.896,275.8,United States
+SEQ_089,Teleostei,Scombriformes,Scombridae,Scomber,Scomber scombrus,species_labeled,107,15,22.1,10,27.8,1.0,20.43,5.25,38.658,40.468,-74.924,-73.862,6683.5,United States
+SEQ_010,Elasmobranchii,Myliobatiformes,Dasyatidae,Hypanus,Hypanus say,species_labeled,110,13,19.1,8,22.2,1.0,26.84,8.98,38.801,40.224,-74.969,-73.93,2307.9,United States
+SEQ_055,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum,species_labeled,96,13,19.1,7,19.4,1.0,23.79,7.48,38.73,40.391,-74.905,-73.964,517.2,United States
+SEQ_037,Teleostei,Clupeiformes,Clupeidae,Clupea,Clupea harengus,species_labeled,106,12,17.6,9,25.0,1.0,20.43,6.3,38.792,40.468,-74.924,-73.862,6419.5,United States
+SEQ_006,Elasmobranchii,Lamniformes,Alopiidae,Alopias,Alopias vulpinus,species_labeled,105,10,14.7,9,25.0,1.0,26.84,13.7,38.73,40.089,-74.969,-73.896,781.8,United States
+SEQ_018,Elasmobranchii,Squatiniformes,Squatinidae,Squatina,Squatina dumeril,species_labeled,105,10,14.7,6,16.7,1.0,22.88,7.3,38.709,38.988,-74.969,-74.596,1416.8,United States
+SEQ_040,Teleostei,Clupeiformes,Dussumieriidae,Etrumeus,Etrumeus sadina,species_labeled,106,10,14.7,8,22.2,1.0,23.79,8.33,38.86,40.332,-74.905,-73.862,4873.5,United States
+SEQ_072,Teleostei,Perciformes,Sphyraenidae,Sphyraena,Sphyraena borealis,species_labeled,106,10,14.7,6,16.7,1.0,26.84,8.48,38.841,39.792,-74.905,-73.896,175.8,United States
+SEQ_098,Teleostei,Syngnathiformes,Syngnathidae,Syngnathus,Syngnathus fuscus,species_labeled,104,10,14.7,7,19.4,1.0,26.84,10.53,38.915,40.219,-74.596,-73.915,423.5,United States
+SEQ_039,Teleostei,Clupeiformes,Dorosomatidae,Opisthonema,Opisthonema oglinum,species_labeled,106,9,13.2,6,16.7,1.0,25.93,9.29,38.825,40.332,-74.77,-73.862,2783.7,United States
+SEQ_023,Teleostei,Atheriniformes,Atherinopsidae,Menidia,Menidia menidia,species_labeled,106,8,11.8,5,13.9,1.0,18.91,5.61,38.792,40.468,-74.924,-73.988,3385.9,United States
+SEQ_044,Teleostei,Clupeiformes,Engraulidae,Engraulis,Engraulis eurystole,species_labeled,106,8,11.8,4,11.1,1.0,26.84,9.5,38.841,40.332,-74.905,-73.862,6903.5,United States
+SEQ_057,Teleostei,Perciformes,Gerreidae,Eucinostomus,Eucinostomus argenteus,species_labeled,109,8,11.8,5,13.9,1.0,23.79,8.99,38.73,39.331,-74.905,-74.43,123.0,United States
+SEQ_053,Teleostei,Mulliformes,Mullidae,Upeneus,Upeneus parvus,species_labeled,106,7,10.3,5,13.9,1.0,21.35,4.72,38.86,39.792,-74.905,-73.896,48.3,United States
+SEQ_076,Teleostei,Pleuronectiformes,Achiridae,Trinectes,Trinectes maculatus,species_labeled,106,7,10.3,4,11.1,1.0,10.68,4.45,38.808,38.968,-74.905,-74.803,644.3,United States
+SEQ_004,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Rhizoprionodon,Rhizoprionodon terraenovae,species_labeled,105,6,8.8,3,8.3,1.0,15.25,6.4,38.801,39.306,-74.836,-74.487,290.8,United States
+SEQ_088,Teleostei,Scombriformes,Scombridae,Scomber,Scomber colias,species_labeled,107,6,8.8,4,11.1,1.0,25.93,8.19,38.923,40.332,-74.969,-73.862,615.5,United States
+SEQ_019,Petromyzonti,Petromyzontiformes,Petromyzontidae,Petromyzon,Petromyzon marinus,species_labeled,89,5,7.4,4,11.1,1.0,13.73,3.55,38.792,40.468,-74.832,-73.988,1869.4,United States
+SEQ_042,Teleostei,Clupeiformes,Engraulidae,Anchoa,Anchoa lyolepis,species_labeled,106,5,7.4,4,11.1,1.0,25.93,7.13,38.841,40.332,-74.855,-73.862,506.2,United States
+SEQ_003,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus plumbeus,species_labeled,105,4,5.9,4,11.1,1.0,18.3,10.24,38.709,40.224,-74.803,-73.977,913.0,United States
+SEQ_013,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera bonasus,species_labeled,108,4,5.9,3,8.3,1.0,15.25,7.74,38.801,40.224,-74.836,-73.977,484.0,United States
+SEQ_021,Teleostei,Anguilliformes,Congridae,Conger,Conger oceanicus,species_labeled,105,4,5.9,4,11.1,1.0,8.54,2.88,38.86,40.377,-74.905,-73.923,1214.5,United States
+SEQ_031,Teleostei,Carangiformes,Carangidae,Seriola,Seriola lalandi,species_labeled,106,4,5.9,3,8.3,1.0,26.84,14.13,38.801,39.606,-74.836,-73.93,245.5,United States
+SEQ_033,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus lathami,species_labeled,106,4,5.9,2,5.6,1.0,13.73,5.92,38.968,40.224,-74.803,-73.977,1343.8,United States
+SEQ_078,Teleostei,Pleuronectiformes,Paralichthyidae,Citharichthys,Citharichthys arctifrons,species_labeled,107,4,5.9,3,8.3,1.0,22.88,12.3,38.709,38.968,-74.803,-74.676,8856.0,United States
+SEQ_099,Teleostei,Tetraodontiformes,Balistidae,Balistes,Balistes capriscus,species_labeled,106,4,5.9,2,5.6,1.0,15.25,7.67,38.801,38.808,-74.836,-74.728,420.2,United States
+SEQ_007,Elasmobranchii,Lamniformes,Odontaspididae,Carcharias,Carcharias taurus,species_labeled,105,3,4.4,3,8.3,1.0,22.88,13.76,38.709,38.968,-74.803,-74.676,1305.3,United States
+SEQ_034,Teleostei,Carangiformes,Carangidae,Trachurus,Trachurus trachurus,species_labeled,106,3,4.4,3,8.3,1.0,21.35,11.01,38.841,38.915,-74.905,-74.462,109.0,United States
+SEQ_051,Teleostei,Gobiiformes,Gobiidae,Gobiosoma,Gobiosoma ginsburgi,species_labeled,105,3,4.4,3,8.3,1.0,10.68,6.74,38.841,38.988,-74.969,-74.596,85.0,United States
+SEQ_092,Teleostei,Scombriformes,Scombridae,,,species_unlabeled,106,3,4.4,2,5.6,1.0,23.79,11.11,38.73,38.923,-74.969,-74.671,110.3,United States
+SEQ_009,Elasmobranchii,Myliobatiformes,Dasyatidae,Hypanus,Hypanus sabinus,species_labeled,112,2,2.9,2,5.6,10.68,21.35,16.02,38.841,38.915,-74.855,-74.462,31.5,United States
+SEQ_028,Teleostei,Blenniiformes,Blenniidae,Hypleurochilus,Hypleurochilus geminatus,species_labeled,107,2,2.9,1,2.8,1.0,26.84,13.92,39.792,39.792,-73.896,-73.896,240.0,United States
+SEQ_035,Teleostei,Carangiformes,Coryphaenidae,Coryphaena,Coryphaena hippurus,species_labeled,105,2,2.9,2,5.6,1.0,21.35,11.18,38.915,40.29,-74.462,-73.896,804.0,United States
+SEQ_048,Teleostei,Gadiformes,Gadidae,Gadus,Gadus morhua,species_labeled,106,2,2.9,2,5.6,1.0,1.0,1.0,40.361,40.468,-73.988,-73.925,470.5,United States
+SEQ_052,Teleostei,Mugiliformes,Mugilidae,Mugil,Mugil curema,species_labeled,107,2,2.9,2,5.6,1.0,13.42,7.21,38.808,39.714,-74.836,-74.119,170.0,United States
+SEQ_054,Teleostei,Ophidiiformes,Ophidiidae,Ophidion,Ophidion marginatum,species_labeled,98,2,2.9,2,5.6,15.25,26.84,21.04,38.801,39.606,-74.728,-73.93,105.5,United States
+SEQ_059,Teleostei,Perciformes,Labridae,Tautogolabrus,Tautogolabrus adspersus,species_labeled,106,2,2.9,2,5.6,8.54,18.3,13.42,39.714,40.377,-74.119,-73.923,208.5,United States
+SEQ_077,Teleostei,Pleuronectiformes,Cynoglossidae,Symphurus,Symphurus plagiusa,species_labeled,106,2,2.9,2,5.6,8.54,15.25,11.9,38.801,38.86,-74.905,-74.728,13.0,United States
+SEQ_087,Teleostei,Scombriformes,Scombridae,Auxis,Auxis thazard,species_labeled,106,2,2.9,2,5.6,1.0,13.42,7.21,38.808,38.841,-74.855,-74.836,86.5,United States
+SEQ_090,Teleostei,Scombriformes,Scombridae,Scomberomorus,Scomberomorus maculatus,species_labeled,106,2,2.9,2,5.6,1.0,1.0,1.0,39.331,40.224,-74.43,-73.977,176.5,United States
+SEQ_095,Teleostei,Siluriformes,Ictaluridae,Ictalurus,,species_unlabeled,104,2,2.9,2,5.6,1.0,1.0,1.0,39.702,39.714,-74.119,-74.024,6691.5,United States
+SEQ_100,Teleostei,Tetraodontiformes,Diodontidae,Chilomycterus,Chilomycterus schoepfii,species_labeled,105,2,2.9,1,2.8,1.0,13.42,7.21,38.808,38.808,-74.836,-74.836,125.0,United States
+SEQ_002,Elasmobranchii,Carcharhiniformes,Carcharhinidae,Carcharhinus,Carcharhinus brevipinna,species_labeled,105,1,1.5,1,2.8,1.0,1.0,1.0,40.332,40.332,-73.862,-73.862,183.0,United States
+SEQ_014,Elasmobranchii,Myliobatiformes,Rhinopteridae,Rhinoptera,Rhinoptera brasiliensis,species_labeled,108,1,1.5,1,2.8,15.86,15.86,15.86,38.988,38.988,-74.596,-74.596,216.0,United States
+SEQ_020,Teleostei,Acanthuriformes,Ephippidae,Chaetodipterus,Chaetodipterus faber,species_labeled,106,1,1.5,1,2.8,23.79,23.79,23.79,38.73,38.73,-74.671,-74.671,21.0,United States
+SEQ_025,Teleostei,Batrachoidiformes,Batrachoididae,Opsanus,Opsanus tau,species_labeled,87,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,158.0,United States
+SEQ_027,Teleostei,Beloniformes,Hemiramphidae,Hemiramphus,,species_unlabeled,106,1,1.5,1,2.8,1.0,1.0,1.0,39.306,39.306,-74.487,-74.487,24.0,United States
+SEQ_029,Teleostei,Carangiformes,Carangidae,Caranx,Caranx ignobilis,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,39.792,39.792,-73.896,-73.896,26.0,United States
+SEQ_032,Teleostei,Carangiformes,Carangidae,Trachinotus,Trachinotus carolinus,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,29.0,United States
+SEQ_045,Teleostei,Cyprinodontiformes,Cyprinodontidae,Cyprinodon,Cyprinodon variegatus,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,556.0,United States
+SEQ_046,Teleostei,Cyprinodontiformes,Fundulidae,Fundulus,Fundulus heteroclitus,species_labeled,105,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,994.0,United States
+SEQ_047,Teleostei,Cyprinodontiformes,Fundulidae,Lucania,Lucania parva,species_labeled,105,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,115.0,United States
+SEQ_061,Teleostei,Perciformes,Pholidae,Pholis,Pholis gunnellus,species_labeled,106,1,1.5,1,2.8,18.3,18.3,18.3,40.377,40.377,-73.923,-73.923,218.0,United States
+SEQ_068,Teleostei,Perciformes,Sebastidae,Helicolenus,Helicolenus dactylopterus,species_labeled,106,1,1.5,1,2.8,8.54,8.54,8.54,38.923,38.923,-74.969,-74.969,93.0,United States
+SEQ_070,Teleostei,Perciformes,Sparidae,Lagodon,Lagodon rhomboides,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,38.86,38.86,-74.905,-74.905,10.0,United States
+SEQ_075,Teleostei,Perciformes,Uranoscopidae,Astroscopus,Astroscopus guttatus,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,38.801,38.801,-74.728,-74.728,63.0,United States
+SEQ_084,Teleostei,Polymixiiformes,Polymixiidae,Polymixia,Polymixia lowei,species_labeled,106,1,1.5,1,2.8,1.0,1.0,1.0,38.923,38.923,-74.969,-74.969,991.0,United States
+SEQ_091,Teleostei,Scombriformes,Scombridae,Thunnus,,species_unlabeled,106,1,1.5,1,2.8,1.0,1.0,1.0,40.224,40.224,-73.977,-73.977,626.0,United States
+SEQ_096,Teleostei,Syngnathiformes,Fistulariidae,Fistularia,Fistularia petimba,species_labeled,106,1,1.5,1,2.8,25.93,25.93,25.93,40.332,40.332,-73.862,-73.862,42.0,United States
+SEQ_097,Teleostei,Syngnathiformes,Syngnathidae,Hippocampus,Hippocampus erectus,species_labeled,105,1,1.5,1,2.8,6.71,6.71,6.71,39.306,39.306,-74.487,-74.487,27.0,United States
+SEQ_022,Teleostei,Atheriniformes,Atherinopsidae,Membras,Membras martinica,species_labeled,106,0,0.0,0,0.0,,,,,,,,,United States
+SEQ_026,Teleostei,Beloniformes,Belonidae,Tylosurus,Tylosurus acus,species_labeled,107,0,0.0,0,0.0,,,,,,,,,United States
+SEQ_085,Teleostei,Scombriformes,Centrolophidae,Psenopsis,,species_unlabeled,106,0,0.0,0,0.0,,,,,,,,,United States
