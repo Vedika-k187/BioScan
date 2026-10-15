@@ -32,12 +32,14 @@ if BASE_DIR not in sys.path:
 if "app" in sys.modules and not hasattr(sys.modules["app"], "__path__"):
     del sys.modules["app"]
 
-from app.utils.ui_helpers import inject_custom_css
+from app.utils.ui_helpers import inject_custom_css, bioscan_logo_svg, load_reference_barcodes
+from src.prediction.evidence import THRESHOLD_CLOSE_SIMILARITY, THRESHOLD_OUT_OF_REFERENCE
 from app.pages import (
     render_identify_page,
     render_batch_page,
     render_biodiversity_page,
-    render_about_page
+    render_about_page,
+    render_evaluation_page
 )
 
 
@@ -55,15 +57,13 @@ def main():
     # Sidebar Navigation & Information Panel
     with st.sidebar:
         st.markdown(
-            """
-            <div style="padding: 6px 0 16px 0;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 1.5rem;">🧬</span>
-                    <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; color: #e5e7eb;">BioScan</span>
+            f"""
+            <div style="padding: 2px 0 18px 0;">
+                <div class="bs-brand">
+                    {bioscan_logo_svg(66)}
+                    <span class="bs-name">Bio<span>Scan</span></span>
                 </div>
-                <div style="font-size: 0.78rem; color: #9ca3af; font-weight: 500; margin-top: 2px;">
-                    DNA Biodiversity Intelligence
-                </div>
+                <div class="bs-tag">DNA biodiversity intelligence</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -74,17 +74,35 @@ def main():
             options=[
                 "Identify DNA",
                 "Batch Analysis",
-                "Biodiversity Explorer"
+                "Biodiversity Explorer",
+                "Model Evaluation"
             ],
             index=0,
             label_visibility="collapsed"
         )
 
+        try:
+            _ref = load_reference_barcodes()
+            _n_bar = len(_ref)
+            _n_sp = int(_ref["species"].dropna().nunique())
+        except Exception:
+            _n_bar, _n_sp = "n/a", "n/a"
         st.markdown(
-            """
-            <div style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #1f2937; font-size: 0.75rem; color: #6b7280; line-height: 1.5;">
-                <span style="font-weight: 600; color: #9ca3af;">12S rDNA V5</span><br>
-                2019 NJ Ocean Trawl Survey
+            f"""
+            <div class="bs-foot">
+                <div class="bs-card">
+                    <div class="bs-h">Reference library</div>
+                    <div class="bs-row"><span>Barcodes</span><b>{_n_bar}</b></div>
+                    <div class="bs-row"><span>Species</span><b>{_n_sp}</b></div>
+                    <div class="bs-row"><span>Marker</span><b>12S rDNA V5</b></div>
+                </div>
+                <div class="bs-card">
+                    <div class="bs-h">Reading a result</div>
+                    <div class="bs-leg"><i style="background:#4ade80"></i><span>Known reference<small>distance &le; {THRESHOLD_CLOSE_SIMILARITY:.2f}</small></span></div>
+                    <div class="bs-leg"><i style="background:#fbbf24"></i><span>Low confidence<small>{THRESHOLD_CLOSE_SIMILARITY:.2f} to {THRESHOLD_OUT_OF_REFERENCE:.2f}</small></span></div>
+                    <div class="bs-leg"><i style="background:#fb7185"></i><span>Out of reference<small>distance &gt; {THRESHOLD_OUT_OF_REFERENCE:.2f}</small></span></div>
+                </div>
+                <div class="bs-small">2019 NJ Ocean Trawl Survey</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -98,6 +116,8 @@ def main():
             render_batch_page()
         elif page_choice == "Biodiversity Explorer":
             render_biodiversity_page()
+        elif page_choice == "Model Evaluation":
+            render_evaluation_page()
     except Exception as e:
         st.error(
             "An unexpected system exception occurred while rendering the page. "

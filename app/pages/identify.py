@@ -15,14 +15,16 @@ from app.utils.ui_helpers import (
     load_predictor,
     load_reference_barcodes,
     load_biodiversity_records,
-    get_example_sequences
+    get_example_sequences,
+    bioscan_logo_svg
 )
 from app.components import (
     render_prediction_card,
     render_taxonomy_hierarchy,
     render_confidence_and_evidence,
     render_similarity_table,
-    render_biodiversity_context
+    render_biodiversity_context,
+    render_rank_resolution
 )
 
 
@@ -30,16 +32,20 @@ def render_identify_page():
     """Render the main DNA Sequence Identification Page."""
     # 1. Page Hero Banner
     st.markdown(
-        """
+        f"""
         <div style="margin-bottom: 1.25rem;">
-            <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;">
-                <span style="font-size: 1.75rem;">🧬</span>
-                <span style="font-size: 1.6rem; font-weight: 700; color: #e5e7eb; letter-spacing: -0.02em;">BioScan</span>
-                <span style="font-size: 1.1rem; color: #9ca3af; font-weight: 500;">DNA &rarr; Species Identification</span>
-                <span class="hero-chip">12S rDNA V5</span>
-            </div>
-            <div style="font-size: 0.95rem; color: #cbd5e1; margin-top: 4px;">
-                Identify an unknown DNA barcode using machine learning, sequence similarity, and taxonomic evidence.
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px;">
+                {bioscan_logo_svg(64)}
+                <div>
+                    <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;">
+                        <span style="font-size: 1.7rem; font-weight: 700; color: #eef6fb; letter-spacing: -0.02em;">BioScan</span>
+                        <span style="font-size: 1.1rem; color: #9fb0c3; font-weight: 500;">DNA &rarr; Species Identification</span>
+                        <span class="hero-chip">12S rDNA V5</span>
+                    </div>
+                    <div style="font-size: 0.97rem; color: #9fb0c3; margin-top: 2px;">
+                        Identify an unknown DNA barcode using machine learning, sequence similarity, and taxonomic evidence.
+                    </div>
+                </div>
             </div>
         </div>
         """,
@@ -187,13 +193,20 @@ def render_identify_page():
         st.markdown(f"### Analysis Report · {seq_id_to_predict}")
         st.caption("1. Verdict  ·  2. Taxonomic lineage  ·  3. Reference similarity  ·  4. Model diagnostics  ·  5. Biodiversity context")
 
+        # QC warnings (e.g. unusual length) were produced by the engine but never shown
+        for _w in qc.get("warnings", []) or []:
+            st.warning(_w)
+
         # 1. Verdict
         render_prediction_card(result)
         
         # Distance gauge: where this query sits relative to the veto thresholds
         _render_distance_gauge(result.get("similarity", {}).get("nearest_distance"))
 
-        # 2. Taxonomic Lineage Trail
+        # 2. What the evidence supports (low-confidence results only)
+        render_rank_resolution(result)
+
+        # 2b. Taxonomic Lineage Trail
         render_taxonomy_hierarchy(result)
 
         # Expandable Deep Technical Sections

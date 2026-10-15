@@ -19,6 +19,20 @@ from app.components import (
 from src.prediction.batch_predict import batch_results_to_dataframe
 
 
+SAMPLE_FASTA = (
+            ">SAMPLE_01_EXACT_REFERENCE\n"
+            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
+            ">SAMPLE_02_ONE_BASE_VARIANT\n"
+            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAA\n"
+            ">SAMPLE_03_DIVERGED_INSERTION\n"
+            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTTTTTTTGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
+            ">SAMPLE_04_SYNTHETIC_UNKNOWN\n"
+            "TAGCGTAATACCGTACCGTACTACGTATCGTAGCTAGCTAGCTAGCGTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG\n"
+            ">SAMPLE_05_INVALID_QC_AMBIGUOUS\n"
+            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGNTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
+        )
+
+
 def render_batch_page():
     """Render the Batch DNA Analysis Page."""
     st.markdown(
@@ -40,40 +54,48 @@ def render_batch_page():
             type=["fasta", "fa", "txt", "fna"],
             key="batch_fasta_upload"
         )
+        st.caption(
+            "One record per sequence: a header line starting with `>` followed by the DNA (A, C, G, T only; "
+            "it may wrap over several lines). Records with other characters are reported as QC failures "
+            "without stopping the run."
+        )
     with col_demo:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        demo_batch_btn = st.button("🧪 Load Sample 5-Sequence Batch", key="demo_batch_btn", use_container_width=True)
+        demo_batch_btn = st.button("Load sample batch", key="demo_batch_btn", use_container_width=True)
+        st.download_button(
+            "Download sample FASTA", data=SAMPLE_FASTA, file_name="bioscan_sample.fasta",
+            mime="text/plain", key="dl_sample_fasta", use_container_width=True,
+        )
+
+    # The sample button is only True for a single rerun; remember it so that changing a
+    # filter does not make the results vanish.
+    if demo_batch_btn:
+        st.session_state["batch_demo_active"] = True
 
     batch_input_content = None
     if fasta_file is not None:
+        st.session_state["batch_demo_active"] = False
         batch_input_content = fasta_file.getvalue().decode("utf-8", errors="ignore")
-    elif demo_batch_btn:
-        batch_input_content = (
-            ">SAMPLE_01_OPHIDION_EXACT\n"
-            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
-            ">SAMPLE_02_SEAROBIN_VARIANT\n"
-            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAA\n"
-            ">SAMPLE_03_LOW_CONFIDENCE\n"
-            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGTTTTTTTGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
-            ">SAMPLE_04_OUT_OF_REFERENCE\n"
-            "TAGCGTAATACCGTACCGTACTACGTATCGTAGCTAGCTAGCTAGCGTACGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG\n"
-            ">SAMPLE_05_INVALID_QC_AMBIGUOUS\n"
-            "ACTATGCTCAGTCATAAACTTTGGTGATAAATTACACATATTGCCCGCCAGGGNTACTACGAGCGCTAGCTTAAAACCCAAAGGACTTGGCGGTGCCCCAGACCCAC\n"
-        )
+    elif st.session_state.get("batch_demo_active"):
+        batch_input_content = SAMPLE_FASTA
 
     if not batch_input_content:
         st.markdown(
             """
             <div style="padding: 24px; background: #1a2332; border: 1px dashed #475569; border-radius: 8px; text-align: center; color: #9ca3af; font-size: 0.9rem; margin-top: 12px;">
-                Upload a FASTA file or click <strong>Load Sample 5-Sequence Batch</strong> to run high-throughput analysis.
+                Upload a FASTA file or click <strong>Load sample batch</strong> to run high-throughput analysis.
             </div>
             """,
             unsafe_allow_html=True
         )
         return
 
-    with st.spinner("Processing batch sequences..."):
-        results = predictor.predict_fasta(batch_input_content, top_k_similar=5)
+    try:
+        with st.spinner("Processing batch sequences..."):
+            results = predictor.predict_fasta(batch_input_content, top_k_similar=5)
+    except ValueError as exc:
+        st.error(f"Could not read the FASTA input: {exc}")
+        return
 
     if not results:
         st.warning("⚠️ No valid sequence records found in FASTA input.")
@@ -81,6 +103,14 @@ def render_batch_page():
 
     # Convert to flat DataFrame
     df = batch_results_to_dataframe(results)
+
+    # Out-of-reference sequences must not appear to carry a taxonomic identification
+    # (the Identify page suppresses the lineage; the table, charts and CSV must agree).
+    rank_cols = [c for c in ("class", "order", "family", "genus", "species") if c in df.columns]
+    withheld = df["prediction_status"] == "out_of_reference"
+    df[rank_cols] = df[rank_cols].astype(object)
+    df.loc[withheld, rank_cols] = None
+    n_withheld = int(withheld.sum())
 
     # 1. KPI Summary Cards
     total_seqs = len(df)
@@ -162,6 +192,12 @@ def render_batch_page():
     with ch2:
         fig_tax = plot_taxonomic_breakdown(df, rank="class")
         st.plotly_chart(fig_tax, use_container_width=True)
+
+    if n_withheld:
+        st.caption(
+            f"Taxonomy is withheld for {n_withheld} out-of-reference sequence(s): "
+            "they are not identified, and their class/order/family/genus/species fields are blank."
+        )
 
     # 3. Interactive Filterable Table
     st.markdown("<div style='font-size: 1rem; font-weight: 700; color: #e5e7eb; margin: 16px 0 8px 0;'>Batch Results</div>", unsafe_allow_html=True)

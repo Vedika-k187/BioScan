@@ -8,6 +8,7 @@ from .ui_helpers import (
     get_example_sequences,
     render_status_badge,
     inject_custom_css,
+    bioscan_logo_svg,
     STATUS_CONFIG
 )
 
@@ -20,5 +21,6 @@ __all__ = [
     "get_example_sequences",
     "render_status_badge",
     "inject_custom_css",
+    "bioscan_logo_svg",
     "STATUS_CONFIG"
 ]

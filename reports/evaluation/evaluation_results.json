@@ -1,0 +1,4902 @@
+{
+  "meta": {
+    "generated_at_utc": "2026-10-15T13:47:08+00:00",
+    "seed": 42,
+    "raw_dataset_rows": 13736,
+    "reference_library": {
+      "input_rows": 101,
+      "unique_sequences": 101,
+      "duplicate_rows_removed": 0,
+      "label_conflicts": 0
+    },
+    "note": "All metrics are computed from held-out predictions on unique sequences. Training-set scores are never reported as evidence of generalisation."
+  },
+  "taxonomy": {
+    "class": {
+      "rank": "class",
+      "feature_set": "k=3",
+      "production_model": "Random Forest",
+      "support": {
+        "n_labelled_sequences": 101,
+        "n_classes_total": 4,
+        "n_singleton_classes": 2,
+        "n_multi_example_classes": 2,
+        "n_eligible_sequences": 99,
+        "n_unevaluable_singleton_sequences": 2
+      },
+      "min_requirements": {
+        "min_samples": 20,
+        "min_classes": 2
+      },
+      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "status": "ok",
+      "nearest_reference_baseline": {
+        "description": "Leave-one-out nearest-reference search (normalised edit distance), predicting the label of the closest OTHER reference. Not a trained model.",
+        "accuracy_all_eligible": 1.0,
+        "accuracy_vs_distance": [
+          {
+            "distance_threshold": 0.0,
+            "coverage": 0.0,
+            "accepted": 0,
+            "accuracy_of_accepted": null
+          },
+          {
+            "distance_threshold": 0.01,
+            "coverage": 0.0707070707070707,
+            "accepted": 7,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.02,
+            "coverage": 0.1111111111111111,
+            "accepted": 11,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.03,
+            "coverage": 0.2222222222222222,
+            "accepted": 22,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.05,
+            "coverage": 0.40404040404040403,
+            "accepted": 40,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.08,
+            "coverage": 0.6060606060606061,
+            "accepted": 60,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.1,
+            "coverage": 0.6565656565656566,
+            "accepted": 65,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.15,
+            "coverage": 0.9191919191919192,
+            "accepted": 91,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.25,
+            "coverage": 1.0,
+            "accepted": 99,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.5,
+            "coverage": 1.0,
+            "accepted": 99,
+            "accuracy_of_accepted": 1.0
+          }
+        ]
+      },
+      "models": {
+        "KNN": {
+          "n_eligible_test_examples": 99,
+          "n_evaluated_classes": 2,
+          "status": "ok",
+          "top1_accuracy": 0.98989898989899,
+          "balanced_accuracy": 0.9939024390243902,
+          "macro_precision": 1.0,
+          "macro_recall": 0.9939024390243902,
+          "macro_f1": 0.9969325153374233,
+          "weighted_f1": 0.9949185102559336,
+          "mean_support_per_class": 49.5,
+          "per_class": [
+            {
+              "class": "Chondrostei",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Elasmobranchii",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 17,
+              "predicted_count": 17
+            },
+            {
+              "class": "Teleostei",
+              "precision": 1.0,
+              "recall": 0.9878048780487805,
+              "f1": 0.9938650306748467,
+              "support": 82,
+              "predicted_count": 81
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Chondrostei",
+              "Elasmobranchii",
+              "Teleostei"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                17,
+                0
+              ],
+              [
+                1,
+                0,
+                81
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": false,
+          "runtime_seconds": 0.1,
+          "accuracy_vs_coverage": null,
+          "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
+        },
+        "Random Forest": {
+          "n_eligible_test_examples": 99,
+          "n_evaluated_classes": 2,
+          "status": "ok",
+          "top1_accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "macro_precision": 1.0,
+          "macro_recall": 1.0,
+          "macro_f1": 1.0,
+          "weighted_f1": 1.0,
+          "mean_support_per_class": 49.5,
+          "per_class": [
+            {
+              "class": "Elasmobranchii",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 17,
+              "predicted_count": 17
+            },
+            {
+              "class": "Teleostei",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 82,
+              "predicted_count": 82
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Elasmobranchii",
+              "Teleostei"
+            ],
+            "matrix": [
+              [
+                17,
+                0
+              ],
+              [
+                0,
+                82
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": true,
+          "runtime_seconds": 2.9,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.58,
+              "coverage": 1.0,
+              "accepted": 99,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.798,
+              "coverage": 0.898989898989899,
+              "accepted": 89,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.85,
+              "coverage": 0.8080808080808081,
+              "accepted": 80,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9040000000000001,
+              "coverage": 0.696969696969697,
+              "accepted": 69,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.93,
+              "coverage": 0.6161616161616161,
+              "accepted": 61,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.95,
+              "coverage": 0.5555555555555556,
+              "accepted": 55,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9680000000000001,
+              "coverage": 0.40404040404040403,
+              "accepted": 40,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.98,
+              "coverage": 0.32323232323232326,
+              "accepted": 32,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.99,
+              "coverage": 0.2727272727272727,
+              "accepted": 27,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 1.0,
+              "coverage": 0.16161616161616163,
+              "accepted": 16,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        },
+        "XGBoost": {
+          "n_eligible_test_examples": 99,
+          "n_evaluated_classes": 2,
+          "status": "ok",
+          "top1_accuracy": 0.98989898989899,
+          "balanced_accuracy": 0.9939024390243902,
+          "macro_precision": 0.9722222222222222,
+          "macro_recall": 0.9939024390243902,
+          "macro_f1": 0.9826468010517091,
+          "weighted_f1": 0.9900123053497285,
+          "mean_support_per_class": 49.5,
+          "per_class": [
+            {
+              "class": "Elasmobranchii",
+              "precision": 0.9444444444444444,
+              "recall": 1.0,
+              "f1": 0.9714285714285714,
+              "support": 17,
+              "predicted_count": 18
+            },
+            {
+              "class": "Teleostei",
+              "precision": 1.0,
+              "recall": 0.9878048780487805,
+              "f1": 0.9938650306748467,
+              "support": 82,
+              "predicted_count": 81
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Elasmobranchii",
+              "Teleostei"
+            ],
+            "matrix": [
+              [
+                17,
+                0
+              ],
+              [
+                1,
+                81
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": false,
+          "runtime_seconds": 0.9,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.7575327754020691,
+              "coverage": 1.0,
+              "accepted": 99,
+              "accuracy_of_accepted": 0.98989898989899
+            },
+            {
+              "confidence_threshold": 0.9368602156639099,
+              "coverage": 0.898989898989899,
+              "accepted": 89,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9605080604553222,
+              "coverage": 0.797979797979798,
+              "accepted": 79,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9786813259124756,
+              "coverage": 0.696969696969697,
+              "accepted": 69,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.987923538684845,
+              "coverage": 0.5959595959595959,
+              "accepted": 59,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9918102622032166,
+              "coverage": 0.5050505050505051,
+              "accepted": 50,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9929612278938293,
+              "coverage": 0.40404040404040403,
+              "accepted": 40,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9950099945068359,
+              "coverage": 0.30303030303030304,
+              "accepted": 30,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.996402132511139,
+              "coverage": 0.20202020202020202,
+              "accepted": 20,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9969809889793396,
+              "coverage": 0.10101010101010101,
+              "accepted": 10,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        }
+      },
+      "warnings": [
+        "2 of 4 classes have a single sequence and cannot be held out; 2 sequence(s) are therefore excluded from the test set (reported, not hidden)."
+      ]
+    },
+    "order": {
+      "rank": "order",
+      "feature_set": "k=3",
+      "production_model": "Random Forest",
+      "support": {
+        "n_labelled_sequences": 101,
+        "n_classes_total": 30,
+        "n_singleton_classes": 14,
+        "n_multi_example_classes": 16,
+        "n_eligible_sequences": 87,
+        "n_unevaluable_singleton_sequences": 14
+      },
+      "min_requirements": {
+        "min_samples": 20,
+        "min_classes": 2
+      },
+      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "status": "ok",
+      "nearest_reference_baseline": {
+        "description": "Leave-one-out nearest-reference search (normalised edit distance), predicting the label of the closest OTHER reference. Not a trained model.",
+        "accuracy_all_eligible": 0.8160919540229885,
+        "accuracy_vs_distance": [
+          {
+            "distance_threshold": 0.0,
+            "coverage": 0.0,
+            "accepted": 0,
+            "accuracy_of_accepted": null
+          },
+          {
+            "distance_threshold": 0.01,
+            "coverage": 0.08045977011494253,
+            "accepted": 7,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.02,
+            "coverage": 0.12643678160919541,
+            "accepted": 11,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.03,
+            "coverage": 0.25287356321839083,
+            "accepted": 22,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.05,
+            "coverage": 0.45977011494252873,
+            "accepted": 40,
+            "accuracy_of_accepted": 1.0
+          },
+          {
+            "distance_threshold": 0.08,
+            "coverage": 0.6666666666666666,
+            "accepted": 58,
+            "accuracy_of_accepted": 0.9827586206896551
+          },
+          {
+            "distance_threshold": 0.1,
+            "coverage": 0.7241379310344828,
+            "accepted": 63,
+            "accuracy_of_accepted": 0.9682539682539683
+          },
+          {
+            "distance_threshold": 0.15,
+            "coverage": 0.9425287356321839,
+            "accepted": 82,
+            "accuracy_of_accepted": 0.8536585365853658
+          },
+          {
+            "distance_threshold": 0.25,
+            "coverage": 1.0,
+            "accepted": 87,
+            "accuracy_of_accepted": 0.8160919540229885
+          },
+          {
+            "distance_threshold": 0.5,
+            "coverage": 1.0,
+            "accepted": 87,
+            "accuracy_of_accepted": 0.8160919540229885
+          }
+        ]
+      },
+      "models": {
+        "KNN": {
+          "n_eligible_test_examples": 87,
+          "n_evaluated_classes": 16,
+          "status": "ok",
+          "top1_accuracy": 0.735632183908046,
+          "balanced_accuracy": 0.646875,
+          "macro_precision": 0.6416666666666666,
+          "macro_recall": 0.646875,
+          "macro_f1": 0.6296891124871,
+          "weighted_f1": 0.7203409131347639,
+          "mean_support_per_class": 5.4375,
+          "per_class": [
+            {
+              "class": "Acanthuriformes",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 2
+            },
+            {
+              "class": "Acipenseriformes",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Atheriniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Beloniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Carangiformes",
+              "precision": 0.7,
+              "recall": 1.0,
+              "f1": 0.8235294117647058,
+              "support": 7,
+              "predicted_count": 10
+            },
+            {
+              "class": "Carcharhiniformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 4,
+              "predicted_count": 4
+            },
+            {
+              "class": "Clupeiformes",
+              "precision": 0.9,
+              "recall": 1.0,
+              "f1": 0.9473684210526315,
+              "support": 9,
+              "predicted_count": 10
+            },
+            {
+              "class": "Cyprinodontiformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.6666666666666666,
+              "f1": 0.6666666666666666,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Gadiformes",
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "f1": 0.5,
+              "support": 3,
+              "predicted_count": 1
+            },
+            {
+              "class": "Lamniformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Myliobatiformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 7,
+              "predicted_count": 7
+            },
+            {
+              "class": "Ophidiiformes",
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "f1": 0.8,
+              "support": 2,
+              "predicted_count": 3
+            },
+            {
+              "class": "Perciformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.6,
+              "f1": 0.631578947368421,
+              "support": 20,
+              "predicted_count": 18
+            },
+            {
+              "class": "Pleuronectiformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.75,
+              "f1": 0.7058823529411765,
+              "support": 8,
+              "predicted_count": 9
+            },
+            {
+              "class": "Rajiformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Scombriformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 10,
+              "predicted_count": 10
+            },
+            {
+              "class": "Syngnathiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 1
+            },
+            {
+              "class": "Tetraodontiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 0
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Acanthuriformes",
+              "Acipenseriformes",
+              "Atheriniformes",
+              "Beloniformes",
+              "Carangiformes",
+              "Carcharhiniformes",
+              "Clupeiformes",
+              "Cyprinodontiformes",
+              "Gadiformes",
+              "Lamniformes",
+              "Myliobatiformes",
+              "Ophidiiformes",
+              "Perciformes",
+              "Pleuronectiformes",
+              "Rajiformes",
+              "Scombriformes",
+              "Syngnathiformes",
+              "Tetraodontiformes"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                1,
+                2,
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                12,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": false,
+          "runtime_seconds": 0.0,
+          "accuracy_vs_coverage": null,
+          "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
+        },
+        "Random Forest": {
+          "n_eligible_test_examples": 87,
+          "n_evaluated_classes": 16,
+          "status": "ok",
+          "top1_accuracy": 0.7586206896551724,
+          "balanced_accuracy": 0.6014880952380952,
+          "macro_precision": 0.5925902222777223,
+          "macro_recall": 0.6014880952380952,
+          "macro_f1": 0.5858677490828521,
+          "weighted_f1": 0.7054223932311203,
+          "mean_support_per_class": 5.4375,
+          "per_class": [
+            {
+              "class": "Atheriniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Beloniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Carangiformes",
+              "precision": 0.8571428571428571,
+              "recall": 0.8571428571428571,
+              "f1": 0.8571428571428571,
+              "support": 7,
+              "predicted_count": 7
+            },
+            {
+              "class": "Carcharhiniformes",
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "support": 4,
+              "predicted_count": 5
+            },
+            {
+              "class": "Clupeiformes",
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 9,
+              "predicted_count": 12
+            },
+            {
+              "class": "Cyprinodontiformes",
+              "precision": 1.0,
+              "recall": 0.6666666666666666,
+              "f1": 0.8,
+              "support": 3,
+              "predicted_count": 2
+            },
+            {
+              "class": "Gadiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 0
+            },
+            {
+              "class": "Lamniformes",
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Myliobatiformes",
+              "precision": 0.875,
+              "recall": 1.0,
+              "f1": 0.9333333333333333,
+              "support": 7,
+              "predicted_count": 8
+            },
+            {
+              "class": "Ophidiiformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Perciformes",
+              "precision": 0.6538461538461539,
+              "recall": 0.85,
+              "f1": 0.7391304347826086,
+              "support": 20,
+              "predicted_count": 26
+            },
+            {
+              "class": "Pleuronectiformes",
+              "precision": 0.5454545454545454,
+              "recall": 0.75,
+              "f1": 0.631578947368421,
+              "support": 8,
+              "predicted_count": 11
+            },
+            {
+              "class": "Rajiformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Scombriformes",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 10,
+              "predicted_count": 10
+            },
+            {
+              "class": "Syngnathiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 1
+            },
+            {
+              "class": "Tetraodontiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 0
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Atheriniformes",
+              "Beloniformes",
+              "Carangiformes",
+              "Carcharhiniformes",
+              "Clupeiformes",
+              "Cyprinodontiformes",
+              "Gadiformes",
+              "Lamniformes",
+              "Myliobatiformes",
+              "Ophidiiformes",
+              "Perciformes",
+              "Pleuronectiformes",
+              "Rajiformes",
+              "Scombriformes",
+              "Syngnathiformes",
+              "Tetraodontiformes"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                9,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                17,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": true,
+          "runtime_seconds": 3.1,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.1,
+              "coverage": 1.0,
+              "accepted": 87,
+              "accuracy_of_accepted": 0.7586206896551724
+            },
+            {
+              "confidence_threshold": 0.21,
+              "coverage": 0.9080459770114943,
+              "accepted": 79,
+              "accuracy_of_accepted": 0.8354430379746836
+            },
+            {
+              "confidence_threshold": 0.26,
+              "coverage": 0.8045977011494253,
+              "accepted": 70,
+              "accuracy_of_accepted": 0.8857142857142857
+            },
+            {
+              "confidence_threshold": 0.3,
+              "coverage": 0.7126436781609196,
+              "accepted": 62,
+              "accuracy_of_accepted": 0.9032258064516129
+            },
+            {
+              "confidence_threshold": 0.378,
+              "coverage": 0.5977011494252874,
+              "accepted": 52,
+              "accuracy_of_accepted": 0.9615384615384616
+            },
+            {
+              "confidence_threshold": 0.48,
+              "coverage": 0.5172413793103449,
+              "accepted": 45,
+              "accuracy_of_accepted": 0.9555555555555556
+            },
+            {
+              "confidence_threshold": 0.5680000000000003,
+              "coverage": 0.40229885057471265,
+              "accepted": 35,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.672,
+              "coverage": 0.2988505747126437,
+              "accepted": 26,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.74,
+              "coverage": 0.22988505747126436,
+              "accepted": 20,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.81,
+              "coverage": 0.11494252873563218,
+              "accepted": 10,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        },
+        "XGBoost": {
+          "n_eligible_test_examples": 87,
+          "n_evaluated_classes": 16,
+          "status": "ok",
+          "top1_accuracy": 0.6666666666666666,
+          "balanced_accuracy": 0.42336309523809523,
+          "macro_precision": 0.36043176328502413,
+          "macro_recall": 0.42336309523809523,
+          "macro_f1": 0.3828106785859999,
+          "weighted_f1": 0.6162645821986134,
+          "mean_support_per_class": 5.4375,
+          "per_class": [
+            {
+              "class": "Atheriniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Beloniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Carangiformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.8571428571428571,
+              "f1": 0.75,
+              "support": 7,
+              "predicted_count": 9
+            },
+            {
+              "class": "Carcharhiniformes",
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "support": 4,
+              "predicted_count": 8
+            },
+            {
+              "class": "Clupeiformes",
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 9,
+              "predicted_count": 12
+            },
+            {
+              "class": "Cyprinodontiformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.6666666666666666,
+              "f1": 0.6666666666666666,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Gadiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 0
+            },
+            {
+              "class": "Lamniformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Myliobatiformes",
+              "precision": 0.7777777777777778,
+              "recall": 1.0,
+              "f1": 0.875,
+              "support": 7,
+              "predicted_count": 9
+            },
+            {
+              "class": "Ophidiiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Perciformes",
+              "precision": 0.7391304347826086,
+              "recall": 0.85,
+              "f1": 0.7906976744186046,
+              "support": 20,
+              "predicted_count": 23
+            },
+            {
+              "class": "Pleuronectiformes",
+              "precision": 0.6666666666666666,
+              "recall": 0.5,
+              "f1": 0.5714285714285714,
+              "support": 8,
+              "predicted_count": 6
+            },
+            {
+              "class": "Rajiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Scombriformes",
+              "precision": 1.0,
+              "recall": 0.9,
+              "f1": 0.9473684210526315,
+              "support": 10,
+              "predicted_count": 9
+            },
+            {
+              "class": "Syngnathiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Tetraodontiformes",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 3,
+              "predicted_count": 1
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Atheriniformes",
+              "Beloniformes",
+              "Carangiformes",
+              "Carcharhiniformes",
+              "Clupeiformes",
+              "Cyprinodontiformes",
+              "Gadiformes",
+              "Lamniformes",
+              "Myliobatiformes",
+              "Ophidiiformes",
+              "Perciformes",
+              "Pleuronectiformes",
+              "Rajiformes",
+              "Scombriformes",
+              "Syngnathiformes",
+              "Tetraodontiformes"
+            ],
+            "matrix": [
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                9,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                17,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                2,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                9,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "warnings": [],
+          "is_production_model": false,
+          "runtime_seconds": 4.5,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.05169479548931122,
+              "coverage": 1.0,
+              "accepted": 87,
+              "accuracy_of_accepted": 0.6666666666666666
+            },
+            {
+              "confidence_threshold": 0.10461850017309189,
+              "coverage": 0.896551724137931,
+              "accepted": 78,
+              "accuracy_of_accepted": 0.7435897435897436
+            },
+            {
+              "confidence_threshold": 0.20420628190040588,
+              "coverage": 0.7931034482758621,
+              "accepted": 69,
+              "accuracy_of_accepted": 0.8260869565217391
+            },
+            {
+              "confidence_threshold": 0.3376934468746186,
+              "coverage": 0.7011494252873564,
+              "accepted": 61,
+              "accuracy_of_accepted": 0.9016393442622951
+            },
+            {
+              "confidence_threshold": 0.4744670271873474,
+              "coverage": 0.5977011494252874,
+              "accepted": 52,
+              "accuracy_of_accepted": 0.9615384615384616
+            },
+            {
+              "confidence_threshold": 0.6384316086769104,
+              "coverage": 0.5057471264367817,
+              "accepted": 44,
+              "accuracy_of_accepted": 0.9772727272727273
+            },
+            {
+              "confidence_threshold": 0.8243792176246645,
+              "coverage": 0.40229885057471265,
+              "accepted": 35,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.8745913147926331,
+              "coverage": 0.2988505747126437,
+              "accepted": 26,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.913763952255249,
+              "coverage": 0.20689655172413793,
+              "accepted": 18,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.9462970256805421,
+              "coverage": 0.10344827586206896,
+              "accepted": 9,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        }
+      },
+      "warnings": [
+        "14 of 30 classes have a single sequence and cannot be held out; 14 sequence(s) are therefore excluded from the test set (reported, not hidden)."
+      ]
+    },
+    "family": {
+      "rank": "family",
+      "feature_set": "k=3",
+      "production_model": "KNN",
+      "support": {
+        "n_labelled_sequences": 101,
+        "n_classes_total": 66,
+        "n_singleton_classes": 49,
+        "n_multi_example_classes": 17,
+        "n_eligible_sequences": 52,
+        "n_unevaluable_singleton_sequences": 49
+      },
+      "min_requirements": {
+        "min_samples": 20,
+        "min_classes": 2
+      },
+      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "status": "ok",
+      "nearest_reference_baseline": {
+        "description": "Leave-one-out nearest-reference search (normalised edit distance), predicting the label of the closest OTHER reference. Not a trained model.",
+        "accuracy_all_eligible": 0.9038461538461539,
+        "accuracy_vs_distance": [
+          {
+            "distance_threshold": 0.0,
+            "coverage": 0.0,
+            "accepted": 0,
+            "accuracy_of_accepted": null
+          },
+          {
+            "distance_threshold": 0.01,
+            "coverage": 0.11538461538461539,
+            "accepted": 6,
+            "accuracy_of_accepted": 0.8333333333333334
+          },
+          {
+            "distance_threshold": 0.02,
+            "coverage": 0.19230769230769232,
+            "accepted": 10,
+            "accuracy_of_accepted": 0.9
+          },
+          {
+            "distance_threshold": 0.03,
+            "coverage": 0.40384615384615385,
+            "accepted": 21,
+            "accuracy_of_accepted": 0.9523809523809523
+          },
+          {
+            "distance_threshold": 0.05,
+            "coverage": 0.6923076923076923,
+            "accepted": 36,
+            "accuracy_of_accepted": 0.9722222222222222
+          },
+          {
+            "distance_threshold": 0.08,
+            "coverage": 0.8653846153846154,
+            "accepted": 45,
+            "accuracy_of_accepted": 0.9777777777777777
+          },
+          {
+            "distance_threshold": 0.1,
+            "coverage": 0.9038461538461539,
+            "accepted": 47,
+            "accuracy_of_accepted": 0.9574468085106383
+          },
+          {
+            "distance_threshold": 0.15,
+            "coverage": 0.9615384615384616,
+            "accepted": 50,
+            "accuracy_of_accepted": 0.94
+          },
+          {
+            "distance_threshold": 0.25,
+            "coverage": 1.0,
+            "accepted": 52,
+            "accuracy_of_accepted": 0.9038461538461539
+          },
+          {
+            "distance_threshold": 0.5,
+            "coverage": 1.0,
+            "accepted": 52,
+            "accuracy_of_accepted": 0.9038461538461539
+          }
+        ]
+      },
+      "models": {
+        "KNN": {
+          "n_eligible_test_examples": 52,
+          "n_evaluated_classes": 17,
+          "status": "ok",
+          "top1_accuracy": 0.8653846153846154,
+          "balanced_accuracy": 0.7941176470588235,
+          "macro_precision": 0.8039215686274509,
+          "macro_recall": 0.7941176470588235,
+          "macro_f1": 0.792156862745098,
+          "weighted_f1": 0.864102564102564,
+          "mean_support_per_class": 3.0588235294117645,
+          "per_class": [
+            {
+              "class": "Alosidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Atherinopsidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Carangidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 6,
+              "predicted_count": 6
+            },
+            {
+              "class": "Carcharhinidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Clupeidae",
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Dasyatidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Engraulidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 4,
+              "predicted_count": 4
+            },
+            {
+              "class": "Ephippidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Fundulidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Labridae",
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Ophidiidae",
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "f1": 0.8,
+              "support": 2,
+              "predicted_count": 3
+            },
+            {
+              "class": "Paralichthyidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 4,
+              "predicted_count": 4
+            },
+            {
+              "class": "Pholidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Rajidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Rhinopteridae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Sciaenidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 6,
+              "predicted_count": 6
+            },
+            {
+              "class": "Scombridae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 6,
+              "predicted_count": 6
+            },
+            {
+              "class": "Sparidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Syngnathidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Triglidae",
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "support": 2,
+              "predicted_count": 2
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Alosidae",
+              "Atherinopsidae",
+              "Carangidae",
+              "Carcharhinidae",
+              "Clupeidae",
+              "Dasyatidae",
+              "Engraulidae",
+              "Ephippidae",
+              "Fundulidae",
+              "Labridae",
+              "Ophidiidae",
+              "Paralichthyidae",
+              "Pholidae",
+              "Rajidae",
+              "Rhinopteridae",
+              "Sciaenidae",
+              "Scombridae",
+              "Sparidae",
+              "Syngnathidae",
+              "Triglidae"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "warnings": [
+            "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
+          ],
+          "is_production_model": true,
+          "runtime_seconds": 0.0,
+          "accuracy_vs_coverage": null,
+          "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
+        },
+        "Random Forest": {
+          "n_eligible_test_examples": 52,
+          "n_evaluated_classes": 17,
+          "status": "ok",
+          "top1_accuracy": 0.7692307692307693,
+          "balanced_accuracy": 0.6813725490196079,
+          "macro_precision": 0.7222689075630252,
+          "macro_recall": 0.6813725490196079,
+          "macro_f1": 0.6846584787761258,
+          "weighted_f1": 0.748661594815441,
+          "mean_support_per_class": 3.0588235294117645,
+          "per_class": [
+            {
+              "class": "Alosidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Atherinopsidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Carangidae",
+              "precision": 0.7142857142857143,
+              "recall": 0.8333333333333334,
+              "f1": 0.7692307692307693,
+              "support": 6,
+              "predicted_count": 7
+            },
+            {
+              "class": "Carcharhinidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Clupeidae",
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Coryphaenidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Dasyatidae",
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 3,
+              "predicted_count": 4
+            },
+            {
+              "class": "Engraulidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 4,
+              "predicted_count": 4
+            },
+            {
+              "class": "Fundulidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Labridae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Ophidiidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Paralichthyidae",
+              "precision": 0.6,
+              "recall": 0.75,
+              "f1": 0.6666666666666666,
+              "support": 4,
+              "predicted_count": 5
+            },
+            {
+              "class": "Pholidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Rajidae",
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Rhinopteridae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2,
+              "predicted_count": 2
+            },
+            {
+              "class": "Sciaenidae",
+              "precision": 0.8571428571428571,
+              "recall": 1.0,
+              "f1": 0.9230769230769231,
+              "support": 6,
+              "predicted_count": 7
+            },
+            {
+              "class": "Scombridae",
+              "precision": 0.8571428571428571,
+              "recall": 1.0,
+              "f1": 0.9230769230769231,
+              "support": 6,
+              "predicted_count": 7
+            },
+            {
+              "class": "Sparidae",
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Syngnathidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Triglidae",
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "support": 2,
+              "predicted_count": 2
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Alosidae",
+              "Atherinopsidae",
+              "Carangidae",
+              "Carcharhinidae",
+              "Clupeidae",
+              "Coryphaenidae",
+              "Dasyatidae",
+              "Engraulidae",
+              "Fundulidae",
+              "Labridae",
+              "Ophidiidae",
+              "Paralichthyidae",
+              "Pholidae",
+              "Rajidae",
+              "Rhinopteridae",
+              "Sciaenidae",
+              "Scombridae",
+              "Sparidae",
+              "Syngnathidae",
+              "Triglidae"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                5,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "warnings": [
+            "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
+          ],
+          "is_production_model": false,
+          "runtime_seconds": 2.4,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.08,
+              "coverage": 1.0,
+              "accepted": 52,
+              "accuracy_of_accepted": 0.7692307692307693
+            },
+            {
+              "confidence_threshold": 0.12,
+              "coverage": 0.9038461538461539,
+              "accepted": 47,
+              "accuracy_of_accepted": 0.851063829787234
+            },
+            {
+              "confidence_threshold": 0.192,
+              "coverage": 0.7884615384615384,
+              "accepted": 41,
+              "accuracy_of_accepted": 0.8780487804878049
+            },
+            {
+              "confidence_threshold": 0.23,
+              "coverage": 0.7115384615384616,
+              "accepted": 37,
+              "accuracy_of_accepted": 0.8918918918918919
+            },
+            {
+              "confidence_threshold": 0.2860000000000001,
+              "coverage": 0.5961538461538461,
+              "accepted": 31,
+              "accuracy_of_accepted": 0.9354838709677419
+            },
+            {
+              "confidence_threshold": 0.38,
+              "coverage": 0.5,
+              "accepted": 26,
+              "accuracy_of_accepted": 0.9615384615384616
+            },
+            {
+              "confidence_threshold": 0.4640000000000002,
+              "coverage": 0.40384615384615385,
+              "accepted": 21,
+              "accuracy_of_accepted": 0.9523809523809523
+            },
+            {
+              "confidence_threshold": 0.5980000000000001,
+              "coverage": 0.3076923076923077,
+              "accepted": 16,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.65,
+              "coverage": 0.23076923076923078,
+              "accepted": 12,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.7949999999999999,
+              "coverage": 0.11538461538461539,
+              "accepted": 6,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        },
+        "XGBoost": {
+          "n_eligible_test_examples": 52,
+          "n_evaluated_classes": 17,
+          "status": "ok",
+          "top1_accuracy": 0.5961538461538461,
+          "balanced_accuracy": 0.4019607843137255,
+          "macro_precision": 0.34747899159663864,
+          "macro_recall": 0.4019607843137255,
+          "macro_f1": 0.36734507322742616,
+          "weighted_f1": 0.5517580709888402,
+          "mean_support_per_class": 3.0588235294117645,
+          "per_class": [
+            {
+              "class": "Acipenseridae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 3
+            },
+            {
+              "class": "Atherinopsidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 3
+            },
+            {
+              "class": "Carangidae",
+              "precision": 1.0,
+              "recall": 0.8333333333333334,
+              "f1": 0.9090909090909091,
+              "support": 6,
+              "predicted_count": 5
+            },
+            {
+              "class": "Carcharhinidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 3,
+              "predicted_count": 3
+            },
+            {
+              "class": "Clupeidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Dasyatidae",
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6666666666666666,
+              "support": 3,
+              "predicted_count": 6
+            },
+            {
+              "class": "Engraulidae",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 4,
+              "predicted_count": 4
+            },
+            {
+              "class": "Fundulidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Labridae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Mullidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
+            },
+            {
+              "class": "Ophidiidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Paralichthyidae",
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8888888888888888,
+              "support": 4,
+              "predicted_count": 5
+            },
+            {
+              "class": "Rajidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Rhinopteridae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 0
+            },
+            {
+              "class": "Sciaenidae",
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 6,
+              "predicted_count": 8
+            },
+            {
+              "class": "Scombridae",
+              "precision": 0.8571428571428571,
+              "recall": 1.0,
+              "f1": 0.9230769230769231,
+              "support": 6,
+              "predicted_count": 7
+            },
+            {
+              "class": "Sparidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            },
+            {
+              "class": "Syngnathidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 3
+            },
+            {
+              "class": "Triglidae",
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted_count": 1
+            }
+          ],
+          "confusion_matrix": {
+            "labels": [
+              "Acipenseridae",
+              "Atherinopsidae",
+              "Carangidae",
+              "Carcharhinidae",
+              "Clupeidae",
+              "Dasyatidae",
+              "Engraulidae",
+              "Fundulidae",
+              "Labridae",
+              "Mullidae",
+              "Ophidiidae",
+              "Paralichthyidae",
+              "Rajidae",
+              "Rhinopteridae",
+              "Sciaenidae",
+              "Scombridae",
+              "Sparidae",
+              "Syngnathidae",
+              "Triglidae"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                5,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "warnings": [
+            "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
+          ],
+          "is_production_model": false,
+          "runtime_seconds": 4.5,
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 0.019510682672262192,
+              "coverage": 1.0,
+              "accepted": 52,
+              "accuracy_of_accepted": 0.5961538461538461
+            },
+            {
+              "confidence_threshold": 0.028460715524852277,
+              "coverage": 0.8846153846153846,
+              "accepted": 46,
+              "accuracy_of_accepted": 0.6739130434782609
+            },
+            {
+              "confidence_threshold": 0.05149588957428933,
+              "coverage": 0.7884615384615384,
+              "accepted": 41,
+              "accuracy_of_accepted": 0.7317073170731707
+            },
+            {
+              "confidence_threshold": 0.07417165786027909,
+              "coverage": 0.6923076923076923,
+              "accepted": 36,
+              "accuracy_of_accepted": 0.8333333333333334
+            },
+            {
+              "confidence_threshold": 0.1946251124143601,
+              "coverage": 0.5961538461538461,
+              "accepted": 31,
+              "accuracy_of_accepted": 0.9354838709677419
+            },
+            {
+              "confidence_threshold": 0.38949380815029144,
+              "coverage": 0.5,
+              "accepted": 26,
+              "accuracy_of_accepted": 0.9615384615384616
+            },
+            {
+              "confidence_threshold": 0.5536480426788332,
+              "coverage": 0.40384615384615385,
+              "accepted": 21,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.7197629451751709,
+              "coverage": 0.3076923076923077,
+              "accepted": 16,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.769420051574707,
+              "coverage": 0.21153846153846154,
+              "accepted": 11,
+              "accuracy_of_accepted": 1.0
+            },
+            {
+              "confidence_threshold": 0.883976811170578,
+              "coverage": 0.11538461538461539,
+              "accepted": 6,
+              "accuracy_of_accepted": 1.0
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
+        }
+      },
+      "warnings": [
+        "49 of 66 classes have a single sequence and cannot be held out; 49 sequence(s) are therefore excluded from the test set (reported, not hidden)."
+      ]
+    },
+    "genus": {
+      "rank": "genus",
+      "feature_set": "k=3",
+      "production_model": "KNN",
+      "support": {
+        "n_labelled_sequences": 97,
+        "n_classes_total": 87,
+        "n_singleton_classes": 78,
+        "n_multi_example_classes": 9,
+        "n_eligible_sequences": 19,
+        "n_unevaluable_singleton_sequences": 78
+      },
+      "min_requirements": {
+        "min_samples": 20,
+        "min_classes": 2
+      },
+      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "status": "insufficient",
+      "message": "Insufficient data for reliable evaluation",
+      "reason": "only 19 evaluable held-out sequences (minimum 20)",
+      "models": {}
+    },
+    "species": {
+      "rank": "species",
+      "feature_set": "k=2",
+      "production_model": "KNN",
+      "support": {
+        "n_labelled_sequences": 91,
+        "n_classes_total": 90,
+        "n_singleton_classes": 89,
+        "n_multi_example_classes": 1,
+        "n_eligible_sequences": 2,
+        "n_unevaluable_singleton_sequences": 89
+      },
+      "min_requirements": {
+        "min_samples": 20,
+        "min_classes": 2
+      },
+      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "status": "insufficient",
+      "message": "Insufficient data for reliable evaluation",
+      "reason": "only 2 evaluable held-out sequences (minimum 20); only 1 evaluable class(es) (minimum 2)",
+      "models": {}
+    }
+  },
+  "unknown_detection": {
+    "positive_class": "out_of_reference",
+    "definitions": {
+      "TP": "unknown sequence flagged out_of_reference",
+      "FN": "unknown sequence NOT flagged (accepted or low_confidence)",
+      "FP": "known sequence flagged out_of_reference",
+      "TN": "known sequence not flagged",
+      "false_positive_rate": "FP / (FP + TN)  - known sequences wrongly flagged",
+      "false_negative_rate": "FN / (FN + TP)  - unknown sequences wrongly kept",
+      "coverage": "fraction of queries with status known_reference_like (accepted identification)",
+      "abstention_rate": "fraction with status low_confidence or out_of_reference"
+    },
+    "decision_rule_evaluated": "Production evidence rule (src/prediction/evidence.py::synthesize_evidence_and_status) with class/order concordance assumed TRUE. Only the distance rules (Distance Veto and close-match) are exercised, so coverage is an upper bound and classifier probabilities are not evaluated here.",
+    "production_thresholds": {
+      "close_match": 0.03,
+      "veto": 0.15
+    },
+    "threshold_independence_warning": "The production thresholds (0.03 / 0.15) were selected in an earlier experiment that used all of these sequences. Test-partition results for the PRODUCTION thresholds are therefore optimistic. The calibrated-threshold result is the leakage-free estimate for a threshold chosen without seeing the test partition.",
+    "construction": {
+      "known_exact": {
+        "label": "Known reference sequences (exact)",
+        "construction": "Each of the 101 unique reference sequences queried against the full library.",
+        "true_label": "known",
+        "establishes": "Sanity check that identical sequences are accepted. Distance is 0 by construction.",
+        "does_not_establish": "Any generalisation. This is trivially satisfied and is excluded from pooled metrics."
+      },
+      "known_perturbed": {
+        "label": "Altered (mutation-perturbed) known sequences",
+        "construction": "Each reference with [1, 2, 5] random base substitutions (at least one, positions chosen at random, seeded). Library unchanged.",
+        "true_label": "known (by construction)",
+        "establishes": "Tolerance to substitution-type sequencing/PCR error.",
+        "does_not_establish": "Robustness to insertions/deletions, chimeras, real read errors or intraspecific variation."
+      },
+      "heldout_genus": {
+        "label": "Held-out taxa (genera)",
+        "construction": "All sequences of a genus removed from the library, then queried. Library for each query excludes that genus.",
+        "true_label": "out-of-reference at genus level (genus absent from the library)",
+        "establishes": "Behaviour on a taxon with no reference of its own, often with a relative in the same family.",
+        "does_not_establish": "That the sequence is a different species from all library species: a relative of the same family may legitimately lie within the close-match threshold."
+      },
+      "external_nonfish": {
+        "label": "External non-fish sequences",
+        "construction": "106-bp windows (offsets [0, 120, 240]) of NCBI mitochondrial 12S records (mammals, birds, reptiles, amphibians). Identical windows and windows identical to a reference are dropped.",
+        "true_label": "out-of-reference (not a fish)",
+        "establishes": "Rejection of clearly distant vertebrate DNA from the same gene.",
+        "does_not_establish": "Performance on real amplicon reads, non-vertebrate DNA, or unknown fish. Windows come from full-length records and may not align to the MiFish amplicon boundaries."
+      }
+    },
+    "partition_info": {
+      "seed": 42,
+      "reference_sequences": {
+        "calibration": 50,
+        "test": 51
+      },
+      "genera": {
+        "calibration": 43,
+        "test": 44
+      },
+      "external_organisms": {
+        "calibration": 8,
+        "test": 8
+      }
+    },
+    "counts_by_category_and_partition": {
+      "external_nonfish": {
+        "calibration": 20,
+        "test": 19
+      },
+      "heldout_genus": {
+        "calibration": 45,
+        "test": 52
+      },
+      "known_exact": {
+        "calibration": 50,
+        "test": 51
+      },
+      "known_perturbed": {
+        "calibration": 150,
+        "test": 153
+      }
+    },
+    "calibration": {
+      "n_known_perturbed": 150,
+      "n_unknown": 65,
+      "chosen": {
+        "threshold": 0.05,
+        "youden_j": 0.8241025641025641,
+        "sensitivity": 0.8307692307692308,
+        "specificity": 0.9933333333333333
+      }
+    },
+    "test": {
+      "n_known_perturbed": 153,
+      "n_unknown": 71,
+      "production_rule_out_of_reference": {
+        "n_total": 224,
+        "n_known": 153,
+        "n_unknown": 71,
+        "tp": 25,
+        "fp": 0,
+        "tn": 153,
+        "fn": 46,
+        "precision": 1.0,
+        "recall_sensitivity": 0.352112676056338,
+        "f1": 0.5208333333333333,
+        "specificity": 1.0,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.647887323943662,
+        "confusion_matrix": {
+          "labels": [
+            "known_reference",
+            "out_of_reference"
+          ],
+          "matrix": [
+            [
+              153,
+              0
+            ],
+            [
+              46,
+              25
+            ]
+          ]
+        },
+        "flagged_out_of_reference_rate": 0.11160714285714286,
+        "coverage_accepted_rate": 0.48214285714285715,
+        "abstention_rate": 0.5178571428571429
+      },
+      "production_rule_reject_or_abstain": {
+        "n_total": 224,
+        "n_known": 153,
+        "n_unknown": 71,
+        "tp": 65,
+        "fp": 51,
+        "tn": 102,
+        "fn": 6,
+        "precision": 0.5603448275862069,
+        "recall_sensitivity": 0.9154929577464789,
+        "f1": 0.695187165775401,
+        "specificity": 0.6666666666666666,
+        "false_positive_rate": 0.3333333333333333,
+        "false_negative_rate": 0.08450704225352113,
+        "confusion_matrix": {
+          "labels": [
+            "known_reference",
+            "out_of_reference"
+          ],
+          "matrix": [
+            [
+              102,
+              51
+            ],
+            [
+              6,
+              65
+            ]
+          ]
+        },
+        "flagged_out_of_reference_rate": 0.5178571428571429,
+        "coverage_accepted_rate": 0.48214285714285715,
+        "abstention_rate": 0.5178571428571429
+      },
+      "per_unknown_category": {
+        "heldout_genus": {
+          "n_total": 205,
+          "n_known": 153,
+          "n_unknown": 52,
+          "tp": 6,
+          "fp": 0,
+          "tn": 153,
+          "fn": 46,
+          "precision": 1.0,
+          "recall_sensitivity": 0.11538461538461539,
+          "f1": 0.20689655172413793,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.8846153846153846,
+          "confusion_matrix": {
+            "labels": [
+              "known_reference",
+              "out_of_reference"
+            ],
+            "matrix": [
+              [
+                153,
+                0
+              ],
+              [
+                46,
+                6
+              ]
+            ]
+          },
+          "flagged_out_of_reference_rate": 0.02926829268292683,
+          "coverage_accepted_rate": 0.526829268292683,
+          "abstention_rate": 0.47317073170731705,
+          "n_category_examples": 52,
+          "median_distance": 0.0755,
+          "category_detected_as_out_of_reference": 0.11538461538461539,
+          "category_accepted_as_known": 0.11538461538461539
+        },
+        "external_nonfish": {
+          "n_total": 172,
+          "n_known": 153,
+          "n_unknown": 19,
+          "tp": 19,
+          "fp": 0,
+          "tn": 153,
+          "fn": 0,
+          "precision": 1.0,
+          "recall_sensitivity": 1.0,
+          "f1": 1.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.0,
+          "confusion_matrix": {
+            "labels": [
+              "known_reference",
+              "out_of_reference"
+            ],
+            "matrix": [
+              [
+                153,
+                0
+              ],
+              [
+                0,
+                19
+              ]
+            ]
+          },
+          "flagged_out_of_reference_rate": 0.11046511627906977,
+          "coverage_accepted_rate": 0.5930232558139535,
+          "abstention_rate": 0.4069767441860465,
+          "n_category_examples": 19,
+          "median_distance": 0.4953,
+          "category_detected_as_out_of_reference": 1.0,
+          "category_accepted_as_known": 0.0
+        }
+      },
+      "known_categories": {
+        "known_perturbed": {
+          "n": 153,
+          "flagged_out_of_reference_rate": 0.0,
+          "accepted_rate": 0.6666666666666666,
+          "abstention_rate": 0.3333333333333333,
+          "median_distance": 0.0189
+        },
+        "known_exact": {
+          "n": 51,
+          "flagged_out_of_reference_rate": 0.0,
+          "accepted_rate": 1.0,
+          "abstention_rate": 0.0,
+          "median_distance": 0.0
+        }
+      },
+      "perturbation_levels": {
+        "1_substitutions": {
+          "n": 51,
+          "false_positive_rate": 0.0,
+          "accepted_rate": 1.0,
+          "abstention_rate": 0.0,
+          "median_distance": 0.0094,
+          "max_distance": 0.0115
+        },
+        "2_substitutions": {
+          "n": 51,
+          "false_positive_rate": 0.0,
+          "accepted_rate": 1.0,
+          "abstention_rate": 0.0,
+          "median_distance": 0.0189,
+          "max_distance": 0.023
+        },
+        "5_substitutions": {
+          "n": 51,
+          "false_positive_rate": 0.0,
+          "accepted_rate": 0.0,
+          "abstention_rate": 1.0,
+          "median_distance": 0.0472,
+          "max_distance": 0.0575
+        }
+      },
+      "distance_auroc": {
+        "status": "ok",
+        "auroc": 0.9023750345208507,
+        "n_unknown": 71,
+        "n_known": 153
+      },
+      "threshold_sweep_descriptive": [
+        {
+          "threshold": 0.02,
+          "false_positive_rate": 0.35294117647058826,
+          "false_negative_rate": 0.08450704225352113,
+          "recall_sensitivity": 0.9154929577464789,
+          "specificity": 0.6470588235294118,
+          "precision": 0.5462184873949579,
+          "coverage": 0.46875
+        },
+        {
+          "threshold": 0.03,
+          "false_positive_rate": 0.3333333333333333,
+          "false_negative_rate": 0.08450704225352113,
+          "recall_sensitivity": 0.9154929577464789,
+          "specificity": 0.6666666666666666,
+          "precision": 0.5603448275862069,
+          "coverage": 0.48214285714285715
+        },
+        {
+          "threshold": 0.04,
+          "false_positive_rate": 0.3333333333333333,
+          "false_negative_rate": 0.15492957746478872,
+          "recall_sensitivity": 0.8450704225352113,
+          "specificity": 0.6666666666666666,
+          "precision": 0.5405405405405406,
+          "coverage": 0.5044642857142857
+        },
+        {
+          "threshold": 0.05,
+          "false_positive_rate": 0.0196078431372549,
+          "false_negative_rate": 0.2535211267605634,
+          "recall_sensitivity": 0.7464788732394366,
+          "specificity": 0.9803921568627451,
+          "precision": 0.9464285714285714,
+          "coverage": 0.75
+        },
+        {
+          "threshold": 0.06,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.28169014084507044,
+          "recall_sensitivity": 0.7183098591549296,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.7723214285714286
+        },
+        {
+          "threshold": 0.07,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.352112676056338,
+          "recall_sensitivity": 0.647887323943662,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.7946428571428571
+        },
+        {
+          "threshold": 0.08,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.38028169014084506,
+          "recall_sensitivity": 0.6197183098591549,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8035714285714286
+        },
+        {
+          "threshold": 0.09,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.4084507042253521,
+          "recall_sensitivity": 0.5915492957746479,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8125
+        },
+        {
+          "threshold": 0.1,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.43661971830985913,
+          "recall_sensitivity": 0.5633802816901409,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8214285714285714
+        },
+        {
+          "threshold": 0.11,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.4788732394366197,
+          "recall_sensitivity": 0.5211267605633803,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8348214285714286
+        },
+        {
+          "threshold": 0.12,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.5070422535211268,
+          "recall_sensitivity": 0.49295774647887325,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.84375
+        },
+        {
+          "threshold": 0.13,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.5915492957746479,
+          "recall_sensitivity": 0.4084507042253521,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8705357142857143
+        },
+        {
+          "threshold": 0.14,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.647887323943662,
+          "recall_sensitivity": 0.352112676056338,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8883928571428571
+        },
+        {
+          "threshold": 0.15,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.647887323943662,
+          "recall_sensitivity": 0.352112676056338,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8883928571428571
+        },
+        {
+          "threshold": 0.16,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.6619718309859155,
+          "recall_sensitivity": 0.3380281690140845,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.8928571428571429
+        },
+        {
+          "threshold": 0.17,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.704225352112676,
+          "recall_sensitivity": 0.29577464788732394,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.90625
+        },
+        {
+          "threshold": 0.18,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.19,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.2,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.21,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.22,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.23,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.24,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7183098591549296,
+          "recall_sensitivity": 0.28169014084507044,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9107142857142857
+        },
+        {
+          "threshold": 0.25,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7323943661971831,
+          "recall_sensitivity": 0.2676056338028169,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9151785714285714
+        },
+        {
+          "threshold": 0.26,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.27,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.28,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.29,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.3,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.31,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.32,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.33,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.34,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.35,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.36,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.37,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7464788732394366,
+          "recall_sensitivity": 0.2535211267605634,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9196428571428571
+        },
+        {
+          "threshold": 0.38,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7605633802816901,
+          "recall_sensitivity": 0.23943661971830985,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9241071428571429
+        },
+        {
+          "threshold": 0.39,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7605633802816901,
+          "recall_sensitivity": 0.23943661971830985,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9241071428571429
+        },
+        {
+          "threshold": 0.4,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.7605633802816901,
+          "recall_sensitivity": 0.23943661971830985,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "coverage": 0.9241071428571429
+        }
+      ],
+      "calibrated_threshold": {
+        "chosen_on": "calibration partition only",
+        "threshold": 0.05,
+        "calibration_youden_j": 0.8241025641025641,
+        "calibration_sensitivity": 0.8307692307692308,
+        "calibration_specificity": 0.9933333333333333,
+        "test_metrics": {
+          "n_total": 224,
+          "n_known": 153,
+          "n_unknown": 71,
+          "tp": 53,
+          "fp": 3,
+          "tn": 150,
+          "fn": 18,
+          "precision": 0.9464285714285714,
+          "recall_sensitivity": 0.7464788732394366,
+          "f1": 0.8346456692913385,
+          "specificity": 0.9803921568627451,
+          "false_positive_rate": 0.0196078431372549,
+          "false_negative_rate": 0.2535211267605634,
+          "confusion_matrix": {
+            "labels": [
+              "known_reference",
+              "out_of_reference"
+            ],
+            "matrix": [
+              [
+                150,
+                3
+              ],
+              [
+                18,
+                53
+              ]
+            ]
+          },
+          "flagged_out_of_reference_rate": 0.25,
+          "coverage_accepted_rate": 0.75,
+          "abstention_rate": 0.25
+        },
+        "note": "Diagnostic only. The production Distance Veto threshold is NOT changed."
+      }
+    }
+  }
+}

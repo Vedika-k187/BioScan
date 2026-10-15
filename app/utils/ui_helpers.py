@@ -244,6 +244,40 @@ def get_example_sequences(ref_df: Optional[pd.DataFrame] = None) -> Dict[str, Di
 
 
 # -------------------------------------------------------------
+# Brand mark: "Helix fish" (two DNA strands forming a fish)
+# -------------------------------------------------------------
+def bioscan_logo_svg(width: int = 46) -> str:
+    """Inline SVG of the BioScan helix-fish mark. Pure presentation."""
+    import math
+    strand_a, strand_b, rungs = [], [], []
+    for i in range(91):
+        t_ = i / 90
+        x = 18 + t_ * 132
+        amp = 30 * math.pow(math.sin(math.pi * t_), 0.8)
+        w = math.sin(t_ * math.pi * 2 * 2.25)
+        ya, yb = 62 + amp * w, 62 - amp * w
+        strand_a.append(f"{x:.1f},{ya:.1f}")
+        strand_b.append(f"{x:.1f},{yb:.1f}")
+        if i % 5 == 2:
+            rungs.append(
+                f'<line x1="{x:.1f}" y1="{ya:.1f}" x2="{x:.1f}" y2="{yb:.1f}" '
+                'stroke="#94a3b8" stroke-opacity=".45" stroke-width="2"/>'
+            )
+    height = round(width * 0.62)
+    return (
+        f'<svg width="{width}" height="{height}" viewBox="0 0 200 124" role="img" aria-label="BioScan logo">'
+        + "".join(rungs)
+        + f'<polyline points="{" ".join(strand_a)}" fill="none" stroke="#2dd4bf" stroke-width="4.5" '
+          'stroke-linecap="round" stroke-linejoin="round"/>'
+        + f'<polyline points="{" ".join(strand_b)}" fill="none" stroke="#60a5fa" stroke-width="4.5" '
+          'stroke-linecap="round" stroke-linejoin="round"/>'
+        + '<path d="M150 62 L186 30 Q176 62 186 94 Z" fill="#2dd4bf"/>'
+        + '<circle cx="40" cy="55" r="3.4" fill="#0b1220"/><circle cx="40" cy="55" r="1.4" fill="#fbbf24"/>'
+        + "</svg>"
+    )
+
+
+# -------------------------------------------------------------
 # 4. Custom CSS Injection
 # -------------------------------------------------------------
 def inject_custom_css():
@@ -447,6 +481,120 @@ def inject_custom_css():
         footer {
             visibility: hidden;
         }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Visual polish layer: typography, spacing, controls. No behaviour or layout changes.
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap');
+
+        html, body, [class*="css"], .stMarkdown, .stButton button, input, textarea {
+            font-family: 'Figtree', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        }
+        .block-container { padding-top: 2.2rem; padding-bottom: 4rem; max-width: 1180px; }
+
+        /* top toolbar: keep the page clean */
+        [data-testid="stToolbar"], [data-testid="stDecoration"], #MainMenu { display: none !important; }
+        header[data-testid="stHeader"] { background: transparent; height: 0; }
+
+        /* headings */
+        h1, h2, h3, h4, h5 { letter-spacing: -0.015em; font-weight: 600; }
+        h3 { font-size: 1.45rem; margin-top: 0.4rem; }
+        h4 { font-size: 1.1rem; margin-top: 1.2rem; color: #dbe5ee; }
+        hr { border-color: #1b2535 !important; margin: 1.4rem 0 !important; }
+
+        /* sidebar */
+        [data-testid="stSidebar"] { background: #0a0f1a; border-right: 1px solid #172033; }
+        [data-testid="stSidebar"] > div:first-child { padding-top: 1.4rem; }
+        [data-testid="stSidebar"] [role="radiogroup"] { gap: 4px; }
+        [data-testid="stSidebar"] [role="radiogroup"] label {
+            padding: 9px 12px; border-radius: 10px; border: 1px solid transparent;
+            width: 100%; transition: background .15s ease, border-color .15s ease;
+        }
+        [data-testid="stSidebar"] [role="radiogroup"] label:hover { background: #111a2b; }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div:first-child { display: none; }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"] p { font-size: 0.97rem; font-weight: 500; color: #9fb0c3; }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) {
+            background: rgba(45, 212, 191, 0.10); border-color: rgba(45, 212, 191, 0.35);
+        }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) p { color: #e8fffb; font-weight: 600; }
+
+        /* buttons */
+        .stButton > button, .stDownloadButton > button {
+            border-radius: 12px; font-weight: 600; padding: 0.55rem 1.2rem;
+            border: 1px solid #243449; background: #101a2b; color: #e5e7eb;
+        }
+        .stButton > button:hover, .stDownloadButton > button:hover { border-color: #2dd4bf; color: #ffffff; }
+        button[data-testid="stBaseButton-primary"] { background: #14b8a6 !important; border-color: #14b8a6 !important; }
+        button[data-testid="stBaseButton-primary"] p { color: #03201b !important; font-weight: 700; }
+        button[data-testid="stBaseButton-primary"]:hover { background: #2dd4bf !important; border-color: #2dd4bf !important; }
+        button[data-testid="stBaseButton-secondary"] { background: #101a2b; border: 1px solid #243449; border-radius: 12px; }
+        button[data-testid="stBaseButton-secondary"]:hover { border-color: #2dd4bf; }
+
+        /* inputs */
+        .stTextArea textarea, .stTextInput input, [data-baseweb="select"] > div {
+            border-radius: 12px !important; border-color: #1f2c40 !important; background: #0d1422 !important;
+        }
+        .stTextArea textarea:focus, .stTextInput input:focus { border-color: #2dd4bf !important; box-shadow: 0 0 0 1px #2dd4bf !important; }
+        [data-testid="stFileUploader"] section { border-radius: 14px; border: 1px dashed #2a3b52; background: #0d1422; }
+
+        /* tabs */
+        .stTabs [data-baseweb="tab-list"] { gap: 6px; border-bottom: 1px solid #172033; }
+        .stTabs [data-baseweb="tab"] { padding: 8px 14px; border-radius: 10px 10px 0 0; font-weight: 500; }
+        .stTabs [aria-selected="true"] { color: #5eead4 !important; }
+
+        /* metric cards and tables */
+        [data-testid="stMetric"] {
+            background: #0e1626; border: 1px solid #1b2840; border-radius: 14px; padding: 14px 16px;
+        }
+        [data-testid="stMetricLabel"] p { color: #8ea2b8; font-size: 0.82rem; font-weight: 500; }
+        [data-testid="stMetricValue"] { font-weight: 700; letter-spacing: -0.02em; }
+        [data-testid="stDataFrame"] { border: 1px solid #1b2840; border-radius: 12px; overflow: hidden; }
+
+        /* result cards */
+        .prediction-hero-card, .bioscan-card {
+            background: #0e1626 !important; border: 1px solid #1b2840 !important; border-radius: 18px !important;
+            box-shadow: none !important;
+        }
+        .kpi-metric { background: #0b1322 !important; border: 1px solid #1b2840 !important; border-radius: 12px !important; }
+        .hero-chip { background: rgba(45,212,191,.12) !important; color: #7ff0dd !important; border: 1px solid rgba(45,212,191,.28); }
+        .clean-alert-warning, .clean-alert-error, .clean-alert-success { border-radius: 12px !important; }
+        [data-testid="stAlert"] { border-radius: 12px; }
+        [data-testid="stCaptionContainer"] { color: #8ea2b8; }
+
+
+        /* sidebar: icons, pinned footer, info cards */
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"] { display: flex; align-items: center; gap: 10px; }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]::before { content: ""; width: 18px; height: 18px; flex: 0 0 18px; background-size: contain; background-repeat: no-repeat; order: -1; }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="0"])::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238ea2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.3-4.3'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="0"]:checked)::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.3-4.3'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="1"])::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238ea2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l9 5-9 5-9-5 9-5z'/><path d='M3 13l9 5 9-5'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="1"]:checked)::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l9 5-9 5-9-5 9-5z'/><path d='M3 13l9 5 9-5'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="2"])::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238ea2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z'/><circle cx='12' cy='10' r='2.5'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="2"]:checked)::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z'/><circle cx='12' cy='10' r='2.5'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="3"])::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238ea2b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20V10M10 20V4M16 20v-7M22 20H2'/></svg>"); }
+        [data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input[value="3"]:checked)::before { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20V10M10 20V4M16 20v-7M22 20H2'/></svg>"); }
+        [data-testid="stSidebar"] [data-testid="stSidebarUserContent"] [data-testid="stVerticalBlock"] { min-height: calc(100vh - 7.5rem); }
+        [data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.bs-foot) { margin-top: auto; }
+        .bs-foot { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; }
+        .bs-card { background: #0e1626; border: 1px solid #1b2840; border-radius: 12px; padding: 12px 14px; }
+        .bs-h { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: #6f87a0; margin-bottom: 8px; }
+        .bs-row { display: flex; justify-content: space-between; font-size: 0.86rem; color: #9fb0c3; padding: 2px 0; }
+        .bs-row b { color: #e8f1f8; font-weight: 600; font-variant-numeric: tabular-nums; }
+        .bs-leg { display: flex; align-items: flex-start; gap: 9px; font-size: 0.84rem; color: #b9c8d8; padding: 3px 0; line-height: 1.3; }
+        .bs-leg i { width: 9px; height: 9px; border-radius: 50%; margin-top: 5px; flex: 0 0 9px; }
+        .bs-leg small { display: block; color: #6f87a0; font-size: 0.76rem; }
+        .bs-small { font-size: 0.74rem; color: #5f758c; padding: 2px 4px; }
+
+        /* brand lockup */
+        .bs-brand { display: flex; align-items: center; gap: 10px; }
+        .bs-brand .bs-name { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; color: #eef6fb; line-height: 1; }
+        .bs-brand .bs-name span { color: #2dd4bf; }
+        .bs-tag { font-size: 0.78rem; color: #8ea2b8; margin-top: 6px; letter-spacing: 0.01em; }
         </style>
         """,
         unsafe_allow_html=True
