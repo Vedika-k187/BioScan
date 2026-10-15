@@ -323,31 +323,39 @@ class BioScanPredictor:
             pred_fam = fam_classes[np.argmax(level_probs["family"])]
         predicted_tax["family"] = pred_fam
 
-        # 4d. Genus (constrained by pred_fam)
-        art_gen = self.artifacts["genus"]
-        valid_genera = self.parent_to_children["family"].get(pred_fam, set())
-        p_g = level_probs["genus"].copy()
-        gen_classes = art_gen["target_classes"]
-        mask_g = np.array([g in valid_genera for g in gen_classes])
-        if mask_g.any():
-            p_g[~mask_g] = -1.0
-            pred_gen = gen_classes[np.argmax(p_g)]
-        else:
-            pred_gen = "Not available in reference data"
-        predicted_tax["genus"] = pred_gen
+        # 4d/4e. Genus and Species.
+        # With ~1 reference per species, the nearest reference is a more reliable
+        # genus/species source than a one-vs-rest classifier. When the query is
+        # close to a reference (or identical), inherit genus/species from it.
+        NA = "Not available in reference data"
+        is_close = is_exact or nearest_dist <= THRESHOLD_CLOSE_SIMILARITY
+        ref_genus = nearest_ref.get("genus")
+        ref_species = nearest_ref.get("species")
+        if is_close and nearest_ref.get("class") and nearest_ref.get("order") and nearest_ref.get("family"):
+            # Close hit: the reference lineage overrides classifier ranks.
+            pred_cls = nearest_ref["class"]
+            pred_ord = nearest_ref["order"]
+            pred_fam = nearest_ref["family"]
+            predicted_tax["class"] = pred_cls
+            predicted_tax["order"] = pred_ord
+            predicted_tax["family"] = pred_fam
 
-        # 4e. Species (constrained by pred_gen and distance <= 0.05)
-        art_sp = self.artifacts["species"]
-        valid_species = self.parent_to_children["genus"].get(pred_gen, set())
-        p_s = level_probs["species"].copy()
-        sp_classes = art_sp["target_classes"]
-        mask_s = np.array([s in valid_species for s in sp_classes])
-        
-        if mask_s.any() and (is_exact or nearest_dist <= THRESHOLD_CLOSE_SIMILARITY):
-            p_s[~mask_s] = -1.0
-            pred_sp = sp_classes[np.argmax(p_s)]
+        if is_close and ref_genus:
+            pred_gen = ref_genus
+            pred_sp = ref_species if ref_species and ref_species != NA else NA
         else:
-            pred_sp = "Not available in reference data"
+            art_gen = self.artifacts["genus"]
+            valid_genera = self.parent_to_children["family"].get(pred_fam, set())
+            p_g = level_probs["genus"].copy()
+            gen_classes = art_gen["target_classes"]
+            mask_g = np.array([g in valid_genera for g in gen_classes])
+            if mask_g.any():
+                p_g[~mask_g] = -1.0
+                pred_gen = gen_classes[np.argmax(p_g)]
+            else:
+                pred_gen = NA
+            pred_sp = NA  # species is never asserted without a close reference
+        predicted_tax["genus"] = pred_gen
         predicted_tax["species"] = pred_sp
 
         # 5. Taxonomic Concordance & Multi-Stream Evidence Synthesis

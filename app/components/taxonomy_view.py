@@ -20,7 +20,7 @@ def render_taxonomy_hierarchy(result: Dict[str, Any]):
 
     st.markdown(
         """
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em; margin-bottom: 6px;">
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em; margin-bottom: 6px;">
             Taxonomic Lineage
         </div>
         """,
@@ -30,7 +30,7 @@ def render_taxonomy_hierarchy(result: Dict[str, Any]):
     if status == "out_of_reference":
         st.markdown(
             """
-            <div style="padding: 10px 14px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; font-size: 0.88rem; color: #9f1239;">
+            <div style="padding: 10px 14px; background: #2d1519; border: 1px solid #7f1d2d; border-radius: 8px; font-size: 0.88rem; color: #fda4af;">
                 <strong>Taxonomic lineage unverified:</strong> This sequence exceeds the reference divergence threshold. Speculative higher-rank classification is suppressed for out-of-reference queries.
             </div>
             """,
@@ -51,7 +51,7 @@ def render_taxonomy_hierarchy(result: Dict[str, Any]):
         is_avail = bool(val and val != "Not available in reference data")
         display_val = val if is_avail else "Unassigned"
         val_style = "font-style: italic;" if rank == "Species" and is_avail else ""
-        color = "#0f172a" if is_avail else "#94a3b8"
+        color = "#e5e7eb" if is_avail else "#6b7280"
 
         crumbs.append(
             f'<div class="tax-crumb">'

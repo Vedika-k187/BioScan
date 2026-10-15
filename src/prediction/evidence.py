@@ -18,7 +18,7 @@ import numpy as np
 from typing import Dict, List, Optional, Tuple, Any
 
 # Validated operational thresholds from Phase 6
-THRESHOLD_CLOSE_SIMILARITY = 0.050   # >= 95% sequence identity
+THRESHOLD_CLOSE_SIMILARITY = 0.030   # >= 97% identity; tuned by leave-one-genus-out (reports/unknown_detection_summary.csv)
 THRESHOLD_OUT_OF_REFERENCE = 0.150   # < 85% sequence identity
 THRESHOLD_MODEL_PROB_HIGH = 0.700    # Decisive probability
 THRESHOLD_MODEL_PROB_LOW = 0.400     # Ambiguous probability
@@ -159,7 +159,9 @@ def synthesize_evidence_and_status(
         "taxonomic_concordance": {
             "class_concordant": class_agrees,
             "order_concordant": order_agrees,
-            "family_concordant": family_agrees
+            "family_concordant": family_agrees,
+            "genus_concordant": concordance.get("genus"),
+            "species_concordant": concordance.get("species")
         }
     }
 

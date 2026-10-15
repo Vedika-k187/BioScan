@@ -26,8 +26,8 @@ def render_biodiversity_page():
     st.markdown(
         """
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 1.6rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">Biodiversity Explorer</div>
-            <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">2019 New Jersey Ocean Trawl Survey</div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: #e5e7eb; letter-spacing: -0.02em;">Biodiversity Explorer</div>
+            <div style="font-size: 0.95rem; color: #9ca3af; margin-top: 4px;">2019 New Jersey Ocean Trawl Survey</div>
         </div>
         """,
         unsafe_allow_html=True
@@ -94,7 +94,7 @@ def render_biodiversity_page():
     st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 
     # 2. Large Interactive Map
-    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;'>Sampling Station Survey Map</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #e5e7eb; margin-bottom: 6px;'>Sampling Station Survey Map</div>", unsafe_allow_html=True)
     if not diversity_df.empty:
         fig_map = plot_station_diversity_map(diversity_df)
         st.plotly_chart(fig_map, use_container_width=True)
@@ -102,7 +102,7 @@ def render_biodiversity_page():
     st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 
     # 3. Diversity & Taxonomy Insights
-    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 8px;'>Diversity & Depth Insights</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 1.05rem; font-weight: 700; color: #e5e7eb; margin-bottom: 8px;'>Diversity & Depth Insights</div>", unsafe_allow_html=True)
     
     if not diversity_df.empty:
         fig_depth = plot_diversity_vs_depth(diversity_df)
@@ -110,14 +110,14 @@ def render_biodiversity_page():
 
     col_t1, col_t2 = st.columns(2)
     with col_t1:
-        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #334155; margin-bottom: 6px;'>Reference Taxonomy Catalog</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #d1d5db; margin-bottom: 6px;'>Reference Taxonomy Catalog</div>", unsafe_allow_html=True)
         if not ref_df.empty:
             show_cols = ["sequence_id", "species", "genus", "family", "order", "class"]
             avail_tax_cols = [c for c in show_cols if c in ref_df.columns]
             st.dataframe(ref_df[avail_tax_cols], use_container_width=True, hide_index=True, height=260)
 
     with col_t2:
-        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #334155; margin-bottom: 6px;'>Top Species Survey Prevalence</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 0.92rem; font-weight: 600; color: #d1d5db; margin-bottom: 6px;'>Top Species Survey Prevalence</div>", unsafe_allow_html=True)
         if not dist_df.empty:
             top_dist = dist_df.sort_values(by="station_prevalence_pct", ascending=False).head(15)
             display_dist_cols = ["species", "unique_stations", "station_prevalence_pct", "mean_depth"]
@@ -125,7 +125,8 @@ def render_biodiversity_page():
             st.dataframe(top_dist[avail_dist_cols], use_container_width=True, hide_index=True, height=260)
 
     # 4. Expandable Methodology & Disclaimers
-    with st.expander("▸ Survey Methodology & Operational Caveats", expanded=False):
+    st.markdown("#### Survey Methodology & Operational Caveats")
+    with st.container():
         st.markdown(
             """
             - **Survey Origin**: 2019 New Jersey Ocean Trawl eDNA Survey across 36 coastal stations.

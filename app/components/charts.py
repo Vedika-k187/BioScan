@@ -27,7 +27,7 @@ def plot_status_distribution(batch_df: pd.DataFrame) -> go.Figure:
         "known_reference_like": "#10b981", # Emerald
         "low_confidence": "#f59e0b",       # Amber
         "out_of_reference": "#ef4444",     # Red
-        "qc_failed": "#94a3b8"             # Slate
+        "qc_failed": "#6b7280"             # Slate
     }
     colors = [color_map.get(s, "#3b82f6") for s in status_counts["Status"]]
 
@@ -87,7 +87,7 @@ def plot_station_diversity_map(diversity_df: pd.DataFrame) -> go.Figure:
         return go.Figure()
 
     scatter_fn = getattr(px, "scatter_map", getattr(px, "scatter_mapbox", None))
-    style_kw = {"map_style": "open-street-map"} if hasattr(px, "scatter_map") else {"mapbox_style": "open-street-map"}
+    style_kw = {"map_style": "carto-darkmatter"} if hasattr(px, "scatter_map") else {"mapbox_style": "carto-darkmatter"}
 
     fig = scatter_fn(
         diversity_df,

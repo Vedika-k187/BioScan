@@ -47,7 +47,7 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">Survey Detections</div>
-                <div class="kpi-value">{survey_ctx.get('total_reference_detections', 'N/A')}</div>
+                <div class="kpi-value">{biodiversity.get('supporting_reference_records_in_dataset', 'N/A')}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -57,7 +57,7 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">Distinct Stations</div>
-                <div class="kpi-value">{survey_ctx.get('unique_stations_count', 'N/A')}</div>
+                <div class="kpi-value">{biodiversity.get('stations_detected_count', 'N/A')}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -80,10 +80,10 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
         ref_detections = bio_records_df[bio_records_df["sequence_id"] == nearest_ref].copy()
         
         if not ref_detections.empty and "decimalLatitude" in ref_detections.columns:
-            st.markdown(f"<div style='font-size: 0.88rem; font-weight: 600; color: #475569; margin-bottom: 6px;'>Detection Stations for Reference Barcode <code>{nearest_ref}</code></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size: 0.88rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;'>Detection Stations for Reference Barcode <code>{nearest_ref}</code></div>", unsafe_allow_html=True)
             
             scatter_fn = getattr(px, "scatter_map", getattr(px, "scatter_mapbox", None))
-            style_kw = {"map_style": "open-street-map"} if hasattr(px, "scatter_map") else {"mapbox_style": "open-street-map"}
+            style_kw = {"map_style": "carto-darkmatter"} if hasattr(px, "scatter_map") else {"mapbox_style": "carto-darkmatter"}
 
             fig = scatter_fn(
                 ref_detections,
@@ -92,7 +92,7 @@ def render_biodiversity_context(result: Dict[str, Any], bio_records_df: pd.DataF
                 hover_name="sampname",
                 hover_data={"organismQuantity": ":,.0f", "depth": ":.1f m", "decimalLatitude": False, "decimalLongitude": False},
                 size="organismQuantity",
-                color_discrete_sequence=["#0d9488"],
+                color_discrete_sequence=["#14b8a6"],
                 zoom=6.5,
                 center=dict(lat=39.5, lon=-74.3),
                 title=None,

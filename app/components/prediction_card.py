@@ -55,7 +55,7 @@ def render_prediction_card(result: Dict[str, Any]):
             <div class="prediction-hero-card" style="border-left: 4px solid #e11d48;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
                     <div>
-                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em;">Prediction</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Prediction</div>
                         <div class="prediction-species" style="color: #e11d48; font-style: normal;">Out of Reference Library</div>
                         <div class="prediction-lineage">Sequence divergence exceeds reference library boundary · Distance Veto enforced</div>
                     </div>
@@ -98,16 +98,18 @@ def render_prediction_card(result: Dict[str, Any]):
         return
 
     # 3. Known or Low Confidence Match
-    species_name = prediction.get("species") or "Species unassigned"
+    species_name = prediction.get("species")
+    if not species_name or species_name == "Not available in reference data":
+        species_name = "Species not assigned"
     genus_name = prediction.get("genus") or "Genus unassigned"
     family_name = prediction.get("family") or "Family unassigned"
 
     st.markdown(
         f"""
-        <div class="prediction-hero-card" style="border-left: 4px solid {'#0d9488' if status == 'known_reference_like' else '#f59e0b'};">
+        <div class="prediction-hero-card" style="border-left: 4px solid {'#14b8a6' if status == 'known_reference_like' else '#f59e0b'};">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em;">Prediction</div>
+                    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Prediction</div>
                     <div class="prediction-species">{species_name}</div>
                     <div class="prediction-lineage">{genus_name} · {family_name}</div>
                 </div>
@@ -117,8 +119,8 @@ def render_prediction_card(result: Dict[str, Any]):
             </div>
             <div class="kpi-row" style="margin-top: 18px;">
                 <div class="kpi-metric">
-                    <div class="kpi-label">Confidence</div>
-                    <div class="kpi-value" style="color: {'#0d9488' if status == 'known_reference_like' else '#b45309'};">{f"{p1:.1%}" if p1 is not None else "N/A"}</div>
+                    <div class="kpi-label">Class Confidence</div>
+                    <div class="kpi-value" style="color: {'#14b8a6' if status == 'known_reference_like' else '#fbbf24'};">{f"{p1:.1%}" if p1 is not None else "N/A"}</div>
                 </div>
                 <div class="kpi-metric">
                     <div class="kpi-label">Similarity</div>

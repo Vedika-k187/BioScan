@@ -79,19 +79,19 @@ STATUS_CONFIG = {
         "short_label": "Known Reference-Like",
         "icon": "✓",
         "badge_class": "status-known",
-        "color": "#0d9488", # Teal
-        "bg_color": "#f0fdfa",
-        "border_color": "#99f6e4",
-        "description": "Sequence exhibits close sequence identity (distance ≤ 0.050 or exact match) and taxonomic agreement with the cataloged reference library."
+        "color": "#14b8a6", # Teal
+        "bg_color": "#0f2a28",
+        "border_color": "#115e59",
+        "description": "Sequence exhibits close sequence identity (distance ≤ 0.030 or exact match) and taxonomic agreement with the cataloged reference library."
     },
     "low_confidence": {
         "label": "Low Confidence Match",
         "short_label": "Low Confidence",
         "icon": "⚠",
         "badge_class": "status-low",
-        "color": "#b45309", # Amber
-        "bg_color": "#fffbeb",
-        "border_color": "#fde68a",
+        "color": "#fbbf24", # Amber
+        "bg_color": "#2b2412",
+        "border_color": "#6b5310",
         "description": "Sequence falls within broad reference boundary (distance ≤ 0.150) but exhibits low probability margin (< 0.150) or taxonomic disagreement."
     },
     "out_of_reference": {
@@ -100,8 +100,8 @@ STATUS_CONFIG = {
         "icon": "⚠",
         "badge_class": "status-out",
         "color": "#e11d48", # Rose
-        "bg_color": "#fff1f2",
-        "border_color": "#fecdd3",
+        "bg_color": "#2d1519",
+        "border_color": "#7f1d2d",
         "description": "Sequence is distant from all cataloged reference library barcodes (distance > 0.150). Distance veto enforced."
     },
     "qc_failed": {
@@ -109,9 +109,9 @@ STATUS_CONFIG = {
         "short_label": "QC Failed",
         "icon": "✕",
         "badge_class": "status-qc",
-        "color": "#64748b", # Slate
-        "bg_color": "#f8fafc",
-        "border_color": "#e2e8f0",
+        "color": "#9ca3af", # Slate
+        "bg_color": "#1a2332",
+        "border_color": "#334155",
         "description": "Sequence contains invalid DNA characters, unsupported ambiguity codes, or is empty."
     }
 }
@@ -120,14 +120,13 @@ STATUS_CONFIG = {
 def render_status_badge(status: str) -> str:
     """Generate HTML snippet for a status badge."""
     cfg = STATUS_CONFIG.get(status, STATUS_CONFIG["qc_failed"])
-    return f"""
-    <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; 
-                background: {cfg['bg_color']}; border: 1px solid {cfg['border_color']}; 
-                border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: {cfg['color']};">
-        <span style="font-size: 0.9rem;">{cfg['icon']}</span>
-        <span>{cfg['label']}</span>
-    </div>
-    """
+    # Single line: blank lines inside an HTML block make Markdown render it as code.
+    return (
+        f'<div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; '
+        f'background: {cfg["bg_color"]}; border: 1px solid {cfg["border_color"]}; '
+        f'border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: {cfg["color"]};">'
+        f'<span style="font-size: 0.9rem;">{cfg["icon"]}</span><span>{cfg["label"]}</span></div>'
+    )
 
 
 # -------------------------------------------------------------
@@ -164,7 +163,7 @@ def get_example_sequences(ref_df: Optional[pd.DataFrame] = None) -> Dict[str, Di
                 "sequence_id": f"{row1['sequence_id']}_var1",
                 "sequence": "".join(mut_seq),
                 "expected_status": "known_reference_like",
-                "notes": "Single nucleotide variant (distance ≈ 0.010, within close boundary ≤ 0.050)."
+                "notes": "Single nucleotide variant (distance ≈ 0.010, within close boundary ≤ 0.030)."
             }
 
         # Example 3: Prionotus carolinus (Northern searobin)
@@ -189,11 +188,11 @@ def get_example_sequences(ref_df: Optional[pd.DataFrame] = None) -> Dict[str, Di
             if idx < len(low_conf_list):
                 curr = low_conf_list[idx]
                 low_conf_list[idx] = "T" if curr != "T" else "G"
-        examples["Low-Confidence Query (Intermediate Divergence, ~7% edit distance)"] = {
+        examples["Low-Confidence Query (Intermediate Divergence, ~8% edit distance)"] = {
             "sequence_id": "SYN_LOW_CONF_01",
             "sequence": "".join(low_conf_list),
             "expected_status": "low_confidence",
-            "notes": "Diverged variant (0.05 < distance ≤ 0.150) exhibiting classification ambiguity."
+            "notes": "Diverged variant (0.03 < distance ≤ 0.150) exhibiting classification ambiguity."
         }
 
     # Example 5: Out-of-reference sequence (synthetic highly diverged sequence)
@@ -205,6 +204,33 @@ def get_example_sequences(ref_df: Optional[pd.DataFrame] = None) -> Dict[str, Di
         "expected_status": "out_of_reference",
         "notes": "Synthetic divergent sequence (>15% distance) demonstrating Distance Veto enforcement."
     }
+
+    # Example 5b: real non-fish 12S sequence (NCBI negative control)
+    try:
+        import os
+        fasta = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                             "data", "external", "negative_controls_12S.fasta")
+        name, parts, recs = None, [], []
+        for line in open(fasta):
+            if line.startswith(">"):
+                if name: recs.append((name, "".join(parts)))
+                name, parts = line[1:].strip(), []
+            else:
+                parts.append(line.strip().upper())
+        if name: recs.append((name, "".join(parts)))
+        for nm, sq in recs:
+            if "Mus musculus" in nm and "12S" in nm:
+                win = sq[:106]
+                if set(win) <= set("ACGT") and len(win) == 106:
+                    examples["Real Non-Fish Sequence (House mouse 12S, NCBI)"] = {
+                        "sequence_id": nm.split()[0],
+                        "sequence": win,
+                        "expected_status": "out_of_reference",
+                        "notes": "Real mouse 12S fragment from NCBI. Not a fish, so the Distance Veto should reject it."
+                    }
+                break
+    except OSError:
+        pass
 
     # Example 6: Invalid QC sequence (contains ambiguous IUPAC code 'N')
     examples["Invalid QC Sequence (Contains IUPAC Degenerate 'N' Bases)"] = {
@@ -236,14 +262,14 @@ def inject_custom_css():
         /* 2. BASE TYPOGRAPHY & LAYOUT */
         html, body, [class*="css"] {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #0f172a;
+            color: #e5e7eb;
         }
 
         /* Main hero styling */
         .hero-title {
             font-size: 1.85rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #e5e7eb;
             letter-spacing: -0.025em;
             margin: 0;
             padding: 0;
@@ -251,7 +277,7 @@ def inject_custom_css():
         }
         .hero-subtitle {
             font-size: 0.95rem;
-            color: #64748b;
+            color: #9ca3af;
             margin-top: 0.35rem;
             margin-bottom: 0.75rem;
             line-height: 1.5;
@@ -260,8 +286,8 @@ def inject_custom_css():
             display: inline-flex;
             align-items: center;
             padding: 2px 9px;
-            background: #f1f5f9;
-            color: #475569;
+            background: #1f2937;
+            color: #cbd5e1;
             border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -270,8 +296,8 @@ def inject_custom_css():
 
         /* Clean Card Container */
         .bioscan-card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
+            background-color: #111827;
+            border: 1px solid #334155;
             border-radius: 12px;
             padding: 20px 24px;
             margin-bottom: 16px;
@@ -280,8 +306,8 @@ def inject_custom_css():
 
         /* Prediction Result Hero Card */
         .prediction-hero-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #111827;
+            border: 1px solid #334155;
             border-radius: 12px;
             padding: 24px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
@@ -291,13 +317,13 @@ def inject_custom_css():
             font-size: 1.75rem;
             font-weight: 700;
             font-style: italic;
-            color: #0f172a;
+            color: #e5e7eb;
             letter-spacing: -0.02em;
             line-height: 1.2;
         }
         .prediction-lineage {
             font-size: 0.92rem;
-            color: #64748b;
+            color: #9ca3af;
             font-weight: 500;
             margin-top: 4px;
         }
@@ -309,8 +335,8 @@ def inject_custom_css():
             margin: 12px 0;
         }
         .kpi-metric {
-            background: #f8fafc;
-            border: 1px solid #f1f5f9;
+            background: #1a2332;
+            border: 1px solid #1f2937;
             border-radius: 8px;
             padding: 10px 14px;
             flex: 1;
@@ -319,14 +345,14 @@ def inject_custom_css():
         .kpi-label {
             font-size: 0.7rem;
             font-weight: 600;
-            color: #64748b;
+            color: #9ca3af;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .kpi-value {
             font-size: 1.35rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #e5e7eb;
             margin-top: 2px;
         }
 
@@ -337,8 +363,8 @@ def inject_custom_css():
             flex-wrap: wrap;
             gap: 6px;
             padding: 12px 16px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #1a2332;
+            border: 1px solid #334155;
             border-radius: 8px;
             margin: 12px 0;
         }
@@ -351,48 +377,48 @@ def inject_custom_css():
         .tax-crumb-rank {
             font-size: 0.68rem;
             font-weight: 600;
-            color: #64748b;
+            color: #9ca3af;
             text-transform: uppercase;
         }
         .tax-crumb-val {
             font-weight: 600;
-            color: #0f172a;
+            color: #e5e7eb;
         }
         .tax-arrow {
-            color: #94a3b8;
+            color: #6b7280;
             font-size: 0.75rem;
         }
 
         /* Subtle alerts */
         .clean-alert-warning {
-            background-color: #fffbeb;
-            border: 1px solid #fef3c7;
+            background-color: #2b2412;
+            border: 1px solid #5b4510;
             border-left: 4px solid #f59e0b;
             padding: 12px 16px;
             border-radius: 6px;
-            color: #92400e;
+            color: #fcd34d;
             font-size: 0.9rem;
             line-height: 1.45;
             margin: 12px 0;
         }
         .clean-alert-error {
-            background-color: #fff1f2;
-            border: 1px solid #ffe4e6;
+            background-color: #2d1519;
+            border: 1px solid #4c1d2a;
             border-left: 4px solid #f43f5e;
             padding: 12px 16px;
             border-radius: 6px;
-            color: #9f1239;
+            color: #fda4af;
             font-size: 0.9rem;
             line-height: 1.45;
             margin: 12px 0;
         }
         .clean-alert-success {
-            background-color: #f0fdf4;
-            border: 1px solid #dcfce7;
+            background-color: #0f2a1c;
+            border: 1px solid #14532d;
             border-left: 4px solid #10b981;
             padding: 12px 16px;
             border-radius: 6px;
-            color: #166534;
+            color: #86efac;
             font-size: 0.9rem;
             line-height: 1.45;
             margin: 12px 0;

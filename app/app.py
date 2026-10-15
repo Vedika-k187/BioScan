@@ -59,9 +59,9 @@ def main():
             <div style="padding: 6px 0 16px 0;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 1.5rem;">🧬</span>
-                    <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; color: #0f172a;">BioScan</span>
+                    <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; color: #e5e7eb;">BioScan</span>
                 </div>
-                <div style="font-size: 0.78rem; color: #64748b; font-weight: 500; margin-top: 2px;">
+                <div style="font-size: 0.78rem; color: #9ca3af; font-weight: 500; margin-top: 2px;">
                     DNA Biodiversity Intelligence
                 </div>
             </div>
@@ -82,8 +82,8 @@ def main():
 
         st.markdown(
             """
-            <div style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">
-                <span style="font-weight: 600; color: #64748b;">12S rDNA V5</span><br>
+            <div style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #1f2937; font-size: 0.75rem; color: #6b7280; line-height: 1.5;">
+                <span style="font-weight: 600; color: #9ca3af;">12S rDNA V5</span><br>
                 2019 NJ Ocean Trawl Survey
             </div>
             """,

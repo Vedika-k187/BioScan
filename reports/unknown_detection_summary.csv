@@ -1,0 +1,4 @@
+experiment,n,median_distance,pct_flagged_unknown,pct_out_of_reference
+held-out genus,97,0.073,89.7,11.3
+known + 2% noise,60,0.019,10.0,0.0
+non-fish negative,39,0.495,100.0,100.0

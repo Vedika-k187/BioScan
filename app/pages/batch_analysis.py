@@ -24,8 +24,8 @@ def render_batch_page():
     st.markdown(
         """
         <div style="margin-bottom: 1.25rem;">
-            <div style="font-size: 1.6rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">Batch DNA Analysis</div>
-            <div style="font-size: 0.95rem; color: #64748b; margin-top: 4px;">Upload multiple sequences and classify them in high-throughput mode.</div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: #e5e7eb; letter-spacing: -0.02em;">Batch DNA Analysis</div>
+            <div style="font-size: 0.95rem; color: #9ca3af; margin-top: 4px;">Upload multiple sequences and classify them in high-throughput mode.</div>
         </div>
         """,
         unsafe_allow_html=True
@@ -64,7 +64,7 @@ def render_batch_page():
     if not batch_input_content:
         st.markdown(
             """
-            <div style="padding: 24px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 12px;">
+            <div style="padding: 24px; background: #1a2332; border: 1px dashed #475569; border-radius: 8px; text-align: center; color: #9ca3af; font-size: 0.9rem; margin-top: 12px;">
                 Upload a FASTA file or click <strong>Load Sample 5-Sequence Batch</strong> to run high-throughput analysis.
             </div>
             """,
@@ -107,7 +107,7 @@ def render_batch_page():
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">QC Passed</div>
-                <div class="kpi-value" style="color: #0d9488;">{qc_passed}</div>
+                <div class="kpi-value" style="color: #14b8a6;">{qc_passed}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -117,7 +117,7 @@ def render_batch_page():
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">Ref-Match</div>
-                <div class="kpi-value" style="color: #0d9488;">{known_cnt}</div>
+                <div class="kpi-value" style="color: #14b8a6;">{known_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -127,7 +127,7 @@ def render_batch_page():
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">Low Conf</div>
-                <div class="kpi-value" style="color: #b45309;">{low_cnt}</div>
+                <div class="kpi-value" style="color: #fbbf24;">{low_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -147,7 +147,7 @@ def render_batch_page():
             f"""
             <div class="kpi-metric">
                 <div class="kpi-label">QC Failed</div>
-                <div class="kpi-value" style="color: #64748b;">{fail_cnt}</div>
+                <div class="kpi-value" style="color: #9ca3af;">{fail_cnt}</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -164,7 +164,7 @@ def render_batch_page():
         st.plotly_chart(fig_tax, use_container_width=True)
 
     # 3. Interactive Filterable Table
-    st.markdown("<div style='font-size: 1rem; font-weight: 700; color: #0f172a; margin: 16px 0 8px 0;'>Batch Results</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 1rem; font-weight: 700; color: #e5e7eb; margin: 16px 0 8px 0;'>Batch Results</div>", unsafe_allow_html=True)
     
     col_filter_status, col_filter_class, col_toggle = st.columns([1, 1, 1])
     with col_filter_status:

@@ -1,0 +1,197 @@
+experiment,id,label,distance,status
+held-out genus,SEQ_001,Acipenser,0.1320754716981132,low_confidence
+held-out genus,SEQ_006,Alopias,0.0380952380952381,low_confidence
+held-out genus,SEQ_056,Ammodytes,0.10377358490566038,low_confidence
+held-out genus,SEQ_041,Anchoa,0.018867924528301886,known_reference_like
+held-out genus,SEQ_042,Anchoa,0.03773584905660377,low_confidence
+held-out genus,SEQ_043,Anchoa,0.018867924528301886,known_reference_like
+held-out genus,SEQ_075,Astroscopus,0.1320754716981132,low_confidence
+held-out genus,SEQ_087,Auxis,0.009433962264150943,known_reference_like
+held-out genus,SEQ_062,Bairdiella,0.07547169811320754,low_confidence
+held-out genus,SEQ_099,Balistes,0.10377358490566038,low_confidence
+held-out genus,SEQ_008,Bathytoshia,0.1,low_confidence
+held-out genus,SEQ_036,Brevoortia,0.009433962264150943,known_reference_like
+held-out genus,SEQ_029,Caranx,0.03773584905660377,low_confidence
+held-out genus,SEQ_002,Carcharhinus,0.047619047619047616,low_confidence
+held-out genus,SEQ_003,Carcharhinus,0.06666666666666667,low_confidence
+held-out genus,SEQ_007,Carcharias,0.0380952380952381,low_confidence
+held-out genus,SEQ_069,Centropristis,0.12264150943396226,low_confidence
+held-out genus,SEQ_020,Chaetodipterus,0.10377358490566038,low_confidence
+held-out genus,SEQ_100,Chilomycterus,0.10377358490566038,low_confidence
+held-out genus,SEQ_078,Citharichthys,0.009345794392523364,known_reference_like
+held-out genus,SEQ_037,Clupea,0.04716981132075472,low_confidence
+held-out genus,SEQ_021,Conger,0.18095238095238095,out_of_reference
+held-out genus,SEQ_035,Coryphaena,0.05660377358490566,low_confidence
+held-out genus,SEQ_063,Cynoscion,0.03773584905660377,low_confidence
+held-out genus,SEQ_045,Cyprinodon,0.08490566037735849,low_confidence
+held-out genus,SEQ_044,Engraulis,0.018867924528301886,known_reference_like
+held-out genus,SEQ_079,Etropus,0.009345794392523364,known_reference_like
+held-out genus,SEQ_040,Etrumeus,0.08490566037735849,low_confidence
+held-out genus,SEQ_057,Eucinostomus,0.12844036697247707,low_confidence
+held-out genus,SEQ_096,Fistularia,0.11320754716981132,low_confidence
+held-out genus,SEQ_046,Fundulus,0.047619047619047616,low_confidence
+held-out genus,SEQ_048,Gadus,0.1308411214953271,low_confidence
+held-out genus,SEQ_051,Gobiosoma,0.1509433962264151,out_of_reference
+held-out genus,SEQ_011,Gymnura,0.07339449541284404,low_confidence
+held-out genus,SEQ_068,Helicolenus,0.12264150943396226,low_confidence
+held-out genus,SEQ_027,Hemiramphus,0.12264150943396226,low_confidence
+held-out genus,SEQ_097,Hippocampus,0.16822429906542055,out_of_reference
+held-out genus,SEQ_080,Hippoglossina,0.04716981132075472,low_confidence
+held-out genus,SEQ_009,Hypanus,0.10714285714285714,low_confidence
+held-out genus,SEQ_010,Hypanus,0.09090909090909091,low_confidence
+held-out genus,SEQ_028,Hypleurochilus,0.1308411214953271,low_confidence
+held-out genus,SEQ_095,Ictalurus,0.14953271028037382,low_confidence
+held-out genus,SEQ_070,Lagodon,0.03773584905660377,low_confidence
+held-out genus,SEQ_015,Leucoraja,0.05357142857142857,low_confidence
+held-out genus,SEQ_047,Lucania,0.047619047619047616,low_confidence
+held-out genus,SEQ_022,Membras,0.10377358490566038,low_confidence
+held-out genus,SEQ_023,Menidia,0.12264150943396226,low_confidence
+held-out genus,SEQ_064,Menticirrhus,0.05660377358490566,low_confidence
+held-out genus,SEQ_065,Menticirrhus,0.05660377358490566,low_confidence
+held-out genus,SEQ_049,Merluccius,0.1792452830188679,out_of_reference
+held-out genus,SEQ_066,Micropogonias,0.02830188679245283,known_reference_like
+held-out genus,SEQ_060,Morone,0.12264150943396226,low_confidence
+held-out genus,SEQ_052,Mugil,0.11214953271028037,low_confidence
+held-out genus,SEQ_005,Mustelus,0.06666666666666667,low_confidence
+held-out genus,SEQ_012,Myliobatis,0.06422018348623854,low_confidence
+held-out genus,SEQ_054,Ophidion,0.16981132075471697,out_of_reference
+held-out genus,SEQ_055,Ophidion,0.16981132075471697,out_of_reference
+held-out genus,SEQ_039,Opisthonema,0.03773584905660377,low_confidence
+held-out genus,SEQ_025,Opsanus,0.22916666666666666,out_of_reference
+held-out genus,SEQ_081,Paralichthys,0.04716981132075472,low_confidence
+held-out genus,SEQ_093,Peprilus,0.05660377358490566,low_confidence
+held-out genus,SEQ_019,Petromyzon,0.25,out_of_reference
+held-out genus,SEQ_061,Pholis,0.07547169811320754,low_confidence
+held-out genus,SEQ_084,Polymixia,0.11320754716981132,low_confidence
+held-out genus,SEQ_086,Pomatomus,0.06481481481481481,low_confidence
+held-out genus,SEQ_073,Prionotus,0.11320754716981132,low_confidence
+held-out genus,SEQ_074,Prionotus,0.10377358490566038,low_confidence
+held-out genus,SEQ_085,Psenopsis,0.05660377358490566,low_confidence
+held-out genus,SEQ_013,Rhinoptera,0.08256880733944955,low_confidence
+held-out genus,SEQ_014,Rhinoptera,0.06422018348623854,low_confidence
+held-out genus,SEQ_004,Rhizoprionodon,0.047619047619047616,low_confidence
+held-out genus,SEQ_016,Rostroraja,0.05357142857142857,low_confidence
+held-out genus,SEQ_088,Scomber,0.04672897196261682,low_confidence
+held-out genus,SEQ_089,Scomber,0.037383177570093455,low_confidence
+held-out genus,SEQ_090,Scomberomorus,0.02830188679245283,known_reference_like
+held-out genus,SEQ_083,Scophthalmus,0.1509433962264151,out_of_reference
+held-out genus,SEQ_030,Selene,0.03773584905660377,low_confidence
+held-out genus,SEQ_031,Seriola,0.05660377358490566,low_confidence
+held-out genus,SEQ_101,Sphoeroides,0.12264150943396226,low_confidence
+held-out genus,SEQ_072,Sphyraena,0.14150943396226415,low_confidence
+held-out genus,SEQ_017,Squalus,0.06666666666666667,low_confidence
+held-out genus,SEQ_018,Squatina,0.06666666666666667,low_confidence
+held-out genus,SEQ_071,Stenotomus,0.03773584905660377,low_confidence
+held-out genus,SEQ_077,Symphurus,0.2358490566037736,out_of_reference
+held-out genus,SEQ_098,Syngnathus,0.16037735849056603,out_of_reference
+held-out genus,SEQ_024,Synodus,0.12264150943396226,low_confidence
+held-out genus,SEQ_058,Tautoga,0.05660377358490566,low_confidence
+held-out genus,SEQ_059,Tautogolabrus,0.05660377358490566,low_confidence
+held-out genus,SEQ_091,Thunnus,0.009433962264150943,known_reference_like
+held-out genus,SEQ_032,Trachinotus,0.0660377358490566,low_confidence
+held-out genus,SEQ_033,Trachurus,0.04716981132075472,low_confidence
+held-out genus,SEQ_034,Trachurus,0.0660377358490566,low_confidence
+held-out genus,SEQ_094,Trichiurus,0.14814814814814814,low_confidence
+held-out genus,SEQ_076,Trinectes,0.09433962264150944,low_confidence
+held-out genus,SEQ_026,Tylosurus,0.12149532710280374,low_confidence
+held-out genus,SEQ_053,Upeneus,0.11320754716981132,low_confidence
+held-out genus,SEQ_050,Urophycis,0.1308411214953271,low_confidence
+non-fish negative,PP194435.1@0,Bos taurus,0.5188679245283019,out_of_reference
+non-fish negative,PP194435.1@120,Bos taurus,0.49107142857142855,out_of_reference
+non-fish negative,PP194435.1@240,Bos taurus,0.4953271028037383,out_of_reference
+non-fish negative,MZ661208.1@0,Mus musculus,0.49056603773584906,out_of_reference
+non-fish negative,MZ661208.1@120,Mus musculus,0.5,out_of_reference
+non-fish negative,MZ661208.1@240,Mus musculus,0.5283018867924528,out_of_reference
+non-fish negative,KJ192692.1@0,Sus scrofa,0.32075471698113206,out_of_reference
+non-fish negative,KJ192692.1@120,Sus scrofa,0.4528301886792453,out_of_reference
+non-fish negative,KJ192692.1@240,Sus scrofa,0.5094339622641509,out_of_reference
+non-fish negative,LC424767.1@0,Canis lupus,0.5471698113207547,out_of_reference
+non-fish negative,MF623644.1@0,Felis catus,0.5094339622641509,out_of_reference
+non-fish negative,MZ661213.1@0,Rattus norvegicus,0.5283018867924528,out_of_reference
+non-fish negative,MZ661213.1@120,Rattus norvegicus,0.4811320754716981,out_of_reference
+non-fish negative,MZ661213.1@240,Rattus norvegicus,0.4811320754716981,out_of_reference
+non-fish negative,Y10943.1@0,Xenopus laevis,0.5046728971962616,out_of_reference
+non-fish negative,Y10943.1@120,Xenopus laevis,0.49056603773584906,out_of_reference
+non-fish negative,Y10943.1@240,Xenopus laevis,0.5,out_of_reference
+non-fish negative,FJ039948.1@0,Chelonia mydas,0.25471698113207547,out_of_reference
+non-fish negative,FJ039948.1@120,Chelonia mydas,0.49056603773584906,out_of_reference
+non-fish negative,FJ039948.1@240,Chelonia mydas,0.5188679245283019,out_of_reference
+non-fish negative,LC104749.1@0,Alligator mississippiensis,0.5188679245283019,out_of_reference
+non-fish negative,X87857.1@0,C.livia mitochondrial,0.37735849056603776,out_of_reference
+non-fish negative,X87857.1@120,C.livia mitochondrial,0.4811320754716981,out_of_reference
+non-fish negative,X87857.1@240,C.livia mitochondrial,0.4953271028037383,out_of_reference
+non-fish negative,MT476492.1@120,Equus caballus,0.42727272727272725,out_of_reference
+non-fish negative,AB058864.1@0,Rana temporaria,0.5094339622641509,out_of_reference
+non-fish negative,AB058864.1@120,Rana temporaria,0.49056603773584906,out_of_reference
+non-fish negative,AB058864.1@240,Rana temporaria,0.5327102803738317,out_of_reference
+non-fish negative,MK065453.1@0,Python bivittatus,0.4056603773584906,out_of_reference
+non-fish negative,MK065453.1@120,Python bivittatus,0.4528301886792453,out_of_reference
+non-fish negative,MK065453.1@240,Python bivittatus,0.49056603773584906,out_of_reference
+non-fish negative,PP623004.1@0,Delphinus delphis,0.4954128440366973,out_of_reference
+non-fish negative,PP623004.1@120,Delphinus delphis,0.5,out_of_reference
+non-fish negative,PP623004.1@240,Delphinus delphis,0.5089285714285714,out_of_reference
+non-fish negative,LC863304.1@0,Tursiops truncatus,0.4672897196261682,out_of_reference
+non-fish negative,LC863304.1@120,Tursiops truncatus,0.5,out_of_reference
+non-fish negative,U78350.1@0,Zalophus californianus,0.44339622641509435,out_of_reference
+non-fish negative,U78350.1@120,Zalophus californianus,0.5283018867924528,out_of_reference
+non-fish negative,U78350.1@240,Zalophus californianus,0.5094339622641509,out_of_reference
+known + 2% noise,SEQ_095,,0.038461538461538464,low_confidence
+known + 2% noise,SEQ_069,Centropristis striata,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_007,Carcharias taurus,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_066,Micropogonias undulatus,0.0,known_reference_like
+known + 2% noise,SEQ_074,Prionotus evolans,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_085,,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_100,Chilomycterus schoepfii,0.0,known_reference_like
+known + 2% noise,SEQ_043,Anchoa mitchilli,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_026,Tylosurus acus,0.009345794392523364,known_reference_like
+known + 2% noise,SEQ_016,Rostroraja eglanteria,0.018018018018018018,known_reference_like
+known + 2% noise,SEQ_079,Etropus microstomus,0.018691588785046728,known_reference_like
+known + 2% noise,SEQ_010,Hypanus say,0.01818181818181818,known_reference_like
+known + 2% noise,SEQ_098,Syngnathus fuscus,0.009615384615384616,known_reference_like
+known + 2% noise,SEQ_099,Balistes capriscus,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_035,Coryphaena hippurus,0.047619047619047616,low_confidence
+known + 2% noise,SEQ_077,Symphurus plagiusa,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_083,Scophthalmus aquosus,0.009615384615384616,known_reference_like
+known + 2% noise,SEQ_024,Synodus foetens,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_060,Morone saxatilis,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_046,Fundulus heteroclitus,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_094,Trichiurus lepturus,0.0,known_reference_like
+known + 2% noise,SEQ_013,Rhinoptera bonasus,0.027777777777777776,known_reference_like
+known + 2% noise,SEQ_009,Hypanus sabinus,0.008928571428571428,known_reference_like
+known + 2% noise,SEQ_005,Mustelus canis,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_081,Paralichthys dentatus,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_088,Scomber colias,0.009345794392523364,known_reference_like
+known + 2% noise,SEQ_018,Squatina dumeril,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_084,Polymixia lowei,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_048,Gadus morhua,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_051,Gobiosoma ginsburgi,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_031,Seriola lalandi,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_006,Alopias vulpinus,0.01904761904761905,known_reference_like
+known + 2% noise,SEQ_014,Rhinoptera brasiliensis,0.027777777777777776,known_reference_like
+known + 2% noise,SEQ_032,Trachinotus carolinus,0.0,known_reference_like
+known + 2% noise,SEQ_090,Scomberomorus maculatus,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_012,Myliobatis freminvillei,0.01834862385321101,known_reference_like
+known + 2% noise,SEQ_059,Tautogolabrus adspersus,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_087,Auxis thazard,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_033,Trachurus lathami,0.0660377358490566,low_confidence
+known + 2% noise,SEQ_041,Anchoa hepsetus,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_017,Squalus acanthias,0.009523809523809525,known_reference_like
+known + 2% noise,SEQ_028,Hypleurochilus geminatus,0.009345794392523364,known_reference_like
+known + 2% noise,SEQ_036,Brevoortia tyrannus,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_037,Clupea harengus,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_071,Stenotomus chrysops,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_092,,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_065,Menticirrhus saxatilis,0.02830188679245283,known_reference_like
+known + 2% noise,SEQ_078,Citharichthys arctifrons,0.018691588785046728,known_reference_like
+known + 2% noise,SEQ_076,Trinectes maculatus,0.03773584905660377,low_confidence
+known + 2% noise,SEQ_047,Lucania parva,0.01904761904761905,known_reference_like
+known + 2% noise,SEQ_054,Ophidion marginatum,0.0,known_reference_like
+known + 2% noise,SEQ_072,Sphyraena borealis,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_068,Helicolenus dactylopterus,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_062,Bairdiella chrysoura,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_019,Petromyzon marinus,0.0449438202247191,low_confidence
+known + 2% noise,SEQ_093,Peprilus triacanthus,0.018867924528301886,known_reference_like
+known + 2% noise,SEQ_058,Tautoga onitis,0.009433962264150943,known_reference_like
+known + 2% noise,SEQ_097,Hippocampus erectus,0.02857142857142857,known_reference_like
+known + 2% noise,SEQ_055,Ophidion marginatum,0.052083333333333336,low_confidence
+known + 2% noise,SEQ_056,Ammodytes americanus,0.018867924528301886,known_reference_like

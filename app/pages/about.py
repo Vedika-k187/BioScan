@@ -68,8 +68,8 @@ def render_about_page():
            │  └─ DISTANCE VETO: If d_min > 0.150 ➔ Strictly OUT_OF_REFERENCE
            ▼
         [6. Evidence Aggregation & Status Synthesis]
-           │  ├─ KNOWN_REFERENCE_LIKE (d_min ≤ 0.050 or exact match, concordant taxonomy)
-           │  ├─ LOW_CONFIDENCE (0.050 < d_min ≤ 0.150, or margin < 0.150, or discordance)
+           │  ├─ KNOWN_REFERENCE_LIKE (d_min ≤ 0.030 or exact match, concordant taxonomy)
+           │  ├─ LOW_CONFIDENCE (0.030 < d_min ≤ 0.150, or margin < 0.150, or discordance)
            │  └─ OUT_OF_REFERENCE (d_min > 0.150, probability veto enforced)
            ▼
         [7. Biodiversity Context Integration] (2019 NJ Ocean Trawl Survey Intelligence)
@@ -93,6 +93,27 @@ def render_about_page():
         "High classifier probability CANNOT override sequence divergence."
     )
 
+    st.markdown("---")
+
+    # 3b. Real-data validation of the Distance Veto
+    st.markdown("### 🧪 Unknown-Detection Validation (Real Held-Out Data)")
+    import os
+    import pandas as pd
+    base = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    summ_path = os.path.join(base, "reports", "unknown_detection_summary.csv")
+    fig_path = os.path.join(base, "reports", "figures", "unknown_detection_distance.png")
+    if os.path.exists(summ_path):
+        summ = pd.read_csv(summ_path).rename(columns={
+            "experiment": "Test set", "n": "Sequences", "median_distance": "Median distance",
+            "pct_flagged_unknown": "% flagged not-known", "pct_out_of_reference": "% out-of-reference"})
+        st.dataframe(summ, hide_index=True, use_container_width=True)
+        st.caption(
+            "Held-out genus: all references of a genus removed from the library, then queried. "
+            "Non-fish negatives: real mouse, human-relative and other non-fish 12S sequences from NCBI. "
+            "Known + 2% noise: reference sequences with simulated sequencing error."
+        )
+        if os.path.exists(fig_path):
+            st.image(fig_path, use_container_width=True)
     st.markdown("---")
 
     # 4. Mandatory Scientific Boundaries & Limitations
