@@ -90,3 +90,101 @@ This makes BioScan a **reference-aware DNA identification system rather than a s
 
 **Core Flow:**  
 DNA / FASTA Input → Sequence QC → Feature Engineering → Hierarchical ML + Similarity Search → Evidence Engine → Distance Veto → Final Prediction / Out of Reference → Biodiversity Dashboard
+
+## 4. System Architecture
+```mermaid
+flowchart TD
+    %% ---------- OFFLINE ----------
+    subgraph OFFLINE["OFFLINE: MODEL DEVELOPMENT"]
+        direction TB
+
+        RAW["RAW DATASET<br/>13,736 records · 59 columns"]
+
+        CLEAN["DATA AUDIT & CLEANING<br/>• DNA normalization<br/>• A/C/G/T validation<br/>• Length analysis<br/>• Exact deduplication<br/>• Missing labels handled"]
+
+        LIB["UNIQUE REFERENCE LIBRARY<br/>101 unique sequences<br/>90 named species"]
+
+        FEAT["FEATURE ENGINEERING<br/>• Basic DNA features<br/>• k-mer frequencies, k = 2, 3, 4, 5"]
+
+        KNN["KNN"]
+        RF["Random Forest"]
+        XGB["XGBoost"]
+
+        LOOCV["LOOCV<br/>Leave One Unique Sequence Out"]
+
+        CMP["MODEL COMPARISON"]
+        SEL["FINAL MODEL SELECTION"]
+
+        FINAL["FINAL HIERARCHICAL ML<br/>Class → Random Forest<br/>Order → Random Forest<br/>Family → KNN, 3-mer features<br/>Genus → KNN, 3-mer features<br/>Species → KNN, 2-mer features"]
+
+        RAW --> CLEAN --> LIB --> FEAT
+
+        FEAT --> KNN
+        FEAT --> RF
+        FEAT --> XGB
+
+        KNN --> LOOCV
+        RF --> LOOCV
+        XGB --> LOOCV
+
+        LOOCV --> CMP --> SEL --> FINAL
+    end
+
+    %% ---------- ONLINE ----------
+    subgraph ONLINE["ONLINE: PRODUCTION PIPELINE"]
+        direction TB
+
+        INPUT["USER DNA INPUT<br/>• Paste sequence<br/>• FASTA input"]
+
+        VAL["INPUT VALIDATION<br/>• A/C/G/T check<br/>• Normalize sequence<br/>• Length / QC warning"]
+
+        FX["FEATURE EXTRACTION<br/>DNA → Numerical Vector<br/>Scaling where needed"]
+
+        HML["HIERARCHICAL ML<br/>Class → Order → Family → Genus → Species"]
+
+        PRED["ML PREDICTION<br/>Taxonomic labels + probabilities"]
+
+        SIM["SIMILARITY SEARCH<br/>Compare input against 101 references<br/>Normalized Levenshtein distance"]
+
+        NEAR["NEAREST REFERENCE<br/>Minimum distance + similarity"]
+
+        UNK["UNKNOWN DETECTION<br/>≤ 0.03 → Reference-like<br/>0.03 to 0.15 → Low confidence<br/>> 0.15 → Out of reference"]
+
+        EVID["EVIDENCE ENGINE<br/>• ML prediction<br/>• Nearest reference<br/>• Sequence distance<br/>• Taxonomy agreement<br/>• Distance veto"]
+
+        RESULT["FINAL BIOSCAN RESULT<br/>Identification · Confidence · Evidence<br/>Known / Unknown status · Taxonomic hierarchy"]
+
+        UI["STREAMLIT UI<br/>• Prediction report<br/>• Similarity / distance<br/>• Confidence · Taxonomy<br/>• Biodiversity context"]
+
+        INPUT --> VAL
+        VAL --> FX --> HML --> PRED
+
+        VAL --> SIM --> NEAR --> UNK
+
+        PRED --> EVID
+        NEAR --> EVID
+        UNK --> EVID
+
+        EVID --> RESULT --> UI
+    end
+
+    %% ---------- OFFLINE TO ONLINE ----------
+    FINAL -->|"Trained models loaded once"| HML
+    LIB -.->|"Reference barcodes"| SIM
+
+    %% ---------- STYLING ----------
+    classDef data fill:#E8F1FB,stroke:#3B6FB6,color:#12335C;
+    classDef proc fill:#EAF7F1,stroke:#2E8B6A,color:#0E3B2C;
+    classDef model fill:#FFF3DC,stroke:#C98A1B,color:#5C3C05;
+    classDef decide fill:#FDECEC,stroke:#C0392B,color:#5A1410;
+    classDef out fill:#EFE9FB,stroke:#6D4CC0,color:#2E1A66;
+
+    class RAW,LIB,INPUT data;
+    class CLEAN,FEAT,VAL,FX,SIM,NEAR proc;
+    class KNN,RF,XGB,LOOCV,CMP,SEL,FINAL,HML,PRED model;
+    class UNK,EVID decide;
+    class RESULT,UI out;
+
+    style OFFLINE fill:#F6F8FB,stroke:#9AA7B8,stroke-dasharray:5 4,color:#2B3544;
+    style ONLINE fill:#F3FAF7,stroke:#8FBFAE,stroke-dasharray:5 4,color:#1E4D3F;
+```
