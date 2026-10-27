@@ -25,8 +25,10 @@ from typing import Any, Dict, List, Optional
 import joblib
 import numpy as np
 import pandas as pd
+from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.svm import SVC
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if BASE_DIR not in sys.path:
@@ -52,6 +54,7 @@ from src.evaluation.splits import (  # noqa: E402
     normalize_sequence,
     split_groups,
 )
+from src.models import svm_model  # noqa: E402
 from src.models.hierarchical_taxonomy import FEATURE_SETS, get_model  # noqa: E402
 from src.prediction.evidence import (  # noqa: E402
     THRESHOLD_CLOSE_SIMILARITY,
@@ -62,7 +65,7 @@ from src.similarity.reference_search import ReferenceSearcher  # noqa: E402
 
 SEED = 42
 RANKS = ["class", "order", "family", "genus", "species"]
-MODEL_NAMES = ["KNN", "Random Forest", "XGBoost"]
+MODEL_NAMES = ["KNN", "Random Forest", "XGBoost", "SVM Baseline"]
 PROCESSED = os.path.join(BASE_DIR, "data", "processed")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 OUT_DIR = os.path.join(BASE_DIR, "reports", "evaluation")
@@ -79,6 +82,7 @@ MODEL_TYPE_TO_NAME = {
     "KNeighborsClassifier": "KNN",
     "RandomForestClassifier": "Random Forest",
     "XGBClassifier": "XGBoost",
+    "SVC": "SVM Baseline",
 }
 
 
@@ -133,7 +137,8 @@ def _loo_predictions(X: np.ndarray, y: np.ndarray, eligible: np.ndarray, model_n
         prob_vec = np.zeros(len(classes), dtype=float)
         if hasattr(clf, "predict_proba"):
             probs = clf.predict_proba(xi)[0]
-            k = int(np.argmax(probs))
+            # SVC: the label is predict(); Platt probabilities are only used for confidence / AUC.
+            k = int(clf.predict(xi)[0]) if isinstance(clf, SVC) else int(np.argmax(probs))
             conf_val = float(probs[k])
             pred_cls = str(le.inverse_transform([k])[0])
             for le_idx, p_val in enumerate(probs):
@@ -191,6 +196,234 @@ def _nearest_reference_by_rank(ref: pd.DataFrame, rank: str, labelled_ids: List[
             dists.append(float(hit["distance"]))
             correct.append(bool(ok))
     return dists, correct
+
+
+# ---------------------------------------------------------------------------
+# Leakage-safe (parent-group) evaluation and SVM tuning helpers
+# ---------------------------------------------------------------------------
+SVM_METRIC_KEYS = ["top1_accuracy", "balanced_accuracy", "macro_precision", "macro_recall",
+                   "macro_f1", "weighted_f1", "macro_roc_auc", "runtime_seconds"]
+
+
+def _fit_predict_one(model_name: str, X: np.ndarray, y: np.ndarray, tr: np.ndarray,
+                     te: int, classes: List[str]):
+    """Fit one throw-away model on rows `tr` (scaler fitted on them only), predict row `te`."""
+    scaler = StandardScaler().fit(X[tr])
+    le = LabelEncoder().fit(y[tr])
+    clf = get_model(model_name)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        clf.fit(scaler.transform(X[tr]), le.transform(y[tr]))
+    xi = scaler.transform(X[[te]])
+    vec = np.zeros(len(classes), dtype=float)
+    if hasattr(clf, "predict_proba"):
+        probs = clf.predict_proba(xi)[0]
+        k = int(clf.predict(xi)[0]) if isinstance(clf, SVC) else int(np.argmax(probs))
+        for j, pv in enumerate(probs):
+            vec[classes.index(str(le.inverse_transform([j])[0]))] = float(pv)
+    else:
+        k = int(clf.predict(xi)[0])
+    pred = str(le.inverse_transform([k])[0])
+    if not hasattr(clf, "predict_proba"):
+        vec[classes.index(pred)] = 1.0
+    return pred, vec
+
+
+def _parallel(fn, items):
+    nj = -1 if len(items) > 20 else 1
+    return joblib.Parallel(n_jobs=nj, batch_size="auto")(joblib.delayed(fn)(i) for i in items)
+
+
+def _optimized_loo(X, y, groups, is_synth, test_idx, classes, train_rule):
+    """
+    Nested evaluation of the tuned SVM. For every held-out row the C/gamma search runs on that
+    fold's TRAINING rows only (train_rule(i) -> training indices), then the tuned model predicts i.
+    """
+    def one(i):
+        tr = train_rule(i)
+        lab, pr, params = svm_model.fit_predict_tuned(X, y, groups, is_synth, tr, [i], classes)
+        return str(y[i]), lab[0], pr[0], params
+    res = _parallel(one, list(test_idx))
+    return ([r[0] for r in res], [r[1] for r in res], np.vstack([r[2] for r in res]),
+            [r[3] for r in res])
+
+
+def _canonical_report(y_true, y_pred, order=None):
+    """Confusion matrix and per-class metrics in a fixed class order (all four classes shown)."""
+    order = order or svm_model.CLASS_ORDER
+    cm = confusion_matrix(y_true, y_pred, labels=order)
+    p, r, f1, sup = precision_recall_fscore_support(y_true, y_pred, labels=order, zero_division=0)
+    pred_n = cm.sum(axis=0)
+    rows = []
+    for k, c in enumerate(order):
+        has = int(sup[k]) > 0
+        rows.append({
+            "class": c,
+            "precision": float(p[k]) if (has or pred_n[k] > 0) else None,
+            "recall": float(r[k]) if has else None,
+            "f1": float(f1[k]) if has else None,
+            "support": int(sup[k]),
+            "predicted_count": int(pred_n[k]),
+        })
+    return {"labels": order, "matrix": cm.tolist(), "per_class": rows}
+
+
+def _delta(base, opt):
+    if base is None or opt is None:
+        return {"baseline": base, "optimized": opt, "absolute_change": None, "percent_change": None}
+    d = opt - base
+    return {"baseline": base, "optimized": opt, "absolute_change": d,
+            "percent_change": (d / base * 100.0) if base else None}
+
+
+def _best_model(table: Dict[str, Dict[str, Any]]):
+    """Rank by balanced accuracy, then macro F1, then macro AUC. Ties are reported as ties."""
+    def key(n):
+        m = table[n]
+        return (m.get("balanced_accuracy") or 0, m.get("macro_f1") or 0, m.get("macro_roc_auc") or 0)
+    ranked = sorted(table, key=key, reverse=True)
+    top = [n for n in ranked if key(n) == key(ranked[0])]
+    return {"best": top[0] if len(top) == 1 else top, "tied": len(top) > 1,
+            "criterion": "balanced accuracy, then macro F1, then macro ROC-AUC",
+            "ranking": ranked}
+
+
+def _svm_study(X, labels, lvl, models, preds_a, prod_name) -> Dict[str, Any]:
+    """
+    Class-rank SVM study under the project's leave-one-sequence-out protocol (protocol A).
+    C and gamma are tuned inside every fold on that fold's training rows only (nested).
+    """
+    y = np.asarray(labels, dtype=object).astype(str)
+    classes = sorted(set(y.tolist()))
+    is_synth = lvl["is_synthetic"].astype(bool).values
+    groups = svm_model.assign_parent_groups(lvl)
+    n = len(y)
+    all_rows = np.arange(n)
+
+    # --- tuning on the full training set (what the saved artefact uses) ----------------
+    _log("    [svm] grid search on the full training set (leakage-safe splitter)")
+    tuning = svm_model.tune_svm(X, y, groups, is_synth, n_jobs=-1)
+    best_params = tuning["best_params"]
+    _log(f"    [svm] best C={best_params['C']} gamma={best_params['gamma']} "
+         f"cv balanced acc={tuning['best_cv_score']:.4f} ({tuning['runtime_seconds']}s)")
+
+    # --- protocol A: nested tuned SVM over all 259 rows --------------------------------
+    t0 = time.time()
+    _log("    [svm] protocol A: nested tuned SVM, leave-one-sequence-out (all 259)")
+    yt, yp, pr, chosen_a = _optimized_loo(
+        X, y, groups, is_synth, list(all_rows), classes,
+        lambda i: np.array([j for j in range(n) if j != i]))
+    m = taxonomy_metrics(yt, yp, pr)
+    m["is_production_model"] = False
+    m["runtime_seconds"] = round(time.time() - t0, 1)
+    real = ~is_synth
+    m["real_only_evaluation"] = taxonomy_metrics(
+        [a for a, r in zip(yt, real) if r], [b for b, r in zip(yp, real) if r], pr[real])
+    conf = [float(pr[k, classes.index(yp[k])]) for k in range(len(yp))]
+    m["accuracy_vs_coverage"] = accuracy_coverage_curve(conf, [a == b for a, b in zip(yt, yp)])
+    m["confidence_note"] = ("SVM confidence = Platt-scaled top-1 probability. Not a calibrated "
+                            "probability of being correct. Tuned inside every fold (nested).")
+    m["selected_params_across_folds"] = _count_params(chosen_a)
+    models["SVM Optimized"] = m
+    preds_a["SVM Optimized"] = (yt, yp)
+
+    def block(table, preds):
+        out = {}
+        for key, name in (("baseline", "SVM Baseline"), ("optimized", "SVM Optimized")):
+            t = table[name]
+            out[key] = {k: t.get(k) for k in SVM_METRIC_KEYS}
+            out[key].update({
+                "n_test_examples": t["n_eligible_test_examples"],
+                "n_evaluated_classes": t["n_evaluated_classes"],
+                "confusion_matrix": _canonical_report(*preds[name])["matrix"],
+                "confusion_labels": svm_model.CLASS_ORDER,
+                "per_class": _canonical_report(*preds[name])["per_class"],
+                "params": (svm_model.BASELINE_PARAMS if key == "baseline" else best_params),
+            })
+        out["before_after"] = {k: _delta(out["baseline"][k], out["optimized"][k])
+                               for k in SVM_METRIC_KEYS}
+        return out
+
+    table_a = {k: v for k, v in models.items() if v.get("status") == "ok"}
+    a_block = block(table_a, preds_a)
+
+    prod_a = table_a.get(prod_name)
+    opt_a = table_a.get("SVM Optimized")
+    replace = bool(prod_a and opt_a
+                   and (opt_a["balanced_accuracy"] or 0) > (prod_a["balanced_accuracy"] or 0)
+                   and (opt_a["macro_f1"] or 0) > (prod_a["macro_f1"] or 0))
+    return {
+        "feature_set": "k=3 (3-mer frequencies, 64 features), standardised inside a Pipeline",
+        "class_order": svm_model.CLASS_ORDER,
+        "baseline_params": svm_model.BASELINE_PARAMS,
+        "optimization": {
+            "method": "GridSearchCV (refit=False; best chosen by mean score, ties to smaller C)",
+            "scoring": svm_model.SCORING,
+            "scoring_rationale": ("Balanced accuracy is the mean per-class recall, so the 82 "
+                                  "Teleostei cannot dominate the objective the way plain accuracy would."),
+            "param_grid": {"C": svm_model.C_GRID, "gamma": svm_model.GAMMA_GRID, "kernel": ["rbf"]},
+            "cv_strategy": ("Stratified 5-fold over genuine Teleostei and Elasmobranchii sequences. "
+                            "Validation uses genuine sequences only; sequences sharing a parent group "
+                            "with a validation sequence are removed from that fold's training data. "
+                            "Chondrostei and Petromyzonti (one independent sequence each) are always "
+                            "in training and never validated."),
+            "n_cv_folds": tuning["n_cv_folds"], "n_candidates": tuning["n_candidates"],
+            "n_fits": tuning["n_fits"], "random_state": svm_model.SEED,
+            "best_params": best_params, "best_cv_score": tuning["best_cv_score"],
+            "best_cv_std": tuning["best_cv_std"], "runtime_seconds": tuning["runtime_seconds"],
+            "search_results": tuning["search_results"],
+            "nested_note": ("In both evaluation protocols the search is re-run inside every outer "
+                            "fold on that fold's training rows only, so no test sequence influences "
+                            "C or gamma."),
+        },
+        "protocol_a": {
+            "name": "Leave-one-sequence-out (LOOCV) over all 259 training sequences",
+            "caveat": ("Chondrostei and Petromyzonti each have one reference sequence plus "
+                       "augmented variants of it, so their scores reflect recognition of those variants."),
+            **a_block, "best_model": _best_model(table_a),
+        },
+        "production_decision": {
+            "production_model": prod_name,
+            "replace_with_svm_optimized": replace,
+            "rule": ("Replace only if the optimized SVM beats the production model on BOTH balanced "
+                     "accuracy and macro F1 under the evaluation protocol."),
+        },
+    }
+
+
+def _svm_optimized_other_rank(X, labels, elig, models) -> None:
+    """
+    Order / family: add 'SVM Optimized' with the same nested tuning. These ranks have no
+    synthetic rows, so every sequence is its own parent group.
+    """
+    y = np.asarray(labels, dtype=object).astype(str)
+    classes = sorted(set(y.tolist()))
+    n = len(y)
+    groups = np.array([str(i) for i in range(n)])
+    synth = np.zeros(n, dtype=bool)
+    idx = [i for i in range(n) if elig[i]]
+    t0 = time.time()
+    yt, yp, pr, chosen = _optimized_loo(
+        X, y, groups, synth, idx, classes,
+        lambda i: np.array([j for j in range(n) if j != i]))
+    m = taxonomy_metrics(yt, yp, pr)
+    m["is_production_model"] = False
+    m["runtime_seconds"] = round(time.time() - t0, 1)
+    conf = [float(pr[k, classes.index(yp[k])]) for k in range(len(yp))]
+    m["accuracy_vs_coverage"] = accuracy_coverage_curve(conf, [a == b for a, b in zip(yt, yp)])
+    m["confidence_note"] = ("SVM confidence = Platt-scaled top-1 probability. Not a calibrated "
+                            "probability of being correct. C and gamma tuned inside every fold (nested).")
+    m["selected_params_across_folds"] = _count_params(chosen)
+    models["SVM Optimized"] = m
+
+
+def _count_params(chosen):
+    out: Dict[str, int] = {}
+    for p in chosen:
+        k = f"C={p['C']}, gamma={p['gamma']}"
+        out[k] = out.get(k, 0) + 1
+    return dict(sorted(out.items(), key=lambda kv: -kv[1]))
+
 
 
 def evaluate_taxonomy(ref: pd.DataFrame, searcher: ReferenceSearcher) -> Dict[str, Any]:
@@ -275,9 +508,11 @@ def evaluate_taxonomy(ref: pd.DataFrame, searcher: ReferenceSearcher) -> Dict[st
         real_mask = (~is_synthetic_col) if is_synthetic_col is not None else None
 
         models: Dict[str, Any] = {}
+        preds_a: Dict[str, Any] = {}
         for name in MODEL_NAMES:
             t0 = time.time()
             y_true, y_pred, conf, y_probs = _loo_predictions(X, labels, elig, name)
+            preds_a[name] = (y_true, y_pred)
             m = taxonomy_metrics(y_true, y_pred, y_probs)
             m["is_production_model"] = (name == production_model)
             m["runtime_seconds"] = round(time.time() - t0, 1)
@@ -307,6 +542,11 @@ def evaluate_taxonomy(ref: pd.DataFrame, searcher: ReferenceSearcher) -> Dict[st
             _log(f"    {name:14} n={m['n_eligible_test_examples']} "
                  f"macroF1={m.get('macro_f1')} acc={m.get('top1_accuracy')} "
                  f"roc_auc={m.get('macro_roc_auc')} ({m['runtime_seconds']}s)")
+        if rank == "class" and has_augmented_class and "is_synthetic" in lvl.columns:
+            entry["svm"] = _svm_study(X, labels, lvl, models, preds_a, production_model)
+        elif rank in ("order", "family"):
+            _log(f"    [svm] nested tuned SVM at {rank}")
+            _svm_optimized_other_rank(X, labels, elig, models)
         entry["models"] = models
 
         warn = []

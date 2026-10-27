@@ -109,7 +109,7 @@ def _headline_cards(res: Dict[str, Any]) -> None:
 
 def _model_rank_matrix(res: Dict[str, Any]) -> None:
     tax = res["taxonomy"]
-    models = ["KNN", "Random Forest", "XGBoost"]
+    models = ["KNN", "Random Forest", "XGBoost", "SVM Baseline", "SVM Optimized"]
     rows = []
     for name in models:
         row = {"Model": name}
@@ -124,6 +124,78 @@ def _model_rank_matrix(res: Dict[str, Any]) -> None:
     st.markdown("##### Macro F1 by model and rank")
     st.dataframe(df, hide_index=True, use_container_width=True)
     st.caption("Same held-out sequences for every model. 'Insufficient data' means the rank cannot be scored.")
+
+
+def _svm_section(e: Dict[str, Any], rank: str) -> None:
+    """SVM tuning, before-vs-after and per-class detail (class rank carries the full study)."""
+    svm = e.get("svm")
+    opt_m = e["models"].get("SVM Optimized")
+    if not svm:
+        if opt_m and opt_m.get("status") == "ok":
+            st.caption(
+                "SVM Optimized: C and gamma were tuned inside every leave-one-out fold (nested, "
+                "balanced-accuracy objective). Parameters chosen across folds: "
+                + "; ".join(f"{k} ({v} folds)" for k, v in opt_m.get("selected_params_across_folds", {}).items())
+                + ".")
+        return
+
+    st.markdown("---")
+    st.markdown("##### SVM: baseline versus tuned")
+    o = svm["optimization"]
+    bp = svm["baseline_params"]
+    _metric_row([
+        ("Baseline C / gamma", f"{bp['C']} / {bp['gamma']}", "RBF kernel, probability estimates on."),
+        ("Best C / gamma", f"{o['best_params']['C']} / {o['best_params']['gamma']}",
+         "Chosen by GridSearchCV; ties go to the smaller C."),
+        ("Optimisation metric", o["scoring"].replace("_", " "), o["scoring_rationale"]),
+        ("Best CV score", _f(o["best_cv_score"]), "Tuning score on genuine Teleostei/Elasmobranchii "
+         "validation folds; not a test score."),
+    ])
+    st.caption(
+        f"Search: {o['n_candidates']} candidates x {o['n_cv_folds']} folds = {o['n_fits']} fits in "
+        f"{o['runtime_seconds']} s. C in {o['param_grid']['C']}, gamma in {o['param_grid']['gamma']}. "
+        + o["cv_strategy"])
+
+    for key in ("protocol_a",):
+        with st.container():
+            pr = svm[key]
+            st.caption(pr["name"] + ". " + pr["caveat"])
+            ba = pr["before_after"]
+            rows = []
+            for label, k in [("Accuracy", "top1_accuracy"), ("Balanced accuracy", "balanced_accuracy"),
+                             ("Macro precision", "macro_precision"), ("Macro recall", "macro_recall"),
+                             ("Macro F1", "macro_f1"), ("Weighted F1", "weighted_f1"),
+                             ("ROC-AUC", "macro_roc_auc"), ("Runtime (s)", "runtime_seconds")]:
+                d = ba[k]
+                rows.append({"Metric": label, "Baseline SVM": d["baseline"], "Optimized SVM": d["optimized"],
+                             "Change": d["absolute_change"]})
+            df = pd.DataFrame(rows)
+            st.dataframe(df.style.format({c: "{:+.4f}" if c == "Change" else "{:.4f}"
+                                          for c in ["Baseline SVM", "Optimized SVM", "Change"]}, na_rep="N/A"),
+                         hide_index=True, use_container_width=True)
+            best = pr["best_model"]
+            names = best["best"] if isinstance(best["best"], list) else [best["best"]]
+            st.caption(("Tie for best: " if best["tied"] else "Best: ") + ", ".join(names)
+                       + f" (by {best['criterion']}). Test examples: {pr['baseline']['n_test_examples']}.")
+            for variant, title in (("baseline", "Baseline SVM"), ("optimized", "Optimized SVM")):
+                v = pr[variant]
+                left, right = st.columns([3, 2])
+                with left:
+                    st.plotly_chart(_heatmap(v["confusion_labels"], v["confusion_matrix"],
+                                             f"{title} confusion matrix", height=360),
+                                    use_container_width=True, key=f"svm_cm_{key}_{variant}")
+                with right:
+                    pc = pd.DataFrame(v["per_class"]).rename(columns={
+                        "class": "Class", "precision": "Precision", "recall": "Recall", "f1": "F1",
+                        "support": "Support", "predicted_count": "Predicted"})
+                    st.dataframe(pc.style.format({c: "{:.3f}" for c in ["Precision", "Recall", "F1"]},
+                                                 na_rep="not evaluable"),
+                                 hide_index=True, use_container_width=True)
+    pdn = svm["production_decision"]
+    st.info(
+        f"Production model stays **{pdn['production_model']}**"
+        + ("." if not pdn["replace_with_svm_optimized"] else "; the optimized SVM beat it under the rule below.")
+        + " " + pdn["rule"])
 
 
 # ---------------------------------------------------------------------------
@@ -197,6 +269,7 @@ def _taxonomy_tab(res: Dict[str, Any]) -> None:
             "Weighted F1": m.get("weighted_f1"),
             "Balanced acc.": m.get("balanced_accuracy"),
             "Top-1 acc.": m.get("top1_accuracy"),
+            "Macro AUC": m.get("macro_roc_auc"),
             "Test examples": m["n_eligible_test_examples"],
             "Classes evaluated": m["n_evaluated_classes"],
             "Runtime (s)": m.get("runtime_seconds"),
@@ -204,13 +277,15 @@ def _taxonomy_tab(res: Dict[str, Any]) -> None:
     st.dataframe(
         pd.DataFrame(comp).style.format(
             {c: "{:.3f}" for c in ["Macro precision", "Macro recall", "Macro F1", "Weighted F1",
-                                   "Balanced acc.", "Top-1 acc."]} | {"Runtime (s)": "{:.1f}"}, na_rep="N/A"),
+                                   "Balanced acc.", "Top-1 acc.", "Macro AUC"]} | {"Runtime (s)": "{:.1f}"}, na_rep="N/A"),
         hide_index=True, use_container_width=True,
     )
     st.caption("Metrics are pooled leave-one-sequence-out predictions. These describe how the MODEL "
                "performs on unseen sequences; they are not the confidence of any single prediction. "
                "Runtime is the wall-clock time to run every leave-one-out fold (training included) "
                "for that model; it is not per-prediction latency.")
+
+    _svm_section(e, rank)
 
     model_name = st.radio(
         "Model detail", list(models.keys()), horizontal=True,

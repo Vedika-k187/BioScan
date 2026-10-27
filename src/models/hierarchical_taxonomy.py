@@ -25,6 +25,7 @@ import seaborn as sns
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 from sklearn.metrics import (
     accuracy_score,
     precision_recall_fscore_support,
@@ -123,6 +124,9 @@ def get_model(model_name, random_state=42):
             eval_metric="mlogloss",
             n_jobs=1
         )
+    elif model_name in ("SVM", "SVM Baseline"):
+        # Baseline SVM: RBF kernel, C=1.0, gamma="scale". Inputs must be standardised by the caller.
+        return SVC(C=1.0, kernel="rbf", gamma="scale", probability=True, random_state=random_state)
     else:
         raise ValueError(f"Unknown model: {model_name}")
 
