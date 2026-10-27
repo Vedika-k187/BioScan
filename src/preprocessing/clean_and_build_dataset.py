@@ -15,10 +15,19 @@ import pandas as pd
 import numpy as np
 
 RAW_DATA_PATH = os.path.join("data", "raw", "hackathon_dna_taxonomy_merged.csv")
+AUGMENTED_DATA_PATH = os.path.join("data", "raw", "hackathon_dna_taxonomy_merged_with_minority_synthetic.csv")
 PROCESSED_DIR = os.path.join("data", "processed")
 REF_BARCODES_PATH = os.path.join(PROCESSED_DIR, "reference_barcodes.csv")
 TAXONOMY_REF_PATH = os.path.join(PROCESSED_DIR, "taxonomy_reference.csv")
+TRAINING_BARCODES_PATH = os.path.join(PROCESSED_DIR, "training_barcodes.csv")
+
 RAW_SHA256_EXPECTED = "5290252D9496F35A6AC750F9B535842AEDFE9D843C30D0C497136571A115AD65"
+AUGMENTED_SHA256_EXPECTED = "FD849CF07175B246238B29CBB79341ED70797746138BD9B42D5C6BFD40172AF1"
+
+KNOWN_CHECKSUMS = {
+    RAW_DATA_PATH: RAW_SHA256_EXPECTED,
+    AUGMENTED_DATA_PATH: AUGMENTED_SHA256_EXPECTED,
+}
 
 def compute_sha256(filepath):
     """Compute SHA256 checksum of a file to verify raw integrity."""
@@ -28,16 +37,25 @@ def compute_sha256(filepath):
             sha256.update(chunk)
     return sha256.hexdigest().upper()
 
-def load_and_validate_raw(raw_path=RAW_DATA_PATH):
+def load_and_validate_raw(raw_path=None):
     """
     Step 1: Load and validate raw dataset schema, data types, and sequence integrity.
     """
+    if raw_path is None:
+        raw_path = AUGMENTED_DATA_PATH if os.path.exists(AUGMENTED_DATA_PATH) else RAW_DATA_PATH
+
     if not os.path.exists(raw_path):
         raise FileNotFoundError(f"Raw dataset not found at: {raw_path}")
 
     current_hash = compute_sha256(raw_path)
     print(f"[Step 1] Loading raw dataset: {raw_path}")
     print(f"         Raw dataset SHA256: {current_hash}")
+
+    if raw_path in KNOWN_CHECKSUMS:
+        expected = KNOWN_CHECKSUMS[raw_path]
+        if current_hash != expected:
+            raise ValueError(f"Checksum mismatch for {raw_path}! Expected {expected}, got {current_hash}")
+        print(f"         Checksum verified against registered baseline: {expected}")
 
     df = pd.read_csv(raw_path, low_memory=False)
     n_rows, n_cols = df.shape
@@ -157,24 +175,31 @@ def verify_taxonomic_consistency(df):
 
 def build_reference_tables(df):
     """
-    Step 3, 4, 6: Build reference_barcodes.csv and taxonomy_reference.csv.
+    Step 3, 4, 6: Build reference_barcodes.csv, taxonomy_reference.csv,
+    and training_barcodes.csv (when synthetic samples are present).
+    Ensures genuine reference library is strictly separated from synthetic training samples.
     """
     print("[Step 4 & 6] Constructing reference barcode and taxonomy tables...")
     os.makedirs(PROCESSED_DIR, exist_ok=True)
     
-    # Calculate occurrence frequency in raw table before deduplication
+    # Identify synthetic rows via provenance metadata
+    if "basisOfRecord" in df.columns:
+        is_synthetic = (df["basisOfRecord"] == "Synthetic augmentation")
+    else:
+        is_synthetic = pd.Series(False, index=df.index)
+
     occurrence_counts = df["sequence_normalized"].value_counts().to_dict()
-    
-    # Deduplicate to one row per unique sequence
-    # Preserve first row's clean attributes
-    ref_df = df.drop_duplicates(subset=["sequence_normalized"]).copy()
+
+    # 1. Build GENUINE reference library (reference_barcodes.csv & taxonomy_reference.csv)
+    # Strictly genuine samples: excludes synthetic samples to prevent reference contamination.
+    genuine_df = df[~is_synthetic].copy() if is_synthetic.any() else df.copy()
+    ref_df = genuine_df.drop_duplicates(subset=["sequence_normalized"]).copy()
     ref_df = ref_df.sort_values(by=["class", "order", "family", "genus", "species", "sequence_normalized"]).reset_index(drop=True)
     
-    # Assign a standard stable identifier SEQ_001 to SEQ_101
+    # Assign standard stable identifier SEQ_001 to SEQ_101
     ref_df["sequence_id"] = [f"SEQ_{i+1:03d}" for i in range(len(ref_df))]
     ref_df["raw_occurrence_count"] = ref_df["sequence_normalized"].map(occurrence_counts)
     
-    # Define exact columns for reference_barcodes.csv
     ref_columns = [
         "sequence_id",
         "sequence_raw",
@@ -197,12 +222,9 @@ def build_reference_tables(df):
         "iucnRedListCategory",
         "raw_occurrence_count"
     ]
-    
-    # Retain only existing relevant columns
     available_ref_cols = [c for c in ref_columns if c in ref_df.columns]
     reference_barcodes = ref_df[available_ref_cols]
     
-    # Define exact columns for taxonomy_reference.csv (Step 6)
     taxonomy_columns = [
         "sequence_id",
         "sequence_normalized",
@@ -214,14 +236,40 @@ def build_reference_tables(df):
     ]
     taxonomy_reference = ref_df[taxonomy_columns]
     
-    # Save CSVs
     reference_barcodes.to_csv(REF_BARCODES_PATH, index=False)
     taxonomy_reference.to_csv(TAXONOMY_REF_PATH, index=False)
+    print(f"         Saved genuine reference: {REF_BARCODES_PATH} ({len(reference_barcodes)} rows, {len(reference_barcodes.columns)} cols)")
+    print(f"         Saved genuine taxonomy:  {TAXONOMY_REF_PATH} ({len(taxonomy_reference)} rows, {len(taxonomy_reference.columns)} cols)")
+
+    # 2. Build ML TRAINING dataset (training_barcodes.csv)
+    # Contains unique sequences across genuine + synthetic samples with explicit provenance
+    seq_to_id = dict(zip(ref_df["sequence_normalized"], ref_df["sequence_id"]))
+    train_unique = df.drop_duplicates(subset=["sequence_normalized"]).copy()
     
-    print(f"         Saved: {REF_BARCODES_PATH} ({len(reference_barcodes)} rows, {len(reference_barcodes.columns)} cols)")
-    print(f"         Saved: {TAXONOMY_REF_PATH} ({len(taxonomy_reference)} rows, {len(taxonomy_reference.columns)} cols)")
+    # Assign identifiers: preserve SEQ_xxx for genuine, assign SYN_xxxx for synthetic
+    train_ids = []
+    syn_counter = 1
+    for seq in train_unique["sequence_normalized"]:
+        if seq in seq_to_id:
+            train_ids.append(seq_to_id[seq])
+        else:
+            train_ids.append(f"SYN_{syn_counter:04d}")
+            syn_counter += 1
+            
+    train_unique["sequence_id"] = train_ids
+    train_unique["is_synthetic"] = ~train_unique["sequence_normalized"].isin(seq_to_id)
+    train_unique["raw_occurrence_count"] = train_unique["sequence_normalized"].map(occurrence_counts)
     
-    # Taxonomic completeness audit
+    train_cols = [c for c in ref_columns if c in train_unique.columns]
+    if "is_synthetic" not in train_cols:
+        train_cols.append("is_synthetic")
+    if "basisOfRecord" in train_unique.columns and "basisOfRecord" not in train_cols:
+        train_cols.append("basisOfRecord")
+    training_barcodes = train_unique[train_cols].sort_values(by=["is_synthetic", "class", "sequence_id"]).reset_index(drop=True)
+    training_barcodes.to_csv(TRAINING_BARCODES_PATH, index=False)
+    print(f"         Saved ML training table: {TRAINING_BARCODES_PATH} ({len(training_barcodes)} rows; {int((~training_barcodes['is_synthetic']).sum())} genuine, {int(training_barcodes['is_synthetic'].sum())} synthetic)")
+
+    # Taxonomic completeness audit for reference barcodes
     total_seqs = len(ref_df)
     has_sp = ref_df["species"].notnull().sum()
     missing_sp = ref_df["species"].isnull().sum()
@@ -237,25 +285,29 @@ def build_reference_tables(df):
         "missing_genus": int(missing_gen),
         "missing_family": int(missing_fam),
         "missing_order": int(missing_ord),
-        "missing_class": int(missing_cls)
+        "missing_class": int(missing_cls),
+        "total_training_sequences": int(len(training_barcodes)),
+        "synthetic_training_sequences": int(training_barcodes["is_synthetic"].sum()),
+        "genuine_training_sequences": int((~training_barcodes["is_synthetic"]).sum()),
     }
     
-    print(f"         Taxonomy Completeness Breakdown:")
+    print(f"         Genuine Reference Completeness Breakdown:")
     print(f"           - With species label: {has_sp} ({has_sp/total_seqs*100:.1f}%)")
     print(f"           - Missing species: {missing_sp} ({missing_sp/total_seqs*100:.1f}%)")
-    print(f"           - Missing genus: {missing_gen} ({missing_gen/total_seqs*100:.1f}%)")
-    print(f"           - Missing family: {missing_fam} ({missing_fam/total_seqs*100:.1f}%)")
-    print(f"           - Missing order: {missing_ord} ({missing_ord/total_seqs*100:.1f}%)")
     print(f"           - Missing class: {missing_cls} ({missing_cls/total_seqs*100:.1f}%)")
+    print(f"         ML Training Unique Sequences Breakdown:")
+    print(f"           - Genuine unique sequences:   {(~training_barcodes['is_synthetic']).sum()}")
+    print(f"           - Synthetic unique sequences: {training_barcodes['is_synthetic'].sum()}")
+    print(f"           - Total unique sequences:     {len(training_barcodes)}")
     
     return reference_barcodes, taxonomy_reference, completeness_stats
 
-def run_phase1_pipeline():
+def run_phase1_pipeline(raw_path=None):
     """
     Orchestrate full Phase 1 data cleaning pipeline.
     """
     # 1. Load and validate
-    raw_df, val_report = load_and_validate_raw()
+    raw_df, val_report = load_and_validate_raw(raw_path)
     
     # 2. Normalize and compute compositional features
     norm_df = normalize_sequences(raw_df)
@@ -267,7 +319,7 @@ def run_phase1_pipeline():
     ref_barcodes, tax_ref, comp_stats = build_reference_tables(norm_df)
     
     # Verify raw file unchanged
-    post_hash = compute_sha256(RAW_DATA_PATH)
+    post_hash = compute_sha256(val_report["raw_path"])
     assert post_hash == val_report["sha256"], "CRITICAL: Raw dataset was modified during processing!"
     print(f"[Verification] Raw dataset SHA256 integrity confirmed: {post_hash}")
     

@@ -66,6 +66,7 @@ def assess_sufficiency(
 def taxonomy_metrics(
     y_true: Sequence[Any],
     y_pred: Sequence[Any],
+    y_prob: Optional[Sequence[Any]] = None,
     min_samples: int = MIN_EVAL_SAMPLES,
     min_classes: int = MIN_EVAL_CLASSES,
 ) -> Dict[str, Any]:
@@ -105,6 +106,18 @@ def taxonomy_metrics(
     bal_acc = balanced_accuracy_score(y_true, y_pred)
     accuracy = float(np.mean(y_true == y_pred))
 
+    # Multiclass One-vs-Rest Macro ROC-AUC
+    macro_roc_auc = None
+    if y_prob is not None and len(true_classes) >= 2:
+        try:
+            prob_arr = np.asarray(y_prob, dtype=float)
+            if prob_arr.ndim == 2 and prob_arr.shape[1] == len(true_classes):
+                macro_roc_auc = float(roc_auc_score(
+                    y_true, prob_arr, multi_class="ovr", average="macro", labels=true_classes
+                ))
+        except Exception:
+            macro_roc_auc = None
+
     all_labels = sorted(set(y_true.tolist()) | set(y_pred.tolist()))
     p, r, f1, support = precision_recall_fscore_support(
         y_true, y_pred, labels=all_labels, average=None, zero_division=0
@@ -141,6 +154,7 @@ def taxonomy_metrics(
         "macro_recall": float(macro_r),
         "macro_f1": float(macro_f1),
         "weighted_f1": float(weighted_f1),
+        "macro_roc_auc": macro_roc_auc,
         "mean_support_per_class": float(mean_support),
         "per_class": per_class,
         "confusion_matrix": {"labels": [str(x) for x in all_labels], "matrix": cm.tolist()},

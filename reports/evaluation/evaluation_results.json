@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated_at_utc": "2026-10-15T13:47:08+00:00",
+    "generated_at_utc": "2026-10-25T13:53:06+00:00",
     "seed": 42,
-    "raw_dataset_rows": 13736,
+    "raw_dataset_rows": 13894,
     "reference_library": {
       "input_rows": 101,
       "unique_sequences": 101,
@@ -17,18 +17,18 @@
       "feature_set": "k=3",
       "production_model": "Random Forest",
       "support": {
-        "n_labelled_sequences": 101,
+        "n_labelled_sequences": 259,
         "n_classes_total": 4,
-        "n_singleton_classes": 2,
-        "n_multi_example_classes": 2,
-        "n_eligible_sequences": 99,
-        "n_unevaluable_singleton_sequences": 2
+        "n_singleton_classes": 0,
+        "n_multi_example_classes": 4,
+        "n_eligible_sequences": 259,
+        "n_unevaluable_singleton_sequences": 0
       },
       "min_requirements": {
         "min_samples": 20,
         "min_classes": 2
       },
-      "evaluation_method": "Leave-one-sequence-out over unique sequences. Held-out sequence is evaluated only if another sequence with the same label remains in training. Scaler fitted on each training fold. Deterministic (no RNG split).",
+      "evaluation_method": "Leave-one-sequence-out over 259 unique sequences (101 genuine + 158 synthetic minority augmentation). All 4 classes evaluable without singletons. Scaler fitted on each training fold. Deterministic.",
       "status": "ok",
       "nearest_reference_baseline": {
         "description": "Leave-one-out nearest-reference search (normalised edit distance), predicting the label of the closest OTHER reference. Not a trained model.",
@@ -98,24 +98,25 @@
       },
       "models": {
         "KNN": {
-          "n_eligible_test_examples": 99,
-          "n_evaluated_classes": 2,
+          "n_eligible_test_examples": 259,
+          "n_evaluated_classes": 4,
           "status": "ok",
-          "top1_accuracy": 0.98989898989899,
-          "balanced_accuracy": 0.9939024390243902,
-          "macro_precision": 1.0,
-          "macro_recall": 0.9939024390243902,
-          "macro_f1": 0.9969325153374233,
-          "weighted_f1": 0.9949185102559336,
-          "mean_support_per_class": 49.5,
+          "top1_accuracy": 0.9961389961389961,
+          "balanced_accuracy": 0.9969512195121951,
+          "macro_precision": 0.9969135802469136,
+          "macro_recall": 0.9969512195121951,
+          "macro_f1": 0.9969134626376558,
+          "weighted_f1": 0.9961391432640909,
+          "macro_roc_auc": 0.9977772857337512,
+          "mean_support_per_class": 64.75,
           "per_class": [
             {
               "class": "Chondrostei",
-              "precision": 0.0,
-              "recall": null,
-              "f1": null,
-              "support": 0,
-              "predicted_count": 1
+              "precision": 0.9876543209876543,
+              "recall": 1.0,
+              "f1": 0.9937888198757764,
+              "support": 80,
+              "predicted_count": 81
             },
             {
               "class": "Elasmobranchii",
@@ -124,6 +125,14 @@
               "f1": 1.0,
               "support": 17,
               "predicted_count": 17
+            },
+            {
+              "class": "Petromyzonti",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 80,
+              "predicted_count": 80
             },
             {
               "class": "Teleostei",
@@ -138,10 +147,12 @@
             "labels": [
               "Chondrostei",
               "Elasmobranchii",
+              "Petromyzonti",
               "Teleostei"
             ],
             "matrix": [
               [
+                80,
                 0,
                 0,
                 0
@@ -149,10 +160,18 @@
               [
                 0,
                 17,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
                 0
               ],
               [
                 1,
+                0,
                 0,
                 81
               ]
@@ -161,12 +180,101 @@
           "warnings": [],
           "is_production_model": false,
           "runtime_seconds": 0.1,
-          "accuracy_vs_coverage": null,
-          "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
+          "real_only_evaluation": {
+            "n_eligible_test_examples": 101,
+            "n_evaluated_classes": 4,
+            "status": "ok",
+            "top1_accuracy": 0.9900990099009901,
+            "balanced_accuracy": 0.9969512195121951,
+            "macro_precision": 0.875,
+            "macro_recall": 0.9969512195121951,
+            "macro_f1": 0.9151329243353783,
+            "weighted_f1": 0.9917188037822188,
+            "macro_roc_auc": 0.9972256097560976,
+            "mean_support_per_class": 25.25,
+            "per_class": [
+              {
+                "class": "Chondrostei",
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666,
+                "support": 1,
+                "predicted_count": 2
+              },
+              {
+                "class": "Elasmobranchii",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 17,
+                "predicted_count": 17
+              },
+              {
+                "class": "Petromyzonti",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 1,
+                "predicted_count": 1
+              },
+              {
+                "class": "Teleostei",
+                "precision": 1.0,
+                "recall": 0.9878048780487805,
+                "f1": 0.9938650306748467,
+                "support": 82,
+                "predicted_count": 81
+              }
+            ],
+            "confusion_matrix": {
+              "labels": [
+                "Chondrostei",
+                "Elasmobranchii",
+                "Petromyzonti",
+                "Teleostei"
+              ],
+              "matrix": [
+                [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  0,
+                  81
+                ]
+              ]
+            },
+            "warnings": []
+          },
+          "accuracy_vs_coverage": [
+            {
+              "confidence_threshold": 1.0,
+              "coverage": 1.0,
+              "accepted": 259,
+              "accuracy_of_accepted": 0.9961389961389961
+            }
+          ],
+          "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
         },
         "Random Forest": {
-          "n_eligible_test_examples": 99,
-          "n_evaluated_classes": 2,
+          "n_eligible_test_examples": 259,
+          "n_evaluated_classes": 4,
           "status": "ok",
           "top1_accuracy": 1.0,
           "balanced_accuracy": 1.0,
@@ -174,8 +282,17 @@
           "macro_recall": 1.0,
           "macro_f1": 1.0,
           "weighted_f1": 1.0,
-          "mean_support_per_class": 49.5,
+          "macro_roc_auc": 1.0,
+          "mean_support_per_class": 64.75,
           "per_class": [
+            {
+              "class": "Chondrostei",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 80,
+              "predicted_count": 80
+            },
             {
               "class": "Elasmobranchii",
               "precision": 1.0,
@@ -183,6 +300,14 @@
               "f1": 1.0,
               "support": 17,
               "predicted_count": 17
+            },
+            {
+              "class": "Petromyzonti",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 80,
+              "predicted_count": 80
             },
             {
               "class": "Teleostei",
@@ -195,15 +320,33 @@
           ],
           "confusion_matrix": {
             "labels": [
+              "Chondrostei",
               "Elasmobranchii",
+              "Petromyzonti",
               "Teleostei"
             ],
             "matrix": [
               [
-                17,
+                80,
+                0,
+                0,
                 0
               ],
               [
+                0,
+                17,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0
+              ],
+              [
+                0,
+                0,
                 0,
                 82
               ]
@@ -211,90 +354,189 @@
           },
           "warnings": [],
           "is_production_model": true,
-          "runtime_seconds": 2.9,
+          "runtime_seconds": 10.0,
+          "real_only_evaluation": {
+            "n_eligible_test_examples": 101,
+            "n_evaluated_classes": 4,
+            "status": "ok",
+            "top1_accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "macro_precision": 1.0,
+            "macro_recall": 1.0,
+            "macro_f1": 1.0,
+            "weighted_f1": 1.0,
+            "macro_roc_auc": 1.0,
+            "mean_support_per_class": 25.25,
+            "per_class": [
+              {
+                "class": "Chondrostei",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 1,
+                "predicted_count": 1
+              },
+              {
+                "class": "Elasmobranchii",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 17,
+                "predicted_count": 17
+              },
+              {
+                "class": "Petromyzonti",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 1,
+                "predicted_count": 1
+              },
+              {
+                "class": "Teleostei",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 82,
+                "predicted_count": 82
+              }
+            ],
+            "confusion_matrix": {
+              "labels": [
+                "Chondrostei",
+                "Elasmobranchii",
+                "Petromyzonti",
+                "Teleostei"
+              ],
+              "matrix": [
+                [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  82
+                ]
+              ]
+            },
+            "warnings": []
+          },
           "accuracy_vs_coverage": [
             {
-              "confidence_threshold": 0.58,
+              "confidence_threshold": 0.47,
               "coverage": 1.0,
-              "accepted": 99,
+              "accepted": 259,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.798,
-              "coverage": 0.898989898989899,
-              "accepted": 89,
+              "confidence_threshold": 0.74,
+              "coverage": 0.9034749034749034,
+              "accepted": 234,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.85,
-              "coverage": 0.8080808080808081,
-              "accepted": 80,
+              "confidence_threshold": 0.846,
+              "coverage": 0.7992277992277992,
+              "accepted": 207,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9040000000000001,
-              "coverage": 0.696969696969697,
-              "accepted": 69,
+              "confidence_threshold": 0.8940000000000001,
+              "coverage": 0.6988416988416989,
+              "accepted": 181,
               "accuracy_of_accepted": 1.0
             },
             {
               "confidence_threshold": 0.93,
-              "coverage": 0.6161616161616161,
-              "accepted": 61,
+              "coverage": 0.6216216216216216,
+              "accepted": 161,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.95,
-              "coverage": 0.5555555555555556,
-              "accepted": 55,
+              "confidence_threshold": 0.96,
+              "coverage": 0.5057915057915058,
+              "accepted": 131,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9680000000000001,
-              "coverage": 0.40404040404040403,
-              "accepted": 40,
+              "confidence_threshold": 0.97,
+              "coverage": 0.44787644787644787,
+              "accepted": 116,
               "accuracy_of_accepted": 1.0
             },
             {
               "confidence_threshold": 0.98,
-              "coverage": 0.32323232323232326,
-              "accepted": 32,
+              "coverage": 0.3861003861003861,
+              "accepted": 100,
               "accuracy_of_accepted": 1.0
             },
             {
               "confidence_threshold": 0.99,
-              "coverage": 0.2727272727272727,
-              "accepted": 27,
+              "coverage": 0.28957528957528955,
+              "accepted": 75,
               "accuracy_of_accepted": 1.0
             },
             {
               "confidence_threshold": 1.0,
-              "coverage": 0.16161616161616163,
-              "accepted": 16,
+              "coverage": 0.19305019305019305,
+              "accepted": 50,
               "accuracy_of_accepted": 1.0
             }
           ],
           "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
         },
         "XGBoost": {
-          "n_eligible_test_examples": 99,
-          "n_evaluated_classes": 2,
+          "n_eligible_test_examples": 259,
+          "n_evaluated_classes": 4,
           "status": "ok",
-          "top1_accuracy": 0.98989898989899,
-          "balanced_accuracy": 0.9939024390243902,
-          "macro_precision": 0.9722222222222222,
-          "macro_recall": 0.9939024390243902,
-          "macro_f1": 0.9826468010517091,
-          "weighted_f1": 0.9900123053497285,
-          "mean_support_per_class": 49.5,
+          "top1_accuracy": 0.9961389961389961,
+          "balanced_accuracy": 0.9969512195121951,
+          "macro_precision": 0.9969135802469136,
+          "macro_recall": 0.9969512195121951,
+          "macro_f1": 0.9969134626376558,
+          "weighted_f1": 0.9961391432640909,
+          "macro_roc_auc": 0.9999827752514814,
+          "mean_support_per_class": 64.75,
           "per_class": [
             {
-              "class": "Elasmobranchii",
-              "precision": 0.9444444444444444,
+              "class": "Chondrostei",
+              "precision": 1.0,
               "recall": 1.0,
-              "f1": 0.9714285714285714,
+              "f1": 1.0,
+              "support": 80,
+              "predicted_count": 80
+            },
+            {
+              "class": "Elasmobranchii",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
               "support": 17,
-              "predicted_count": 18
+              "predicted_count": 17
+            },
+            {
+              "class": "Petromyzonti",
+              "precision": 0.9876543209876543,
+              "recall": 1.0,
+              "f1": 0.9937888198757764,
+              "support": 80,
+              "predicted_count": 81
             },
             {
               "class": "Teleostei",
@@ -307,15 +549,33 @@
           ],
           "confusion_matrix": {
             "labels": [
+              "Chondrostei",
               "Elasmobranchii",
+              "Petromyzonti",
               "Teleostei"
             ],
             "matrix": [
               [
-                17,
+                80,
+                0,
+                0,
                 0
               ],
               [
+                0,
+                17,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0
+              ],
+              [
+                0,
+                0,
                 1,
                 81
               ]
@@ -323,75 +583,155 @@
           },
           "warnings": [],
           "is_production_model": false,
-          "runtime_seconds": 0.9,
+          "runtime_seconds": 2.6,
+          "real_only_evaluation": {
+            "n_eligible_test_examples": 101,
+            "n_evaluated_classes": 4,
+            "status": "ok",
+            "top1_accuracy": 0.9900990099009901,
+            "balanced_accuracy": 0.9969512195121951,
+            "macro_precision": 0.875,
+            "macro_recall": 0.9969512195121951,
+            "macro_f1": 0.9151329243353783,
+            "weighted_f1": 0.9917188037822188,
+            "macro_roc_auc": 0.9998395378690629,
+            "mean_support_per_class": 25.25,
+            "per_class": [
+              {
+                "class": "Chondrostei",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 1,
+                "predicted_count": 1
+              },
+              {
+                "class": "Elasmobranchii",
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 17,
+                "predicted_count": 17
+              },
+              {
+                "class": "Petromyzonti",
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6666666666666666,
+                "support": 1,
+                "predicted_count": 2
+              },
+              {
+                "class": "Teleostei",
+                "precision": 1.0,
+                "recall": 0.9878048780487805,
+                "f1": 0.9938650306748467,
+                "support": 82,
+                "predicted_count": 81
+              }
+            ],
+            "confusion_matrix": {
+              "labels": [
+                "Chondrostei",
+                "Elasmobranchii",
+                "Petromyzonti",
+                "Teleostei"
+              ],
+              "matrix": [
+                [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  81
+                ]
+              ]
+            },
+            "warnings": []
+          },
           "accuracy_vs_coverage": [
             {
-              "confidence_threshold": 0.7575327754020691,
+              "confidence_threshold": 0.491747111082077,
               "coverage": 1.0,
-              "accepted": 99,
-              "accuracy_of_accepted": 0.98989898989899
+              "accepted": 259,
+              "accuracy_of_accepted": 0.9961389961389961
             },
             {
-              "confidence_threshold": 0.9368602156639099,
-              "coverage": 0.898989898989899,
-              "accepted": 89,
+              "confidence_threshold": 0.9521517872810363,
+              "coverage": 0.8996138996138996,
+              "accepted": 233,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9605080604553222,
-              "coverage": 0.797979797979798,
-              "accepted": 79,
+              "confidence_threshold": 0.9804437160491943,
+              "coverage": 0.7992277992277992,
+              "accepted": 207,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9786813259124756,
-              "coverage": 0.696969696969697,
-              "accepted": 69,
+              "confidence_threshold": 0.9874871134757995,
+              "coverage": 0.6988416988416989,
+              "accepted": 181,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.987923538684845,
-              "coverage": 0.5959595959595959,
-              "accepted": 59,
+              "confidence_threshold": 0.9913227438926697,
+              "coverage": 0.5984555984555985,
+              "accepted": 155,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9918102622032166,
-              "coverage": 0.5050505050505051,
-              "accepted": 50,
+              "confidence_threshold": 0.993463933467865,
+              "coverage": 0.5019305019305019,
+              "accepted": 130,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9929612278938293,
-              "coverage": 0.40404040404040403,
-              "accepted": 40,
+              "confidence_threshold": 0.9949086666107178,
+              "coverage": 0.4015444015444015,
+              "accepted": 104,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9950099945068359,
-              "coverage": 0.30303030303030304,
-              "accepted": 30,
+              "confidence_threshold": 0.9954586386680603,
+              "coverage": 0.30115830115830117,
+              "accepted": 78,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.996402132511139,
-              "coverage": 0.20202020202020202,
-              "accepted": 20,
+              "confidence_threshold": 0.9960034370422364,
+              "coverage": 0.20077220077220076,
+              "accepted": 52,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9969809889793396,
-              "coverage": 0.10101010101010101,
-              "accepted": 10,
+              "confidence_threshold": 0.9971125960350037,
+              "coverage": 0.10038610038610038,
+              "accepted": 26,
               "accuracy_of_accepted": 1.0
             }
           ],
           "confidence_note": "Confidence = the classifier's own top-1 class probability. It is not a calibrated probability of being correct."
         }
       },
-      "warnings": [
-        "2 of 4 classes have a single sequence and cannot be held out; 2 sequence(s) are therefore excluded from the test set (reported, not hidden)."
-      ]
+      "warnings": []
     },
     "order": {
       "rank": "order",
@@ -488,6 +828,7 @@
           "macro_recall": 0.646875,
           "macro_f1": 0.6296891124871,
           "weighted_f1": 0.7203409131347639,
+          "macro_roc_auc": null,
           "mean_support_per_class": 5.4375,
           "per_class": [
             {
@@ -1021,7 +1362,7 @@
           },
           "warnings": [],
           "is_production_model": false,
-          "runtime_seconds": 0.0,
+          "runtime_seconds": 0.5,
           "accuracy_vs_coverage": null,
           "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
         },
@@ -1029,12 +1370,13 @@
           "n_eligible_test_examples": 87,
           "n_evaluated_classes": 16,
           "status": "ok",
-          "top1_accuracy": 0.7586206896551724,
-          "balanced_accuracy": 0.6014880952380952,
-          "macro_precision": 0.5925902222777223,
-          "macro_recall": 0.6014880952380952,
-          "macro_f1": 0.5858677490828521,
-          "weighted_f1": 0.7054223932311203,
+          "top1_accuracy": 0.7471264367816092,
+          "balanced_accuracy": 0.5936755952380952,
+          "macro_precision": 0.5830528846153846,
+          "macro_recall": 0.5936755952380952,
+          "macro_f1": 0.5775448585231194,
+          "weighted_f1": 0.6938340353632707,
+          "macro_roc_auc": null,
           "mean_support_per_class": 5.4375,
           "per_class": [
             {
@@ -1055,11 +1397,11 @@
             },
             {
               "class": "Carangiformes",
-              "precision": 0.8571428571428571,
+              "precision": 0.75,
               "recall": 0.8571428571428571,
-              "f1": 0.8571428571428571,
+              "f1": 0.8,
               "support": 7,
-              "predicted_count": 7
+              "predicted_count": 8
             },
             {
               "class": "Carcharhiniformes",
@@ -1127,11 +1469,11 @@
             },
             {
               "class": "Pleuronectiformes",
-              "precision": 0.5454545454545454,
-              "recall": 0.75,
-              "f1": 0.631578947368421,
+              "precision": 0.5,
+              "recall": 0.625,
+              "f1": 0.5555555555555556,
               "support": 8,
-              "predicted_count": 11
+              "predicted_count": 10
             },
             {
               "class": "Rajiformes",
@@ -1387,7 +1729,7 @@
               [
                 0,
                 0,
-                1,
+                2,
                 0,
                 1,
                 0,
@@ -1396,7 +1738,7 @@
                 0,
                 0,
                 0,
-                6,
+                5,
                 0,
                 0,
                 0,
@@ -1478,19 +1820,19 @@
           },
           "warnings": [],
           "is_production_model": true,
-          "runtime_seconds": 3.1,
+          "runtime_seconds": 1.7,
           "accuracy_vs_coverage": [
             {
               "confidence_threshold": 0.1,
               "coverage": 1.0,
               "accepted": 87,
-              "accuracy_of_accepted": 0.7586206896551724
+              "accuracy_of_accepted": 0.7471264367816092
             },
             {
               "confidence_threshold": 0.21,
               "coverage": 0.9080459770114943,
               "accepted": 79,
-              "accuracy_of_accepted": 0.8354430379746836
+              "accuracy_of_accepted": 0.8227848101265823
             },
             {
               "confidence_threshold": 0.26,
@@ -1502,13 +1844,13 @@
               "confidence_threshold": 0.3,
               "coverage": 0.7126436781609196,
               "accepted": 62,
-              "accuracy_of_accepted": 0.9032258064516129
+              "accuracy_of_accepted": 0.9193548387096774
             },
             {
-              "confidence_threshold": 0.378,
-              "coverage": 0.5977011494252874,
-              "accepted": 52,
-              "accuracy_of_accepted": 0.9615384615384616
+              "confidence_threshold": 0.39,
+              "coverage": 0.6091954022988506,
+              "accepted": 53,
+              "accuracy_of_accepted": 0.9622641509433962
             },
             {
               "confidence_threshold": 0.48,
@@ -1530,8 +1872,8 @@
             },
             {
               "confidence_threshold": 0.74,
-              "coverage": 0.22988505747126436,
-              "accepted": 20,
+              "coverage": 0.21839080459770116,
+              "accepted": 19,
               "accuracy_of_accepted": 1.0
             },
             {
@@ -1547,12 +1889,13 @@
           "n_eligible_test_examples": 87,
           "n_evaluated_classes": 16,
           "status": "ok",
-          "top1_accuracy": 0.6666666666666666,
-          "balanced_accuracy": 0.42336309523809523,
-          "macro_precision": 0.36043176328502413,
-          "macro_recall": 0.42336309523809523,
-          "macro_f1": 0.3828106785859999,
-          "weighted_f1": 0.6162645821986134,
+          "top1_accuracy": 0.6551724137931034,
+          "balanced_accuracy": 0.4144345238095238,
+          "macro_precision": 0.3683682712215321,
+          "macro_recall": 0.4144345238095238,
+          "macro_f1": 0.3826551049929263,
+          "weighted_f1": 0.607023153129598,
+          "macro_roc_auc": null,
           "mean_support_per_class": 5.4375,
           "per_class": [
             {
@@ -1573,19 +1916,19 @@
             },
             {
               "class": "Carangiformes",
-              "precision": 0.6666666666666666,
-              "recall": 0.8571428571428571,
-              "f1": 0.75,
+              "precision": 0.5555555555555556,
+              "recall": 0.7142857142857143,
+              "f1": 0.625,
               "support": 7,
               "predicted_count": 9
             },
             {
               "class": "Carcharhiniformes",
-              "precision": 0.5,
+              "precision": 0.5714285714285714,
               "recall": 1.0,
-              "f1": 0.6666666666666666,
+              "f1": 0.7272727272727273,
               "support": 4,
-              "predicted_count": 8
+              "predicted_count": 7
             },
             {
               "class": "Clupeiformes",
@@ -1597,11 +1940,11 @@
             },
             {
               "class": "Cyprinodontiformes",
-              "precision": 0.6666666666666666,
+              "precision": 1.0,
               "recall": 0.6666666666666666,
-              "f1": 0.6666666666666666,
+              "f1": 0.8,
               "support": 3,
-              "predicted_count": 3
+              "predicted_count": 2
             },
             {
               "class": "Gadiformes",
@@ -1645,11 +1988,11 @@
             },
             {
               "class": "Pleuronectiformes",
-              "precision": 0.6666666666666666,
+              "precision": 0.5,
               "recall": 0.5,
-              "f1": 0.5714285714285714,
+              "f1": 0.5,
               "support": 8,
-              "predicted_count": 6
+              "predicted_count": 8
             },
             {
               "class": "Rajiformes",
@@ -1743,7 +2086,7 @@
               [
                 0,
                 0,
-                6,
+                5,
                 0,
                 0,
                 0,
@@ -1752,7 +2095,7 @@
                 0,
                 0,
                 0,
-                1,
+                2,
                 0,
                 0,
                 0,
@@ -1890,13 +2233,13 @@
                 0,
                 0,
                 0,
-                1,
+                0,
                 0,
                 0,
                 0,
                 0,
                 17,
-                0,
+                1,
                 0,
                 0,
                 0,
@@ -1906,8 +2249,8 @@
                 0,
                 0,
                 2,
-                2,
-                0,
+                1,
+                1,
                 0,
                 0,
                 0,
@@ -1977,9 +2320,9 @@
               [
                 1,
                 0,
-                0,
-                0,
                 1,
+                0,
+                0,
                 0,
                 0,
                 0,
@@ -1996,64 +2339,64 @@
           },
           "warnings": [],
           "is_production_model": false,
-          "runtime_seconds": 4.5,
+          "runtime_seconds": 2.8,
           "accuracy_vs_coverage": [
             {
-              "confidence_threshold": 0.05169479548931122,
+              "confidence_threshold": 0.04845574498176575,
               "coverage": 1.0,
               "accepted": 87,
-              "accuracy_of_accepted": 0.6666666666666666
+              "accuracy_of_accepted": 0.6551724137931034
             },
             {
-              "confidence_threshold": 0.10461850017309189,
+              "confidence_threshold": 0.11358115822076797,
               "coverage": 0.896551724137931,
               "accepted": 78,
-              "accuracy_of_accepted": 0.7435897435897436
+              "accuracy_of_accepted": 0.7307692307692307
             },
             {
-              "confidence_threshold": 0.20420628190040588,
+              "confidence_threshold": 0.20845353305339814,
               "coverage": 0.7931034482758621,
               "accepted": 69,
-              "accuracy_of_accepted": 0.8260869565217391
+              "accuracy_of_accepted": 0.8115942028985508
             },
             {
-              "confidence_threshold": 0.3376934468746186,
+              "confidence_threshold": 0.3663124620914461,
               "coverage": 0.7011494252873564,
               "accepted": 61,
-              "accuracy_of_accepted": 0.9016393442622951
+              "accuracy_of_accepted": 0.8852459016393442
             },
             {
-              "confidence_threshold": 0.4744670271873474,
+              "confidence_threshold": 0.4587732553482055,
               "coverage": 0.5977011494252874,
               "accepted": 52,
-              "accuracy_of_accepted": 0.9615384615384616
+              "accuracy_of_accepted": 0.9423076923076923
             },
             {
-              "confidence_threshold": 0.6384316086769104,
+              "confidence_threshold": 0.6580920815467834,
               "coverage": 0.5057471264367817,
               "accepted": 44,
               "accuracy_of_accepted": 0.9772727272727273
             },
             {
-              "confidence_threshold": 0.8243792176246645,
+              "confidence_threshold": 0.798532545566559,
               "coverage": 0.40229885057471265,
               "accepted": 35,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.8745913147926331,
+              "confidence_threshold": 0.8704494953155518,
               "coverage": 0.2988505747126437,
               "accepted": 26,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.913763952255249,
+              "confidence_threshold": 0.9082481265068054,
               "coverage": 0.20689655172413793,
               "accepted": 18,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.9462970256805421,
+              "confidence_threshold": 0.9453949928283693,
               "coverage": 0.10344827586206896,
               "accepted": 9,
               "accuracy_of_accepted": 1.0
@@ -2161,6 +2504,7 @@
           "macro_recall": 0.7941176470588235,
           "macro_f1": 0.792156862745098,
           "weighted_f1": 0.864102564102564,
+          "macro_roc_auc": null,
           "mean_support_per_class": 3.0588235294117645,
           "per_class": [
             {
@@ -2794,7 +3138,7 @@
             "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
           ],
           "is_production_model": true,
-          "runtime_seconds": 0.0,
+          "runtime_seconds": 0.2,
           "accuracy_vs_coverage": null,
           "confidence_note": "Production KNN uses k=1, so its class probabilities are 0/1 and carry no confidence information."
         },
@@ -2804,10 +3148,11 @@
           "status": "ok",
           "top1_accuracy": 0.7692307692307693,
           "balanced_accuracy": 0.6813725490196079,
-          "macro_precision": 0.7222689075630252,
+          "macro_precision": 0.7233893557422969,
           "macro_recall": 0.6813725490196079,
-          "macro_f1": 0.6846584787761258,
-          "weighted_f1": 0.748661594815441,
+          "macro_f1": 0.6845076492135317,
+          "weighted_f1": 0.7509298393913778,
+          "macro_roc_auc": null,
           "mean_support_per_class": 3.0588235294117645,
           "per_class": [
             {
@@ -2828,11 +3173,11 @@
             },
             {
               "class": "Carangidae",
-              "precision": 0.7142857142857143,
+              "precision": 0.8333333333333334,
               "recall": 0.8333333333333334,
-              "f1": 0.7692307692307693,
+              "f1": 0.8333333333333334,
               "support": 6,
-              "predicted_count": 7
+              "predicted_count": 6
             },
             {
               "class": "Carcharhinidae",
@@ -2900,11 +3245,11 @@
             },
             {
               "class": "Paralichthyidae",
-              "precision": 0.6,
+              "precision": 0.5,
               "recall": 0.75,
-              "f1": 0.6666666666666666,
+              "f1": 0.6,
               "support": 4,
-              "predicted_count": 5
+              "predicted_count": 6
             },
             {
               "class": "Pholidae",
@@ -3196,7 +3541,6 @@
               [
                 0,
                 0,
-                1,
                 0,
                 0,
                 0,
@@ -3205,7 +3549,8 @@
                 0,
                 0,
                 0,
-                1,
+                0,
+                2,
                 0,
                 0,
                 0,
@@ -3441,7 +3786,7 @@
             "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
           ],
           "is_production_model": false,
-          "runtime_seconds": 2.4,
+          "runtime_seconds": 1.4,
           "accuracy_vs_coverage": [
             {
               "confidence_threshold": 0.08,
@@ -3451,21 +3796,21 @@
             },
             {
               "confidence_threshold": 0.12,
-              "coverage": 0.9038461538461539,
-              "accepted": 47,
-              "accuracy_of_accepted": 0.851063829787234
+              "coverage": 0.9230769230769231,
+              "accepted": 48,
+              "accuracy_of_accepted": 0.8333333333333334
             },
             {
-              "confidence_threshold": 0.192,
+              "confidence_threshold": 0.17800000000000005,
               "coverage": 0.7884615384615384,
               "accepted": 41,
               "accuracy_of_accepted": 0.8780487804878049
             },
             {
-              "confidence_threshold": 0.23,
-              "coverage": 0.7115384615384616,
-              "accepted": 37,
-              "accuracy_of_accepted": 0.8918918918918919
+              "confidence_threshold": 0.22,
+              "coverage": 0.7307692307692307,
+              "accepted": 38,
+              "accuracy_of_accepted": 0.8947368421052632
             },
             {
               "confidence_threshold": 0.2860000000000001,
@@ -3474,13 +3819,13 @@
               "accuracy_of_accepted": 0.9354838709677419
             },
             {
-              "confidence_threshold": 0.38,
+              "confidence_threshold": 0.375,
               "coverage": 0.5,
               "accepted": 26,
               "accuracy_of_accepted": 0.9615384615384616
             },
             {
-              "confidence_threshold": 0.4640000000000002,
+              "confidence_threshold": 0.46000000000000024,
               "coverage": 0.40384615384615385,
               "accepted": 21,
               "accuracy_of_accepted": 0.9523809523809523
@@ -3492,9 +3837,9 @@
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.65,
-              "coverage": 0.23076923076923078,
-              "accepted": 12,
+              "confidence_threshold": 0.658,
+              "coverage": 0.21153846153846154,
+              "accepted": 11,
               "accuracy_of_accepted": 1.0
             },
             {
@@ -3512,10 +3857,11 @@
           "status": "ok",
           "top1_accuracy": 0.5961538461538461,
           "balanced_accuracy": 0.4019607843137255,
-          "macro_precision": 0.34747899159663864,
+          "macro_precision": 0.34551820728291316,
           "macro_recall": 0.4019607843137255,
-          "macro_f1": 0.36734507322742616,
-          "weighted_f1": 0.5517580709888402,
+          "macro_f1": 0.36701827584180524,
+          "weighted_f1": 0.5497281564589257,
+          "macro_roc_auc": null,
           "mean_support_per_class": 3.0588235294117645,
           "per_class": [
             {
@@ -3524,7 +3870,7 @@
               "recall": null,
               "f1": null,
               "support": 0,
-              "predicted_count": 3
+              "predicted_count": 1
             },
             {
               "class": "Atherinopsidae",
@@ -3560,11 +3906,11 @@
             },
             {
               "class": "Dasyatidae",
-              "precision": 0.5,
+              "precision": 0.6,
               "recall": 1.0,
-              "f1": 0.6666666666666666,
+              "f1": 0.75,
               "support": 3,
-              "predicted_count": 6
+              "predicted_count": 5
             },
             {
               "class": "Engraulidae",
@@ -3596,7 +3942,7 @@
               "recall": null,
               "f1": null,
               "support": 0,
-              "predicted_count": 1
+              "predicted_count": 2
             },
             {
               "class": "Ophidiidae",
@@ -3608,11 +3954,19 @@
             },
             {
               "class": "Paralichthyidae",
-              "precision": 0.8,
+              "precision": 0.6666666666666666,
               "recall": 1.0,
-              "f1": 0.8888888888888888,
+              "f1": 0.8,
               "support": 4,
-              "predicted_count": 5
+              "predicted_count": 6
+            },
+            {
+              "class": "Pomatomidae",
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted_count": 1
             },
             {
               "class": "Rajidae",
@@ -3685,6 +4039,7 @@
               "Mullidae",
               "Ophidiidae",
               "Paralichthyidae",
+              "Pomatomidae",
               "Rajidae",
               "Rhinopteridae",
               "Sciaenidae",
@@ -3695,6 +4050,7 @@
             ],
             "matrix": [
               [
+                0,
                 0,
                 0,
                 0,
@@ -3726,6 +4082,7 @@
                 0,
                 1,
                 1,
+                0,
                 0,
                 0,
                 0,
@@ -3755,6 +4112,7 @@
                 0,
                 0,
                 0,
+                0,
                 0
               ],
               [
@@ -3776,10 +4134,11 @@
                 0,
                 0,
                 0,
+                0,
                 0
               ],
               [
-                2,
+                1,
                 0,
                 0,
                 0,
@@ -3788,6 +4147,7 @@
                 0,
                 0,
                 0,
+                1,
                 0,
                 0,
                 0,
@@ -3806,6 +4166,7 @@
                 0,
                 0,
                 3,
+                0,
                 0,
                 0,
                 0,
@@ -3839,11 +4200,13 @@
                 0,
                 0,
                 0,
+                0,
                 0
               ],
               [
                 0,
                 1,
+                0,
                 0,
                 0,
                 0,
@@ -3881,30 +4244,33 @@
                 0,
                 0,
                 0,
-                0
-              ],
-              [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 0,
                 0
               ],
               [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
                 0,
                 0,
                 0,
@@ -3944,6 +4310,29 @@
                 0,
                 0,
                 0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0
               ],
               [
@@ -3965,9 +4354,16 @@
                 0,
                 0,
                 0,
+                0,
                 0
               ],
               [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0,
                 0,
                 0,
@@ -3975,11 +4371,6 @@
                 0,
                 1,
                 0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 1,
                 0,
                 0,
@@ -3989,6 +4380,7 @@
                 0
               ],
               [
+                0,
                 0,
                 0,
                 0,
@@ -4025,24 +4417,26 @@
                 0,
                 0,
                 0,
+                0,
                 6,
                 0,
                 0,
                 0
               ],
               [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 1,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 0,
                 0,
                 1,
@@ -4052,6 +4446,7 @@
                 0
               ],
               [
+                0,
                 0,
                 0,
                 0,
@@ -4087,6 +4482,7 @@
                 0,
                 0,
                 0,
+                0,
                 1,
                 1,
                 0,
@@ -4099,64 +4495,64 @@
             "Low per-class support (mean 3.1 test examples per class); per-class values are highly unstable."
           ],
           "is_production_model": false,
-          "runtime_seconds": 4.5,
+          "runtime_seconds": 3.2,
           "accuracy_vs_coverage": [
             {
-              "confidence_threshold": 0.019510682672262192,
+              "confidence_threshold": 0.01989768072962761,
               "coverage": 1.0,
               "accepted": 52,
               "accuracy_of_accepted": 0.5961538461538461
             },
             {
-              "confidence_threshold": 0.028460715524852277,
+              "confidence_threshold": 0.031808266043663026,
               "coverage": 0.8846153846153846,
               "accepted": 46,
               "accuracy_of_accepted": 0.6739130434782609
             },
             {
-              "confidence_threshold": 0.05149588957428933,
+              "confidence_threshold": 0.04978668540716171,
               "coverage": 0.7884615384615384,
               "accepted": 41,
               "accuracy_of_accepted": 0.7317073170731707
             },
             {
-              "confidence_threshold": 0.07417165786027909,
+              "confidence_threshold": 0.07669258341193202,
               "coverage": 0.6923076923076923,
               "accepted": 36,
               "accuracy_of_accepted": 0.8333333333333334
             },
             {
-              "confidence_threshold": 0.1946251124143601,
+              "confidence_threshold": 0.23048821985721588,
               "coverage": 0.5961538461538461,
               "accepted": 31,
               "accuracy_of_accepted": 0.9354838709677419
             },
             {
-              "confidence_threshold": 0.38949380815029144,
+              "confidence_threshold": 0.41917525231838226,
               "coverage": 0.5,
               "accepted": 26,
-              "accuracy_of_accepted": 0.9615384615384616
+              "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.5536480426788332,
+              "confidence_threshold": 0.5154249668121339,
               "coverage": 0.40384615384615385,
               "accepted": 21,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.7197629451751709,
+              "confidence_threshold": 0.7399294495582581,
               "coverage": 0.3076923076923077,
               "accepted": 16,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.769420051574707,
+              "confidence_threshold": 0.7688789606094361,
               "coverage": 0.21153846153846154,
               "accepted": 11,
               "accuracy_of_accepted": 1.0
             },
             {
-              "confidence_threshold": 0.883976811170578,
+              "confidence_threshold": 0.8900950133800506,
               "coverage": 0.11538461538461539,
               "accepted": 6,
               "accuracy_of_accepted": 1.0

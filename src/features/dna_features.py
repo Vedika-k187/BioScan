@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 
 REFERENCE_BARCODES_PATH = os.path.join("data", "processed", "reference_barcodes.csv")
+TRAINING_BARCODES_PATH = os.path.join("data", "processed", "training_barcodes.csv")
 PROCESSED_DIR = os.path.join("data", "processed")
 METADATA_PATH = os.path.join(PROCESSED_DIR, "feature_metadata.json")
 BASES = ["A", "C", "G", "T"]
@@ -128,52 +129,41 @@ class KMerEncoder:
         res_df = pd.DataFrame(rows)[cols]
         return res_df
 
-def run_feature_engineering_pipeline():
+def extract_and_save_feature_suite(df, prefix=""):
     """
-    Execute Phase 2 feature extraction and save feature matrices.
+    Extract basic, k-mer (k=2,3,4,5), and combined features for a dataframe of sequences.
     """
-    print(f"[Phase 2] Loading reference barcodes from {REFERENCE_BARCODES_PATH}...")
-    if not os.path.exists(REFERENCE_BARCODES_PATH):
-        raise FileNotFoundError(f"Missing {REFERENCE_BARCODES_PATH}. Run Phase 1 first.")
-
-    ref_df = pd.read_csv(REFERENCE_BARCODES_PATH)
-    n_seqs = len(ref_df)
-    print(f"          Loaded {n_seqs} independent reference sequences.")
-
+    n_seqs = len(df)
+    
     # 1. Basic & Complexity features
-    print("[Step 1 & 4] Extracting basic composition and complexity features...")
     basic_records = []
-    for _, row in ref_df.iterrows():
+    for _, row in df.iterrows():
         feats = extract_basic_and_complexity_features(row["sequence_normalized"])
         feats["sequence_id"] = row["sequence_id"]
         basic_records.append(feats)
 
-    # Reorder columns with sequence_id first
     basic_cols = ["sequence_id"] + [k for k in basic_records[0].keys() if k != "sequence_id"]
     features_basic = pd.DataFrame(basic_records)[basic_cols]
     
-    basic_csv_path = os.path.join(PROCESSED_DIR, "features_basic.csv")
+    basic_csv_path = os.path.join(PROCESSED_DIR, f"{prefix}features_basic.csv")
     features_basic.to_csv(basic_csv_path, index=False)
     print(f"          Saved: {basic_csv_path} ({features_basic.shape[0]} rows, {features_basic.shape[1] - 1} features)")
 
     # 2. k-mer features for k = 2, 3, 4, 5
     kmer_dfs = {}
     for k in [2, 3, 4, 5]:
-        print(f"[Step 2] Extracting k-mer features for k={k} (vocab={4**k})...")
         encoder = KMerEncoder(k=k)
-        k_df = encoder.transform_dataframe(ref_df, sequence_col="sequence_normalized", id_col="sequence_id")
+        k_df = encoder.transform_dataframe(df, sequence_col="sequence_normalized", id_col="sequence_id")
         
-        # Validation checks
         assert k_df.shape[0] == n_seqs, f"Row count mismatch for k={k}"
-        assert k_df.shape[1] == (4**k + 1), f"Feature dimension mismatch for k={k}: expected {4**k + 1}, got {k_df.shape[1]}"
+        assert k_df.shape[1] == (4**k + 1), f"Feature dimension mismatch for k={k}"
         
-        # Check non-negative and sum to 1.0
         kmer_cols = encoder.kmers
         sums = k_df[kmer_cols].sum(axis=1)
         assert np.allclose(sums, 1.0, atol=1e-5), f"k-mer frequencies do not sum to 1.0 for k={k}"
         assert (k_df[kmer_cols] >= 0).all().all(), f"Negative k-mer frequency detected for k={k}"
         
-        k_csv_path = os.path.join(PROCESSED_DIR, f"features_k{k}.csv")
+        k_csv_path = os.path.join(PROCESSED_DIR, f"{prefix}features_k{k}.csv")
         k_df.to_csv(k_csv_path, index=False)
         print(f"          Saved: {k_csv_path} ({k_df.shape[0]} rows, {len(kmer_cols)} k-mer features)")
         kmer_dfs[k] = k_df
@@ -181,18 +171,41 @@ def run_feature_engineering_pipeline():
     # 3. Combined matrices (Basic + k)
     combined_dfs = {}
     for k in [2, 3, 4, 5]:
-        # Merge on sequence_id
         comb_df = pd.merge(features_basic, kmer_dfs[k], on="sequence_id")
-        comb_csv_path = os.path.join(PROCESSED_DIR, f"features_basic_k{k}.csv")
+        comb_csv_path = os.path.join(PROCESSED_DIR, f"{prefix}features_basic_k{k}.csv")
         comb_df.to_csv(comb_csv_path, index=False)
         print(f"          Saved: {comb_csv_path} ({comb_df.shape[0]} rows, {comb_df.shape[1] - 1} combined features)")
         combined_dfs[k] = comb_df
+
+    return features_basic, kmer_dfs, combined_dfs
+
+def run_feature_engineering_pipeline():
+    """
+    Execute Phase 2 feature extraction for reference library (101 genuine sequences)
+    and training dataset (1829 sequences including synthetic minority samples).
+    """
+    print(f"[Phase 2] Loading reference barcodes from {REFERENCE_BARCODES_PATH}...")
+    if not os.path.exists(REFERENCE_BARCODES_PATH):
+        raise FileNotFoundError(f"Missing {REFERENCE_BARCODES_PATH}. Run Phase 1 first.")
+
+    ref_df = pd.read_csv(REFERENCE_BARCODES_PATH)
+    n_seqs = len(ref_df)
+    print(f"          Loaded {n_seqs} genuine reference sequences.")
+
+    # Extract for reference library
+    print("[Reference Features] Extracting features for genuine reference library (101 sequences)...")
+    features_basic, kmer_dfs, combined_dfs = extract_and_save_feature_suite(ref_df, prefix="")
+
+    # Extract for augmented training dataset if available
+    if os.path.exists(TRAINING_BARCODES_PATH):
+        train_df = pd.read_csv(TRAINING_BARCODES_PATH)
+        print(f"[Training Features] Extracting features for ML training dataset ({len(train_df)} sequences)...")
+        extract_and_save_feature_suite(train_df, prefix="training_")
 
     # 4. Redundancy & Correlation Analysis on Basic Features
     numeric_basic = features_basic.drop(columns=["sequence_id"])
     corr_matrix = numeric_basic.corr()
     
-    # Identify high correlations (|r| >= 0.95)
     redundant_pairs = []
     cols = numeric_basic.columns
     for i in range(len(cols)):
